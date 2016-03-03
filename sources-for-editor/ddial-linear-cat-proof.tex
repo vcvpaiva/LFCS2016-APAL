@@ -1,0 +1,929 @@
+\begin{report}
+  This proof holds by constructing each piece of a full linear
+  category using the structure of $\dial$\footnote{This proof was
+    formalized in the Agda proof assistant see the file
+    \url{https://github.com/heades/cut-fill-agda/blob/master/FullLinCat.agda}}.
+  We use some notation to make it easier to define and use functions
+  over sequences.  Given a function $g : A \to X^*$ we will denote
+  taking the $i$th projection of the sequence returned by $g(a)$ for
+  some $a \in A$ by $g(a)_i$.  To construct set-theoretic anonymous
+  functions we use $\lambda$-notation.  Lastly, we often use
+  let-expressions to pattern match on sequences.  For example, $\lett
+  (x_1,\ldots,x_i) = g(a) \inn (f(x_1),\cdots,f(x_i))$.
+    
+  First, we must construct a linear category. It is well known that
+  $\mathsf{Sets}$ is a CCC, and in fact, locally cartesian closed, and
+  so by using the results of de Paiva's thesis we can easily see that
+  $\dial$ is symmetric monoidal closed:
+  \begin{center}
+    \begin{itemize}
+    \item (Definition 7, page 43 of \cite{dePaiva:1988}). Suppose
+      $A,B \in \obj{\dial}$.  Then there are sets $X$, $Y$, $V$, and
+      $U$, and relations $\alpha \subseteq U \times X$ and
+      $\beta \subseteq V \times Y$, such that, $A = (U,X,\alpha)$ and
+      $B = (V,Y,\beta)$.  The tensor product of $A$ and $B$ can now be
+      defined by $A \otimes B = (U \times V, (V \Rightarrow X) \times
+      (U \Rightarrow Y),\alpha \otimes \beta)$, where $(- \Rightarrow
+      -)$ is the internal hom of $\mathsf{Sets}$.  We define
+      $((u,v),(f,g)) \in \alpha \otimes \beta$ if and only if
+      $(u,f(v)) \in \alpha$ and $(v,g(u)) \in \beta$.  
+
+      Suppose $A = (U,X,\alpha)$, $B = (V,Y,\beta)$,
+      $C = (W,Z,\gamma)$, and $D = (S,T,\delta)$ objects of $\dial$,
+      and $m_1 = (f, F) : A \to C$ and $m_2 = (g,G) : B \to D$ are
+      maps of $\dial$.  Then the map $m_1 \otimes m_2 : A \otimes B
+      \to C \otimes D$ is defined by $(f \times g, F_\otimes)$ where
+      $f \times g$ is the ordinary cartesian product functor in
+      $\sets$, and we define $F \otimes G$ as follows:
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            F_\otimes : (S \Rightarrow Z) \times (W \Rightarrow T) \to (V \Rightarrow X) \times (U \Rightarrow Y)\\
+            F_\otimes(h_1,h_2) = (\lambda v.F(h_1(g(v))),\lambda u.G(h_2(f(u))))
+          \end{array}
+        \end{math}
+      \end{center}
+      It is straightforward to confirm the relation condition on maps
+      for $m_1 \otimes m_2$.
+
+    \item (Definition 7, page 44 of \cite{dePaiva:1988}). Suppose
+      $1 \in \obj{\sets}$ is the final object, and
+      $\id_1 \subseteq 1 \times 1$.  Then we can define tensors
+      unit by the object $\top = (1,1,\id_1)$.
+
+    \item Suppose $A = (U,X,\alpha)$ is an object of $\dial$.  Then
+      the map $\lambda_A : \top \otimes A \to A$ is defined by
+      $(\hat{\lambda}_U,F_\lambda)$ where
+      $\hat{\lambda}_U$ is the left unitor for the cartesian product in $\sets$,
+      $F_\lambda(x) = (\diamond,\lambda y.x) : X \to (U \Rightarrow 1) \times (1 \Rightarrow X)$, 
+      and $\diamond$ is the terminal arrow in $\sets$.
+      It is easy to see that both
+      $\hat{\lambda}_U$ and $F_\lambda$ have
+      inverses, and thus, $\lambda_A$ has an inverse. It is straightforward to confirm the relation condition on maps
+      for $\lambda_A$ and its inverse.
+
+    \item Suppose $A = (U,X,\alpha)$ is an object of $\dial$.  Then
+      the map $\rho_A : A \otimes \top \to A$ is defined similarly to
+      $\lambda_A$ given above.
+
+    \item Suppose $A = (U,X,\alpha) \in \obj{\dial}$ and
+      $B = (V,Y,\beta) \in \obj{\dial}$.  Then we define the map
+      $\beta_{A,B} : A \otimes B \to B \otimes A$ by
+      $(\hat{\beta}_{U,V}, \hat{\beta}_{V \Rightarrow X,U \Rightarrow
+        Y})$
+      where $\hat{\beta}$ is the symmetry of the cartesian product in
+      $\sets$.  Again, it is straightforward to see that $\beta$ has
+      an inverse, and the relation condition on maps is satisfied.
+
+    \item Suppose $A = (U,X,\alpha) \in \obj{\dial}$,
+      $B = (V,Y,\beta) \in \obj{\dial}$, and
+      $C = (W,Z,\gamma) \in \obj{\dial}$.  Then we define
+      $\alpha_{A,B,C} : (A \otimes B) \otimes C \to A \otimes (B \otimes C)$
+      by $(\hat{\alpha}_{U,V,W}, F_\alpha)$ where
+      $\hat{\alpha}_{U,V,W}$ is the associator for the cartesian
+      product in $\sets$ and $F_\alpha$ is defined as follows:
+      \begin{center}
+        \scriptsize
+        \begin{math}
+          \begin{array}{lll}
+            F_\alpha : ((V \times W) \Rightarrow X) \times (U \Rightarrow ((W \Rightarrow Y) \times (V \Rightarrow Z))) \to 
+            (W \Rightarrow ((V \Rightarrow X) \times (U \Rightarrow Y))) \times ((U \times V) \Rightarrow Z)\\
+            F_\alpha(h_1,h_2) = (\lambda w.(\lambda v.h_1(v,w),\lambda u.h_2(u)_1(w)), \lambda (u,v).h_2(u)_2(v))\\
+          \end{array}
+        \end{math}
+      \end{center}
+      The inverse of $\alpha_{A,B,C}$ is similar, and it is
+      straightforward to confirm the relation condition on maps.
+
+    \item (Definition 9, page 44 of \cite{dePaiva:1988}). Suppose
+      $A,B \in \obj{\dial}$.  Then there are sets $X$, $Y$, $V$, and
+      $U$, and relations $\alpha \subseteq U \times X$ and
+      $\beta \subseteq V \times Y$, such that, $A = (U,X,\alpha)$ and
+      $B = (V,Y,\beta)$.  Then we define the internal hom of $\dial$
+      by $A \limp B = ((U \Rightarrow V) \times (Y \Rightarrow X),U
+      \times Y,\alpha \Rightarrow \beta)$.  We define $((f,g),(u,y))
+      \in \alpha \Rightarrow \beta$ if and only if whenever $(u,g(y))
+      \in \alpha$, then $(f(u),y) \in \beta$.  The locally cartesian 
+      closed structure of $\sets$ guarantees that for any two objects $A, B \in
+      \dial$ the internal hom $A \limp B \in \dial$ exists.      
+    \end{itemize}
+  \end{center}
+  Using the constructions above $\dial$ is a SMCC by Proposition 24
+  on page 46 of \cite{dePaiva:1988}.  
+
+  Next we define the symmetric monoidal comonad
+  $(!,\epsilon,\delta,m_{A,B},m_I)$ of the linear category:
+  \begin{center}
+    \begin{itemize}
+    \item (Section 4.5, on page 76 of \cite{dePaiva:1988}). The
+      endofunctor $! : \dial \to \dial$ is defined as follows:
+      \begin{itemize}
+      \item Objects. Suppose $A = (U,X,\alpha) \in \obj{\dial}$.  Then
+        we set $!A = (U,U \Rightarrow X^*, !\alpha)$, where
+        $(u,f) \in !\alpha$ if and only if
+        $(u,f(u)_1) \in \alpha \text{ and } \cdots \text{ and }
+        (u,f(u)_i) \in \alpha$ where $f(u)$ is a sequence of length $i$.
+
+      \item Morphisms. Suppose $A = (U,X,\alpha) \in \obj{\dial}$,
+        $B = (V,Y,\beta) \in \obj{\dial}$, and
+        $(f,F) : A \to B \in \mor{\dial}$.  Then we define 
+        $!(f,F) = (f,!F) : !A \to !B$, where $!F(g) = \lambda
+        x.F^*(g(f(x))) : V \Rightarrow Y^* \to U \Rightarrow X^*$.
+      \end{itemize}
+
+    \item (Section 4.5, page 77 of \cite{dePaiva:1988}). The
+      endofunctor $!$ defined above is the functor part of the comonad
+      $(!,\epsilon, \delta)$.  Suppose
+      $A = (U,X,\alpha) \in \obj{\dial}$. Then the co-unit
+      $\epsilon : !A \to A$ is defined by $\epsilon =
+      (\mathsf{id}_U,F_0)$ where $F_0(x) = \lambda y.(x) : X \to U
+      \Rightarrow X^*$.  
+      Furthermore, the co-multiplication $\delta_A
+      : !A \to !!A$ is defined by $\delta_A = (\mathsf{id}_U,F_1)$
+      where $F_1(g) = \lambda u.(f_1(u) \circ \cdots \circ f_i(u)) : U \Rightarrow (U
+      \Rightarrow X^*)^* \to U \Rightarrow X^*$ where $g(u) = (f_1,\ldots,f_i)$.
+
+    \item The following diagrams commute:
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            \bfig
+            \square[!A`!!A`!!A`!!!A;\delta_A`\delta_A`!\delta_A`\delta_{!A}]
+            \efig
+            &
+              \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,
+            &
+              \bfig
+             \Atrianglepair/=`->`=`<-`->/[!A`!A`!!A`!A;`\delta_A``\epsilon_{!A}`!\epsilon_A]
+           \efig
+          \end{array}
+        \end{math}
+      \end{center}
+      We show the left most diagram commutes first.  It suffices to
+      show that
+      $\delta_a;!\delta_A = (\id_U,!F_1;F_1) = (\id_U,F_1;F_1)$.  
+      Suppose $g \in U \Rightarrow (U \Rightarrow X^*)^*$.  Then       
+      \begin{center}
+        \small
+        \begin{math}
+          \begin{array}{lll}
+            F_1(F_1(g)) \\
+            \,\,= F_1(\lambda u.g(u)_1(u) \circ \cdots \circ g(u)_i(u))\\
+            \,\,= \lambda u.g(u)_1(u)_1(u) \circ \cdots \circ g(u)_1(u)_j(u) \circ \cdots \circ g(u)_i(u)_1(u) \circ \cdots \circ g(u)_i(u)_k(u)\\
+          \end{array}
+        \end{math}
+      \end{center}
+      Consider the other direction in the diagram.  
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            F_1(!F_1(g)) 
+            & = & F_1(\lambda x.F^*_1(g(x)))\\
+            & = & \lambda u.F_1(g(u)_1)(u) \circ \cdots \circ F_1(g(u)_i)(u)\\            
+          \end{array}
+        \end{math}
+      \end{center}
+      Note that we have the following:
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            F_1(g(u)_1)(u) & = & g(u)_1(u)_1(u) \circ \cdots \circ g(u)_1(u)_k(u)\\
+            & \vdots & \\
+            F_1(g(u)_i)(u) & = & g(u)_i(u)_1(u) \circ \cdots \circ g(u)_i(u)_k(u)\\
+          \end{array}
+        \end{math}
+      \end{center}
+      Clearly, the above reasoning implies that $F_1;F_1 = !F_1;F_1$.
+
+      Now we prove that the second diagram commutes, but we break it
+      into two.  
+      We define $\delta_A;!\epsilon_A = (\id_U,!F_0;F_1)$ where for
+      any $g \in U \Rightarrow X^*$,
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            (!F_0;F_1)(g) 
+            & = & F_1(!F_0(g))\\
+            & = & F_1(\lambda u'.F_0^*(g(u')))\\
+            & = & F_1(\lambda u'.(\lambda y.(g(u')_1),\ldots,(\lambda y.g(u')_i)))\\
+            & = & \lambda u.(g(u)_1) \circ \cdots \circ (g(u)_i)\\
+            & = & g\\
+          \end{array}
+        \end{math}
+      \end{center}
+      and we can define $\delta_A;\epsilon_{!A} = (\id_U,F_0;F_1)$ where for
+      any $g \in U \Rightarrow X^*$,
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            (F_0;F_1)(g) 
+            & = & F_1(F_0(g))\\
+            & = & F_1(\lambda y.(g))\\
+            & = & \lambda u.g(u)\\
+            & = & g\\
+          \end{array}
+        \end{math}
+      \end{center}
+      We can see by the reasoning above that
+      $!F_0;F_1 = F_0;F_1 = \id_{U \Rightarrow X^*}$.
+
+    \item The monoidal natural transformation $m_{\top} : \top \to !\top$
+      is defined by $m_{\top} = (\id_1,\lambda f.\star)$ where $\star \in \top$. 
+      It is easy to see that the relation condition
+      on maps for $\dial$ is satisfied.  The following two diagrams
+      commute:
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            \bfig
+            \square[\top`!\top`!\top`!!\top;m_\top`m_\top`\delta_\top`!m_\top]
+            \efig
+            &
+              \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\,
+            &
+              \bfig
+              \btriangle/->`=`->/[\top`!\top`\top;m_\top``\epsilon_{\top}]
+           \efig
+          \end{array}
+        \end{math}
+      \end{center}
+      It is straightforward to see that the above two diagrams commute
+      using the fact that the second coordinate of $m_\top$ is a
+      constant function.
+
+    \item The monoidal natural transformation
+      $m_{A,B} : !A \otimes !B \to !(A \otimes B)$ is defined by
+      $m_{A,B} = (\id_{U \times V},F_2)$. We need to define $F_2$,
+      but two auxiliary functions are needed first:
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            \begin{array}{lll}
+              h_1 : (U \times V) \Rightarrow ((V \Rightarrow X) \times (U \Rightarrow Y))^* \to 
+                    (V \Rightarrow (U \Rightarrow X^*))\\
+              h_1(g,v,u) = (f_1(v),\ldots,f_i(v))
+              \text{ where } g(u,v) = ((f_1,g_1),\ldots,(f_i,g_i))
+            \end{array}
+            \\
+            &  \\
+            \begin{array}{lll}
+              h_2 : (U \times V) \Rightarrow ((V \Rightarrow X) \times (U \Rightarrow Y))^* \to 
+                    (U \Rightarrow (V \Rightarrow Y^*))\\
+              h_2(g,u,v) = (g_1(u),\ldots,g_i(u))
+              \text{ where } g(u,v) = ((f_1,g_1),\ldots,(f_i,g_i))
+            \end{array}
+          \end{array}
+        \end{math}
+      \end{center}
+      Then $F_2(g) = (h_1(g),h_2(g))$.  In order for $m_{A,B}$ to be
+      considered a full fledge map in $\dial$ we have to verify that
+      the relation condition on maps is satisfied.  Suppose $(u,v) \in U \times V$ and 
+      $g \in (U \times V) \Rightarrow ((V \Rightarrow X) \times (U \Rightarrow Y))^*$, 
+      where $g(u,v) = ((f_1,g_1), \ldots,(f_i,g_i))$. Then we know the following by definition:
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            ((u,v),F(g)) \in !\alpha \otimes !\beta 
+            & \text{ iff } & ((u,v),(h_1(g),h_2(g))) \in !\alpha \otimes !\beta\\
+            & \text{ iff } & (u,h_1(g)(v)) \in !\alpha \text{ and } (v,h_2(g)(u)) \in !\beta\\
+            & \text{ iff } & (u,f_1(v)) \in \alpha \text{ and } \cdots \text{ and } (u,f_i(v)) \text{ and }\\
+            &              & (v,g_1(u)) \in \beta \text{ and } \cdots \text{ and } (v,g_i(u)) 
+          \end{array}
+        \end{math}
+      \end{center}
+      and
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            ((u,v),g) \in !(\alpha \otimes \beta) 
+            & \text{ iff } & ((u,v),(f_1,g_1)) \in \alpha \otimes \beta \text{ and } \cdots \text{ and } \\
+            &              & ((u,v),(f_i,g_i)) \in \alpha \otimes \beta\\
+            & \text{ iff } & (u,f_1(v)) \in \alpha \text{ and } (v,g_1(u)) \in \beta \text{ and } \cdots \text{ and } \\
+            &              & (u,f_i(v)) \in \alpha \text{ and } (v,g_i(u)) \in \beta
+          \end{array}
+        \end{math}
+      \end{center}
+      The previous definitions imply that
+      $((u,v),F(g)) \in !\alpha \otimes !\beta$ implies
+      $((u,v),g) \in !(\alpha \otimes \beta)$.  Thus, $m_{A,B}$ is a map in $\dial$.
+      
+      At this point we show that the following diagrams commute:
+      \begin{center}
+          \begin{mathpar}
+            \bfig
+            \square/->`<-`->`->/<700,700>[!\top \otimes !A`!(\top \otimes A)`\top \otimes !A`!A;m_{\top,A}`m_\top \otimes \id_{!A}`!\lambda_A`\lambda_{!A}]
+            \place(350,350)[\text{A}]
+            \efig
+            \and
+            \bfig
+            \square/->`<-`->`->/<700,700>[!A \otimes !\top`!(A \otimes \top)`!A \otimes \top`!A;m_{A,\top}`\id_{!A} \otimes m_\top`!\rho_A`\rho_{!A}]
+            \place(350,350)[\text{B}]
+            \efig
+          \end{mathpar}
+      \end{center}
+      \begin{center}
+        \begin{mathpar}
+            \bfig
+            \square/->`->`->`->/<700,700>[!A \otimes !B`!(A \otimes B)`!B \otimes !A`!(B \otimes A);m_{A,B}`\beta`!\beta`m_{B,A}]
+            \place(350,350)[\text{C}]
+            \efig
+            \and 
+            \bfig
+            \hSquares/->`->`->``->`->`->/[(!A \otimes !B) \otimes !C`!(A \otimes B) \otimes !C`!((A \otimes B) \otimes C)`!A \otimes (!B \otimes !C)`!A \otimes !(B \otimes C)`!(A \otimes (B \otimes C));m_{A,B} \otimes \id_{!C}`m_{A \otimes B,C}`\alpha_{!A,!B,!C}``!\alpha_{A,B,C}`\id_{!A} \otimes m_{B,C}`m_{A,B \otimes C}]
+            \place(1300,250)[\text{D}]
+            \efig
+          \end{mathpar}          
+      \end{center}
+      We first prove that diagram A commutes, and then diagrams B, and
+      C will commute using similar reasoning. Following this we show
+      that diagram D commutes. It suffices to show that
+      \[(m_\top \otimes id_{!A});m_{\top,A};!\lambda_A = 
+      (\hat{\lambda}_U,\lambda g.F_\otimes(F_2(F_\lambda(g)))) = (\hat{\lambda}_U,\lambda g.(\diamond,\lambda t.\lambda u.g(u))).\]
+      Suppose
+      $g \in U \Rightarrow X^*$, $(\star,u) \in 1 \times U$, and
+      $g(u) = (x_1,\ldots,x_i)$. Then 
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            F_\lambda(g)(\star,u) 
+            & = & (\lambda x'.(\diamond,\lambda y.x'))^*(g(\hat{\lambda}_U(\star,u)))\\
+            & = & (\lambda x'.(\diamond,\lambda y.x'))^*(g(u))\\
+            & = & (\lambda x'.(\diamond,\lambda y.x'))^*(x_1,\ldots,x_i)\\
+            & = & ((\diamond,\lambda y.x_1),\ldots,(\diamond,\lambda y.x_i))\\
+          \end{array}
+        \end{math}
+      \end{center}
+      This implies that 
+      \[ F_\lambda(g) = \lambda (\star,u).\mathsf{let}\,(x_1,\ldots,x_i) = g(u)\,\mathsf{in}\,((\diamond,\lambda y.x_1),\ldots,(\diamond,\lambda y.x_i)).\]
+      Using this reasoning we can see the following:
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            F_2(F_\lambda(g))
+            & = & (\lambda u.\lambda t.\mathsf{let}\,((\diamond,\lambda y.x_1),\ldots,(\diamond,\lambda y.x_i)) = F_\lambda(g)(t,u)\,\mathsf{in}\,\\
+                  & & (\diamond(u),\ldots,\diamond(u)),\\            
+            & & \lambda t.\lambda u.\mathsf{let}\,((\diamond,\lambda y.x_1),\ldots,(\diamond,\lambda y.x_i)) = F_\lambda(g)(t,u)
+                \,\mathsf{in}\, \\
+            & & ((\lambda y.x_1)(t),\ldots,(\lambda y.x_1)(t)))\\
+            & = & (\lambda u.\lambda t.\mathsf{let}\,((\diamond,\lambda y.x_1),\ldots,(\diamond,\lambda y.x_i)) = F_\lambda(g)(t,u)\,\mathsf{in}\,\\
+            & & (\star,\ldots,\star),\\            
+            & & \lambda t.\lambda u.\mathsf{let}\,((\diamond,\lambda y.x_1),\ldots,(\diamond,\lambda y.x_i)) = F_\lambda(g)(t,u)
+                \,\mathsf{in}\, \\
+            & & (x_1,\ldots,x_1))\\
+            & = & (\lambda u.\lambda t.(\star,\ldots,\star),\\            
+            & & \lambda t.\lambda u.\mathsf{let}\,((\diamond,\lambda y.x_1),\ldots,(\diamond,\lambda y.x_i)) = F_\lambda(g)(t,u)
+                \,\mathsf{in}\, \\
+            & & (x_1,\ldots,x_1))\\
+            & = & (\lambda u.\lambda t.(\star,\ldots,\star), \lambda t.\lambda u.g(u))
+          \end{array}
+        \end{math}
+      \end{center}
+      Finally, the previous allows us to infer the following:
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            F_\otimes(F_2(F_\lambda(g)))
+            & = & (\diamond, \lambda t.\lambda u.g(u))\\
+          \end{array}
+        \end{math}
+      \end{center}
+      Thus, we obtained our desired result.
+
+      \noindent
+      We show that diagram D commutes by observing that
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            (m_{A,B} \otimes !\id_{!C});m_{A\otimes B,C};!\alpha_{A,B,C}
+            & = & (\id,F_\otimes);(\id,F_2);(\hat{\alpha},!F_\alpha)\\
+            & = & (\hat{\alpha},!F_\alpha;F_2;F_\otimes)\\
+            & = & (\hat{\alpha},F_2;F_\otimes;F_\alpha)\\
+            & = & (\hat{\alpha},F_\alpha);(\id,F_\otimes);(\id,F_2)\\
+          \end{array}
+        \end{math}
+      \end{center}
+      It suffices to show that $!F_\alpha;F_2;F_\otimes = F_2;F_\otimes;F_\alpha$:
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            (!F_\alpha;F_2;F_\otimes)(g)
+            & = & F_\otimes(F_2(!F_\alpha(g)))\\
+            & = & F_\otimes(F_2(\lambda x.F^*_\alpha(g(x))))\\
+          \end{array}
+        \end{math}
+      \end{center}
+      Suppose
+      \begin{center}
+        \vspace{-20px}
+        \begin{math}
+          \begin{array}{lll}
+            h_1 = \lambda v.\lambda u.\mathsf{let}\,((f_1,g_1),\ldots,(f_i,g_i)) = F^*_\alpha(g(u,v))\,\mathsf{in}\,
+            (f_1(v),\ldots,f_i(v)),\\
+            \\
+            h_2 = \lambda u.\lambda v.\mathsf{let}\,((f_1,g_1),\ldots,(f_i,g_i)) = F^*_\alpha(g(u,v)) \,\mathsf{in}\,
+           (g_1(u),\ldots,g_i(u)), \text{ and }\\
+           \\
+           F^*_\alpha(g(u,v)) = \mathsf{let}\, ((f'_1,g'_1),\ldots,(f'_j,g'_j)) = g(u,v) \,\mathsf{in}\,\\
+      \,\,\,\,\,\,\,\,\,\,(\lambda w.(\lambda v'.f_1'(v',w),\lambda u.g'_1(u)_1(w)),\lambda (u,v').g'_1(u)_2(v')),\ldots,\\
+      \,\,\,\,\,\,\,\,\,\,\,(\lambda w.(\lambda v'.f_j'(v',w),\lambda u.g'_j(u)_1(w)),\lambda (u,v').g'_j(u)_2(v'))).
+          \end{array}
+        \end{math}
+      \end{center}
+      Then we can simplify $h_1$ and $h_2$ as follows:
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            \begin{array}{lll}
+              h_1 = \lambda v.\lambda u.\mathsf{let}\,((f'_1,g'_1),\ldots,(f'_j,g'_j)) = g(u,v)\,\mathsf{in}\,\\
+              \,\,\,\,\,\,\,\,\,((\lambda v'.f_1'(v',v),\lambda u'.g'_1(u')_1(v)),\ldots,(\lambda v'.f_j'(v',v),\lambda u'.g'_j(u')_1(v))) \\
+            \end{array}\\
+            \text{ and }\\
+            \begin{array}{lll}
+              h_2 = \lambda u.\lambda v.\mathsf{let}\,(u_1,u_2) = u\,\mathsf{in}\, \\
+              \,\,\,\,\,\,\,\mathsf{let}\,((f'_1,g'_1),\ldots,(f'_j,g'_j)) = g((u_1,u_2),v) \,\mathsf{in}\,\\
+              \,\,\,\,\,\,\,\,\,\,\,(g'_1(u_1)_2(u_2),\ldots,g'_j(u_1)_2(u_2))
+            \end{array}
+          \end{array}
+        \end{math}
+      \end{center}
+      By the definition of $F_2$ the previous reasoning implies:
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            F_\otimes(F_2(\lambda x.F^*_\alpha(g(x))))
+            & = & F_\otimes(h_1,h_2)\\
+            & = & (\lambda v.F_2(h_1(v)),h_2)\\
+          \end{array}
+        \end{math}
+      \end{center}
+      Expanding the definition of $F_2(h_1(v))$ in the above definitions yields:
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            F_2(h_1(v))
+            & = & (h'_1,h'_2)\\
+          \end{array}
+        \end{math}
+      \end{center}
+      where
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            h'_1 = \lambda v''.\lambda u''.(f'_1(v'',v),\ldots,f'_j(v'',v))\\
+            h'_2 = \lambda u''.\lambda v''.(g'_1(u')_1(v),\ldots,g'_j(u')_1(v))\\
+          \end{array}
+        \end{math}
+      \end{center}
+      At this point we can see that
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            (\lambda v.F_2(h_1(v)),h_2) & = & (\lambda v.(h'_1,h'_2),h_2)\\
+          \end{array}
+        \end{math}
+      \end{center}
+      We now simplify $F_2;F_\otimes;F_\alpha$.  We know by definition:
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            F_2(g) & = & (h''_1,h''_2)
+          \end{array}
+        \end{math}
+      \end{center}
+      where
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            \begin{array}{lll}
+              h''_1 & = & \lambda v.\lambda u.\mathsf{let}\,((f'_1,g'_1),\ldots,(f'_j,g'_j)) = g(u,v)\,\mathsf{in}\\
+              & & \,\,\,\,\,\,\,\,\,\mathsf{let}\,(v',v'') = v\,\mathsf{in}\,(f'_1(v',v''),\ldots,f'_k(v',v''))
+              
+            \end{array}\\
+            \text{ and }\\
+            \begin{array}{lll}
+              h''_2 & = & \lambda u.\lambda v.\mathsf{let}\,((f'_1,g'_1),\ldots,(f'_j,g'_j)) = g(u,v)\,\mathsf{in}\\
+              & & \,\,\,\,\,\,\,\,\,(g'_1(u),\ldots,g'_k(u))\\
+            \end{array}
+          \end{array}
+        \end{math}
+      \end{center}
+      This implies that
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            F_\alpha(F_\otimes(F_2(g)))
+            & = & F_\alpha(F_\otimes(h''_1,h''_2))\\
+            & = & F_\alpha(h''_1,\lambda u_4.F_2(h''_2(u_4)))\\
+            & = & (\lambda w.(\lambda v.h''_1(v,w),\lambda u.F_2(h''_2(u))_1(w)),\lambda (u,v).F_2(h''_2(u))_2(v))
+          \end{array}
+        \end{math}
+      \end{center}
+      Finally, by expanding the definition of $F_2$ in the last line
+      of the above reasoning we can see that
+      \[ (\lambda v.(h'_1,h'_2),h_2) = (\lambda w.(\lambda v.h''_1(v,w),\lambda u.F_2(h''_2(u))_1(w)),\lambda (u,v).F_2(h''_2(u))_2(v)) \]
+      modulo currying of set-theoretic functions.
+
+    \item There are two coherence diagrams that $m_{A,B}$ and $\delta$
+      must ad hear to.  They are listed as follows:
+      \begin{center}
+        \begin{mathpar}
+          \bfig
+          \square/->`->`->`=/<700,700>[!A \otimes !B`!(A \otimes B)`A \otimes B`A \otimes B;m_{A,B}`\epsilon_A \otimes \epsilon_B`\epsilon_{A \otimes B}`]
+            \place(350,350)[\text{E}]
+            \efig            
+            \and
+            \bfig
+            \morphism(150,500)<1615,0>[`;m_{A,B}]
+            \hSquares/``->``->`->`->/[!A \otimes !B``!(A \otimes B)`!!A \otimes !!B`!(!A \otimes !B)`!!(A \otimes B);``\delta_A \otimes \delta_B``\delta_{A \otimes B}`m_{!A,!B}`!m_{A,B}]
+            \place(980,250)[\text{F}]
+            \efig
+        \end{mathpar}
+      \end{center}
+      Diagram E holds by simply expanding the definitions using an
+      arbitrary input of a pair of functions.  We now show diagram F
+      commutes.
+
+      It suffices to show the following:
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            m_{A,B};\delta_{A \otimes B}
+            & = & (\id_{U \times V},F_1;F_2)\\
+            & = & (id_{u \times V},!F_2;F_2;F_\otimes)\\
+            & = & (\delta_A \otimes \delta_B);m_{!A,!B};!m_{A,B}
+          \end{array}
+        \end{math}
+      \end{center}
+      Suppose $g \in (U \times V) \Rightarrow ((U \times V)
+      \Rightarrow ((V \Rightarrow X) \times (U \Rightarrow Y))^*)^*$.
+      Then we know by the type of $g$ and the definition of $F_1$ it
+      must be the case that $F_1(g)$ first extracts all of the
+      functions $(f_1,\ldots,f_i)$ returned by $g(u,v)$ for arbitrary
+      $u \in U$ and $v \in V$ -- note that each $f_i$ returns a
+      sequence of pairs of functions,
+      $((f'_i,g'_i),\ldots,(f'_j,g'_j))$ -- then $F_1(g)$ returns the
+      concatenation of all of these sequences.  Finally, $F_2(F_1(g))$
+      returns two functions $h_1(v,u)$ and $h_2(u,v)$, where $h_1$
+      returns the sequence $(f'_i(v),\ldots,f'_j(v))$, and $h_2$
+      returns the sequence $(g'_i(u),\ldots,g'_j(u))$ from the
+      sequence returned by $F_1(g)$.  Note that each $f'_i$ and $g'_i$
+      returns a pair of functions.
+
+      Now consider applying $!F_2;F_2;F_\otimes$ to $g$.  The function
+      $!F_2$ will construct the function $\lambda x.F^*_2(g(x))$ by
+      definition, and $F^*_2(g(x))$ will construct a sequence of pairs
+      of functions $((h'_1,h''_1),\ldots,(h'_k,h''_k))$. The function
+      $g$ as we saw above returns a sequence of functions,
+      $(f_1,\ldots,f_i)$, where each $f_i$ returns a sequence of pairs
+      of functions, $((f'_i,g'_i),\ldots,(f'_j,g'_j))$.  This tells us
+      that by definition $h'_k(v,u)$ will return the sequence
+      $(f'_i(v),\ldots,f'_j(v))$ and $h''_k(u,v)$ will construct the
+      sequence $(g'_1(u),\ldots,g'_j(u))$.  Applying $F_2$ to $\lambda
+      x.F^*_2(g(x))$ will construct two more functions $t_1(v,u)$ and
+      $t_2(u,v)$ where the first returns the sequence of functions
+      $(h'_1(v),\ldots,h'_k(v))$, and the second returns
+      $(h''_1(u),\ldots,h''_k(u))$.  Finally, applying the function
+      $F_\otimes$ to the pair $(t_1,t_2)$ will result in a pair of
+      functions
+      \begin{center}
+        \begin{math}
+          \begin{array}{lll}
+            (\lambda v.F_1(t_1(v)),\lambda u.F_1(t_2(u)))
+            & = & (\lambda v.\lambda u.h'_1(v)(u) \circ \cdots \circ h'_k(v)(u),\\
+            &   & \,\,\,\lambda u.\lambda v.h''_1(u)(v) \circ \cdots \circ h''_k(u)(v))\\
+            & = & (\lambda v.\lambda u.(f'_i(v),\ldots,f'_j(v)),\\
+            &   & \,\,\,\lambda u.\lambda v.(g'_i(u), \ldots, g'_k(u)))\\
+          \end{array}
+        \end{math}
+      \end{center} 
+      We can now see that the pair
+      $(\lambda v.\lambda u.(f'_i(v),\ldots,f'_j(v)),\lambda u.\lambda v.(g'_i(u), \ldots, g'_k(u)))$ is indeed
+      equivalent to the pair $(h_1,h_2)$ given above, and thus, the diagram commutes.      
+    \end{itemize}
+  \end{center}
+  Next we must show that whenever $(!A,\delta)$ is a free comonoid, we
+  have the distinguished natural transformations $e_A : !A \to \top$
+  and $d_A : !A \to !A \otimes !A$.  Suppose $!A = (U, U \Rightarrow
+  X^*)$ and $(!A,\delta)$ is a free comonoid.  Then we have the
+  following definitions:
+  \begin{itemize}
+  \item (Proposition 53, page 77 of \cite{dePaiva:1988}).  We define
+    $e_A : !A \to \top$ as the pair $(\diamond,\lambda x.\lambda
+    u.())$, where $\diamond$ is the terminal map on $U$ and $()$ is
+    the empty sequence.
+    
+  \item (Proposition 53, page 77 of \cite{dePaiva:1988}).  We define
+    $d_A : !A \to !A \otimes !A$ as the pair $(\Delta, \theta)$
+    where $\Delta : U \to U \times U$ is the diagonal map in
+    $\sets$, and
+    \begin{center}
+      \begin{math}
+        \begin{array}{lll}
+          \theta : ((U \times U) \Rightarrow X^*) \times ((U \times U) \Rightarrow X^*) \to U \Rightarrow X^*\\
+          \theta(f,g) = \lambda u.f(u,u) \circ g(u,u).
+        \end{array}
+      \end{math}
+    \end{center}
+  \end{itemize}
+  The maps $e_A$ and $d_A$ must satisfy several coherence diagrams.
+  \begin{itemize}
+  \item We must show that the map $e_A$ is a monoidal natural
+    transformation.  This requires that the following diagrams hold
+    (for any arbitrary map $f$):
+    \begin{center}
+      \begin{mathpar}
+        \bfig
+        \square/->`->`=`->/<700,700>[!A`\top`!B`\top;e_A`!f``e_B]
+        \place(350,350)[\text{G}]
+        \efig
+        \and
+        \bfig
+        \btriangle/->`=`->/<700,700>[\top`!\top`\top;m_I``e_\top]
+        \place(230,250)[\text{H}]
+        \efig            
+        \and
+        \bfig
+        \square/->`->`->`->/<700,700>[!A \otimes !B`\top \otimes \top`!(A \otimes B)`\top;e_A \otimes e_B`m_{A,B}`\lambda`e_{A \otimes B}]
+        \place(350,350)[\text{I}]
+        \efig        
+      \end{mathpar}
+    \end{center}
+    Diagrams G and H follow easily by the definition of $e_A$ and
+    $m_I$.  We now show that diagram I commutes.  It suffices to show
+    the following:
+    \begin{center}
+      \begin{math}
+        \begin{array}{lll}
+          (e_A \otimes e_B);\lambda
+          & = & (\diamond_U \times \diamond_V,F_\otimes);(\hat{\lambda}_\top,F_\lambda) \\
+          & = & ((\diamond_U \times \diamond_V);\hat{\lambda}_\top,F_\lambda;F_\otimes)\\
+          & = & (\diamond_{U \times V},F_\lambda;F_\otimes)\\
+          & = & (\diamond_{U \times V},F_2(\lambda u.()))\\
+          & = & (\diamond_{U \times V},(\lambda x.\lambda u.());F_2)\\          
+          & = & (\id_{U \times V};\diamond_{U \times V},(\lambda x.\lambda u.());F_2)\\
+          & = & (\id_{U \times V},F_2);(\diamond_{U \times V},\lambda x.\lambda u.())\\
+          & = & m_{A,B};e_{A \otimes B}
+        \end{array}
+      \end{math}
+    \end{center}
+    It suffices to show $F_\lambda;F_\otimes = F_2(\lambda u.())$, but
+    this easily follows by definition.
+
+  \item The map $d_A$ must be a monoidal natural transformation.  This
+    requires the following diagrams to commute:
+    \begin{center}
+      \begin{mathpar}
+        \bfig
+        \square/->`->`->`->/<700,700>[!A`!A \otimes !A`!B`!B \otimes !B;d_A`!f`!f \otimes !f`d_B]
+        \place(350,350)[\text{J}]
+        \efig
+        \and
+        \bfig
+        \square/->`->`->`->/<700,700>[\top`\top \otimes \top`!\top`!\top \otimes !\top;\lambda^{-1}`m_\top`m_\top \otimes m_\top`d_\top]
+        \place(350,350)[\text{K}]
+        \efig
+        \and
+        \bfig
+        \morphism(190,0)<1880,0>[`;d_{A \otimes B}]
+        \hSquares/->`->`->``->``/[!A \otimes !B`(!A \otimes !A) \otimes (!B \otimes !B)`(!A \otimes !B) \otimes (!A \otimes !B)`!(A \otimes B)``!(A \otimes B) \otimes !(A \otimes B);d_A \otimes d_B`iso`m_{A,B}``m_{A,B} \otimes m_{A,B}``]
+        \place(1150,250)[\text{L}]
+        \efig
+      \end{mathpar}
+    \end{center}
+    Diagrams J and K follow easily from unfolding their
+    definitions. We show that diagram L next.  The morphism $iso$ in
+    $\dial$ is a isomorphism that can be built out of the SMCC
+    structure.  For its definition in terms of the SMCC maps see
+    footnote 9 on page 141 of \cite{Bierman:1994}, but we give a
+    direct definition instead.  We will need the following
+    definitions:
+    \begin{center}
+      \begin{math}
+        \begin{array}{lll}
+          \begin{array}{rll}
+            \hat{iso}((u,u'),(v,v')) & = & ((u,v),(u',v'))
+          \end{array}\\\\        
+          \begin{array}{rll}            
+            F_{iso}(f,g) & = & (\lambda (v',v'').(\lambda u'.\lambda u''.f(u',v')_1(v'',u''),\lambda u'.\lambda u''.g(u',v')_1(v'',u'')),\\
+            && \,\,\lambda (u',u'').(\lambda v'.\lambda v''.f(u',v')_2(u'',v''),\lambda v'.\lambda v''.g(u',v')_1(u'',v'')))\\
+          \end{array}\\\\
+          \begin{array}{rll}
+            F_{iso}^{-1}(h_1,h_2) & = & (\lambda (u,v).(\lambda v'.\lambda u'.h_1(v,v')_1(u,u'),\lambda u'.\lambda v'.h_2(u,u')_2(v,v')),\\
+            && \,\,\lambda (u,v).(\lambda v'.\lambda u'.h_1(v,v')_2(u,u'),\lambda u'.\lambda v'.h_2(u,u')_2(v,v')))\\
+          \end{array}
+        \end{array}
+      \end{math}
+    \end{center}
+    We omit the proof that $F_{iso}$ is an isomorphism, but it is
+    straightforward.  Now $iso = (\hat{iso},F_{iso})$.
+
+    It suffices to show the following:
+    \begin{center}
+      \begin{math}
+        \begin{array}{lll}
+          (d_A \otimes d_B);iso;(m_{A,B} \otimes m_{A,B})
+          & = & (\Delta_U \times \Delta_V,F_\otimes);(\hat{iso},F_{iso});(\id_{(U \times V) \times (U \times V)},F_\otimes)\\
+          & = & ((\Delta_U \times \Delta_V);\hat{iso};\id_{(U \times V) \times (U \times V)},F_\otimes;F_{iso};F_\otimes)\\
+          & = & ((\Delta_U \times \Delta_V);\hat{iso};,F_\otimes;F_{iso};F_\otimes)\\
+          & = & (\Delta_{U \times V},\Theta;F_2)\\
+          & = & (\id_{U \times V};\Delta_{U \times V},\Theta;F_2)\\
+          & = & (\id_{U \times V},F_2);(\Delta_{U \times V},\Theta)\\
+          & = & m_{A,B};d_{A,B}\\
+        \end{array}
+      \end{math}
+    \end{center}
+    At this point it suffices to show that
+    $F_\otimes;F_{iso};F_\otimes = \Theta;F_2$, but this follows using
+    similar reasoning as above, because $F_{iso};F_\otimes$ will
+    reorganize the streams obtained by applying $g_1$ and $g_2$, and
+    then the final $F_\otimes$ combines these sequences using $\Theta$.
+    However, $F_2$ does the same reorganization, and then the streams
+    are combined using $\Theta$.
+    %% \begin{center}
+    %%   \begin{math}
+    %%     \begin{array}{lll}
+    %%       F_\otimes(F_{iso}(F_\otimes(g_1,g_2)))
+    %%       & = & F_\otimes(F_{iso}(\lambda v.F_2(g_1(v)),\lambda u.F_2(g_2(u)))\\
+    %%       & = & (\lambda v.\Theta(F_2(g_1(\Delta_V(v)))),\lambda u.\Theta(F_2(g_2(\Delta_U(u)))))\\
+    %%     \end{array}
+    %%   \end{math}
+    %% \end{center}
+
+    %% \begin{center}
+    %%   \begin{math}
+    %%     \begin{array}{lll}
+    %%       F_2(\Theta(g_1,g_2))
+    %%       & = & F_2(\lambda u.g_1(u,u) \circ g_2(u,u))\\
+    %%     \end{array}
+    %%   \end{math}
+    %% \end{center}
+
+  \item Suppose $A \in \obj{\dial}$.  Then we must show that
+    $(!A,d_A,e_A)$ is a commutative comonoid, but this follows
+    from the following diagrams:
+    \begin{center}
+      \begin{mathpar}
+        \bfig
+        \Atrianglepair/->`->`->`<-`->/<700,500>[!A`!A \otimes \top`!A \otimes !A`\top \otimes !A;\rho^{-1}`d_A`\lambda^{-1}`\id_{!A} \otimes e_A`e_A \otimes \id_{!A}]
+        \place(450,150)[\text{M}]
+        \place(950,150)[\text{N}]
+        \efig \and
+        \bfig
+        \square/->`=`->`->/[!A`!A \otimes !A`!A`!A \otimes !A;d_A``\beta_{!A,!A}`d_A]
+        \place(240,250)[\text{O}]        
+        \efig \and
+        \bfig
+        \morphism(40,500)<1855,0>[`;d_{A}]
+        \hSquares/``->``->`->`->/[!A``!A \otimes !A`!A \otimes !A`(!A \otimes !A) \otimes !A`!A \otimes (!A \otimes !A);``d_A``\id_{!A} \otimes d_A`d_A \otimes \id_{!A}`\alpha]
+        \place(980,250)[\text{P}]        
+        \efig                
+      \end{mathpar}
+    \end{center}
+    We prove that diagram N commutes, and then diagrams M and O will
+    commute by similar reasoning.  Following this we prove that
+    diagram P commutes.
+
+    It suffices to show the following:
+    \begin{center}
+      \begin{math}
+        \begin{array}{lll}
+          d_A;(e_A \otimes \id_{!A})
+          & = & (\Delta,\Theta);(\diamond \times \id_U,F_\otimes)\\
+          & = & (\Delta;(\diamond \times \id_U),F_\otimes;\Theta)\\
+          & = & (\lambda u.(\diamond(u),u),F_\otimes;\Theta)\\
+          & = & (\hat{\lambda}^{-1}_U,F_\otimes;\Theta)\\
+          & = & (\hat{\lambda}^{-1},F_{\lambda^{-1}})\\
+          & = & \lambda^{-1}\\
+        \end{array}
+      \end{math}
+    \end{center}
+    We can easily see that the following holds by definition:
+    \begin{center}
+      \begin{math}
+        \begin{array}{lll}
+          (F_\otimes;\Theta)(g_1,g_2)
+          & = & \Theta(F_\otimes(g_1,g_2))\\
+          & = & \Theta(\lambda v.\lambda u.(),\lambda u.g_2(\diamond(u)))\\
+          & = & \lambda u.() \circ g_2(\diamond(u,u))\\
+          & = & \lambda u.g_2(\diamond(u,u))\\
+          & = & \lambda^{-1}(g_1,g_2)\\
+        \end{array}
+      \end{math}
+    \end{center}
+
+    Now we show that diagram P commutes. However, it is
+    straightforward to show that the following holds:
+    \begin{center}
+      \begin{math}
+        \begin{array}{lll}
+          d_A;(\id_{!A} \otimes d_A)
+          & = & (\Delta,\Theta);(\id_U \times \Delta,F_\otimes)\\
+          & = & (\Delta;(\id_U \times \Delta),F_\otimes;\Theta)\\
+          & = & (\Delta;(\id_U \times \Delta),F_\alpha;F_\otimes;\Theta)\\
+          & = & (\Delta;(\Delta \times \id_U);\hat{\alpha},F_\alpha;F_\otimes;\Theta)\\
+          & = & (\Delta,\Theta);(\Delta \times \id_U,F_\otimes);(\hat{\alpha},F_\alpha)\\
+          & = & d_A;(d_A \otimes \id_{!A});\alpha\\
+        \end{array}
+      \end{math}
+    \end{center}
+    We can see that $F_\otimes;\Theta = F_\alpha;F_\otimes;\Theta$,
+    because the right-hand side does the same as the left-hand side,
+    but first reorganizes and does it on the opposite association.
+
+  \item The map $e_A$ must be a coalgebra morphism which amounts to
+    requiring that the following diagram commute:
+    \begin{center}
+      \begin{math}
+        \bfig
+        \square/->`->`->`->/[!A`\top`!!A`!\top;e_A`\delta_A`m_\top`!e_A]
+        \place(240,250)[\text{Q}]        
+        \efig
+      \end{math}
+    \end{center}
+    Diagram Q commutes by unfolding definitions, and the fact that the
+    second coordinate of $e_A$ is a constant function.
+
+  \item The map $d_A$ must also be a coalgebra morphism, and hence,
+    the following diagram must commute:
+    \begin{center}
+      \begin{math}
+        \bfig
+        \morphism(40,500)<1780,0>[`;\delta_{A}]
+        \hSquares/``->``->`->`->/[!A``!!A`!A \otimes !A`!!A \otimes !!A`!(!A \otimes !A);``d_A``!d_A`\delta_A \otimes \delta_A`m_{!A,!A}]
+        \place(980,250)[\text{R}]        
+        \efig                
+      \end{math}
+    \end{center}
+    It suffices to show that the following holds:
+    \begin{center}
+      \begin{math}
+        \begin{array}{lll}
+          \delta_A;!d_A
+          & = & (\id_U,F_1);(\Delta,!\Theta)\\
+          & = & (\Delta,!\Theta;F_1)\\
+          & = & (\Delta;\id_{U \times U};\id_{U \times U},!\Theta;F_1)\\
+          & = & (\Delta;(\id_{U} \times \id_{U});\id_{U \times U},!\Theta;F_1)\\
+          & = & (\Delta;(\id_{U} \times \id_{U});\id_{U \times U},F_2;F_\otimes;\Theta)\\
+          & = & (\Delta,\Theta);(\id_{U} \times \id_{U},F_\otimes);(\id_{U \times U},F_2)\\
+          & = & d_A;(\delta_A \otimes \delta_A);m_{!A,!A}\\
+        \end{array}
+      \end{math}
+    \end{center}
+    Now consider the following:
+    \begin{center}
+      \begin{math}
+        \begin{array}{lll}
+          !(\Theta;F_1)(g)
+          & = & F_1(!\Theta(g))\\
+          & = & F_!(\lambda x.\Theta^*(g(x)))\\
+          & = & \lambda p.\lett (f_1,\cdots,f_i) = \Theta^*(g(p)) \inn f_1(p) \circ \cdots \circ f_i(p)\\          
+        \end{array}
+      \end{math}
+    \end{center}
+    Furthermore, consider the following:
+    \begin{center}
+      \begin{math}
+        \begin{array}{lll}
+          (F_2;F_\otimes;\Theta)(g)
+          & = & \Theta(F_\otimes(h_1,h_2))\\
+          & = & \Theta(\lambda x.F_1(h_1(x)), \lambda y.F_1(h_2(y)))\\
+          & = & \lambda u.F_1(h_1(u,u)) \circ F_1(h_2(u,u))\\
+        \end{array}
+      \end{math}
+    \end{center}
+    where
+    \begin{center}
+      \begin{math}
+        \begin{array}{lll}
+          h_1(u,u') & = & \lett (f_1,\ldots,f_i) = g(u,u') \inn (f_1(u),\ldots,f_i(u))\\
+          h_2(u,u') & = & \lett (f_1,\ldots,f_i) = g(u,u') \inn (f_1(u'),\ldots,f_i(u'))\\
+        \end{array}        
+      \end{math}
+    \end{center}
+    At this point we can see that $\Theta;F_1 = F_2;F_\otimes;\Theta$
+    by the previous reasoning and the definition of $F_1$.
+
+  \item Finally, we show that when given a coalgebra morphism, $f$,
+    between free coalgebras $(!A,\delta_A)$ and $(!B,\delta_B)$,
+    i.e. making the following diagram commute:
+    \begin{center}
+    \begin{math}
+      \bfig
+      \square/->`->`->`->/[!A`!B`!!A`!!B;f`\delta_A`\delta_B`!f]
+      \place(240,250)[\text{S}]        
+      \efig
+    \end{math}
+    \end{center}
+    Then it must be the case that the following commutes:
+    \begin{center}
+      \begin{math}
+        \bfig
+        \hSquares/<-`->`=`->`->`<-`->/[\top`!A`!A \otimes !A`\top`!B`!B \otimes !B;e_A`d_A``f`f \otimes f`e_B`d_B]
+        \efig                
+      \end{math}
+    \end{center}
+    It is straightforward to show that the previous diagram commutes
+    using the definitions of the respective morphisms and the 
+    assumption that $f$ is a coalgebras morphism.
+  \end{itemize}   
+\end{report}

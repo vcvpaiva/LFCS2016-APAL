@@ -1,0 +1,1880 @@
+\begin{report}        
+  \begin{itemize}
+  \item[Case:] commuting conversion cut vs cut (first case).
+    The following proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      $$\mprset{flushleft}
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        $$\mprset{flushleft}
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}
+        }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta_{{\mathrm{1}}}  }
+        \\
+        $$\mprset{flushleft}
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_3}
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma_{{\mathrm{4}}}  \vdash  \Delta_{{\mathrm{2}}} }
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \Gamma_{{\mathrm{4}}}  \vdash    \Delta_{{\mathrm{1}}}  \mid  \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}}   }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \Gamma_{{\mathrm{4}}}  \vdash     \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}    \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}}   }
+  \end{math}
+\end{center}
+is transformed into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      $$\mprset{flushleft}
+      \inferrule* [right=] {
+        $$\mprset{flushleft}
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}               
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }
+      \\
+      $$\mprset{flushleft}
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}
+        }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta_{{\mathrm{1}}}  }
+      }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash    \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}   \FILLsym{:}  \FILLnt{B}  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}  }
+      \\
+      $$\mprset{flushleft}
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_3}
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma_{{\mathrm{4}}}  \vdash  \Delta_{{\mathrm{2}}} }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \Gamma_{{\mathrm{4}}}  \vdash     \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}    \mid  \FILLsym{[}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  }
+  \end{math}
+\end{center}
+First, if $\Delta_{{\mathrm{2}}}$ is empty, then all the terms in the conclusion of
+the previous two derivations are equivalent.  
+So suppose $\Delta_{{\mathrm{2}}} =  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta'_{{\mathrm{2}}} $.  Then we know that the term
+$\FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}$ in the first derivation above is equivalent to
+$\FILLsym{[}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}$ by
+Lemma~\ref{lemma:substitution_distribution}.  Furthermore, by
+inspecting the first derivation we can see that $ \FILLmv{x}  \not\in \mathsf{FV}(  \FILLnt{t_{{\mathrm{2}}}}  ) $,
+and thus, $\FILLsym{[}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{=}  \FILLsym{[}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}$.  This
+argument may be repeated for any term in $\Delta'_{{\mathrm{2}}}$, and thus, we know
+$\FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  \FILLsym{=}  \FILLsym{[}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}}$.
+
+\item[Case:] commuting conversion cut vs. cut (second case).  The second commuting conversion on cut begins with the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      $$\mprset{flushleft}
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        $$\mprset{flushleft}
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}
+        }{ \Gamma'  \vdash   \FILLnt{t'}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta'  }
+        \\
+        $$\mprset{flushleft}
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_3}
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash  \Delta_{{\mathrm{1}}} }
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma'  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash   \Delta'  \mid  \FILLsym{[}  \FILLnt{t'}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{1}}}  }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma'  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash     \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta'    \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   \FILLsym{[}  \FILLnt{t'}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   }
+  \end{math}
+\end{center}
+is transformed into the following proof:
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=\text{\scriptsize Series of Exchanges}] {
+      $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      $$\mprset{flushleft}
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}
+      }{ \Gamma'  \vdash   \FILLnt{t'}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta'  }
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        $$\mprset{flushleft}
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}
+        }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+        \\
+        $$\mprset{flushleft}
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_3}
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash  \Delta_{{\mathrm{1}}} }
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}  }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma'  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash     \Delta'  \mid  \FILLsym{[}  \FILLnt{t'}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta    \mid  \FILLsym{[}  \FILLnt{t'}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma'  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash      \FILLsym{[}  \FILLnt{t'}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta   \mid  \Delta'    \mid  \FILLsym{[}  \FILLnt{t'}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   }
+  \end{math}
+\end{center}
+We know $ \FILLmv{x} , \FILLmv{y}  \not\in \mathsf{FV}(  \Delta  ) $ by inspection of the first derivation, and so we know that
+$\Delta  \FILLsym{=}  \FILLsym{[}  \FILLnt{t'}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta$ and $\Delta'  \FILLsym{=}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta'$.  Without loss of generality suppose $\Delta_{{\mathrm{1}}} =  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta'_{{\mathrm{1}}} $. Then we know that $ \FILLmv{x} , \FILLmv{y}  \not\in \mathsf{FV}(  \FILLnt{t}  ) $ and $ \FILLmv{x} , \FILLmv{y}  \not\in \mathsf{FV}(  \FILLnt{t'}  ) $.  Thus, by this fact and
+Lemma~\ref{lemma:substitution_distribution}, we know that $\FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t'}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{=}  \FILLsym{[}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t'}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}} = \FILLsym{[}  \FILLnt{t'}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}$.  This argument can be repeated for any term in
+$\Delta'_{{\mathrm{1}}}$, hence, $\FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t'}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{1}}}  \FILLsym{=}  \FILLsym{[}  \FILLnt{t'}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}$.
+
+\item[Case:] the $\eta$-expansion cases: tensor.  
+The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Ax] {
+      \,
+    }{ \FILLmv{x}  \FILLsym{:}   \FILLnt{A}  \otimes  \FILLnt{B}   \vdash  \FILLmv{x}  \FILLsym{:}   \FILLnt{A}  \otimes  \FILLnt{B}  }
+  \end{math}
+\end{center}
+is transformed into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Tl] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Tr] {
+        $$\mprset{flushleft}
+        \inferrule* [right=Ax] {
+          \,
+        }{ \FILLmv{y}  \FILLsym{:}  \FILLnt{A}  \vdash  \FILLmv{y}  \FILLsym{:}  \FILLnt{A} }
+        \\
+        $$\mprset{flushleft}
+        \inferrule* [right=Ax] {
+          \,
+        }{ \FILLmv{z}  \FILLsym{:}  \FILLnt{B}  \vdash  \FILLmv{z}  \FILLsym{:}  \FILLnt{B} }
+      }{ \FILLmv{y}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}  \FILLnt{B}  \vdash   \FILLmv{y}  \otimes  \FILLmv{z}   \FILLsym{:}   \FILLnt{A}  \otimes  \FILLnt{B}  }
+    }{ \FILLmv{x}  \FILLsym{:}   \FILLnt{A}  \otimes  \FILLnt{B}   \vdash    \mathsf{let}\, \FILLmv{x} \,\mathsf{be}\,  \FILLmv{y}  \otimes  \FILLmv{z}  \,\mathsf{in}\,  (  \FILLmv{y}  \otimes  \FILLmv{z}  )     \FILLsym{:}   \FILLnt{A}  \otimes  \FILLnt{B}  }
+  \end{math}
+\end{center}
+By the rule $\FILLdrulename{EQ\_EtaTensor}$
+we know $ \mathsf{let}\, \FILLmv{x} \,\mathsf{be}\,  \FILLmv{y}  \otimes  \FILLmv{z}  \,\mathsf{in}\,  (  \FILLmv{y}  \otimes  \FILLmv{z}  )    \FILLsym{=}  \FILLmv{x}$.
+
+\item[Case:] the $\eta$-expansion cases: par.  
+The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Ax] {
+      \,
+    }{ \FILLmv{x}  \FILLsym{:}   \FILLnt{A}  \parr  \FILLnt{B}   \vdash  \FILLmv{x}  \FILLsym{:}   \FILLnt{A}  \parr  \FILLnt{B}  }
+  \end{math}
+\end{center}
+is transformed into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Parr] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Parl] {
+        $$\mprset{flushleft}
+        \inferrule* [right=Ax] {
+          \,
+        }{ \FILLmv{y}  \FILLsym{:}  \FILLnt{A}  \vdash  \FILLmv{y}  \FILLsym{:}  \FILLnt{A} }
+        \\
+        $$\mprset{flushleft}
+        \inferrule* [right=Ax] {
+          \,
+        }{ \FILLmv{z}  \FILLsym{:}  \FILLnt{B}  \vdash  \FILLmv{z}  \FILLsym{:}  \FILLnt{B} }
+      }{ \FILLmv{x}  \FILLsym{:}   \FILLnt{A}  \parr  \FILLnt{B}   \vdash     \mathsf{let}\, \FILLmv{x} \,\mathsf{be}\, \FILLsym{(}   \FILLmv{y}  \parr   -    \FILLsym{)} \,\mathsf{in}\, \FILLmv{y}    \FILLsym{:}  \FILLnt{A}  \mid    \mathsf{let}\, \FILLmv{x} \,\mathsf{be}\, \FILLsym{(}    -   \parr  \FILLmv{z}   \FILLsym{)} \,\mathsf{in}\, \FILLmv{z}    \FILLsym{:}  \FILLnt{B}  }
+    }{ \FILLmv{x}  \FILLsym{:}   \FILLnt{A}  \parr  \FILLnt{B}   \vdash    (  \mathsf{let}\, \FILLmv{x} \,\mathsf{be}\, \FILLsym{(}   \FILLmv{y}  \parr   -    \FILLsym{)} \,\mathsf{in}\, \FILLmv{y}  )   \parr   (  \mathsf{let}\, \FILLmv{x} \,\mathsf{be}\, \FILLsym{(}    -   \parr  \FILLmv{z}   \FILLsym{)} \,\mathsf{in}\, \FILLmv{z}  )    \FILLsym{:}   \FILLnt{A}  \parr  \FILLnt{B}  }
+  \end{math}
+\end{center}
+By rule $\FILLdrulename{Eq\_EtaPar}$ we know
+$ (   (  \mathsf{let}\, \FILLmv{x} \,\mathsf{be}\, \FILLsym{(}   \FILLmv{y}  \parr   -    \FILLsym{)} \,\mathsf{in}\, \FILLmv{y}  )   \parr   (  \mathsf{let}\, \FILLmv{x} \,\mathsf{be}\, \FILLsym{(}    -   \parr  \FILLmv{z}   \FILLsym{)} \,\mathsf{in}\, \FILLmv{z}  )   )   \FILLsym{=}  \FILLmv{x}$.
+
+\item[Case:] the $\eta$-expansion cases: implication.
+The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Ax] {
+      \,
+    }{ \FILLmv{x}  \FILLsym{:}   \FILLnt{A}  \multimap   \FILLnt{B}   \vdash  \FILLmv{x}  \FILLsym{:}   \FILLnt{A}  \multimap   \FILLnt{B}  }
+  \end{math}
+\end{center}
+transforms into the proof 
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=ImpR] {
+      $$\mprset{flushleft}
+      \inferrule* [right=ImpL] {
+        $$\mprset{flushleft}
+        \inferrule* [right=Ax] {
+          \,
+        }{ \FILLmv{y}  \FILLsym{:}  \FILLnt{A}  \vdash  \FILLmv{y}  \FILLsym{:}  \FILLnt{A} }
+        \\
+        $$\mprset{flushleft}
+        \inferrule* [right=Ax] {
+          \,
+        }{ \FILLmv{z}  \FILLsym{:}  \FILLnt{B}  \vdash  \FILLmv{z}  \FILLsym{:}  \FILLnt{B} }
+      }{ \FILLmv{y}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}   \FILLnt{A}  \multimap   \FILLnt{B}   \vdash  \FILLmv{x} \, \FILLmv{y}  \FILLsym{:}  \FILLnt{B} }
+    }{ \FILLmv{x}  \FILLsym{:}   \FILLnt{A}  \multimap   \FILLnt{B}   \vdash   \lambda  \FILLmv{y}  .   \FILLmv{x} \, \FILLmv{y}    \FILLsym{:}   \FILLnt{A}  \multimap   \FILLnt{B}  }
+  \end{math}  
+\end{center}
+All terms in the two derivations are equivalent, because
+$ (  \lambda  \FILLmv{y}  .   \FILLmv{x} \, \FILLmv{y}   )   \FILLsym{=}  \FILLmv{x}$ by the $\FILLdrulename{Eq\_EtaFun}$ rule.
+
+\item[Case:] the $\eta$-expansion cases: tensor unit.
+The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Ax] {
+      \,
+    }{ \FILLmv{x}  \FILLsym{:}   \top   \vdash  \FILLmv{x}  \FILLsym{:}   \top  }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Il] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Ir] {
+        \,
+      }{  \cdot   \vdash  \FILLsym{*}  \FILLsym{:}   \top  }
+    }{ \FILLmv{x}  \FILLsym{:}   \top   \vdash    \mathsf{let}\, \FILLmv{x} \,\mathsf{be}\,  *  \,\mathsf{in}\, \FILLsym{*}    \FILLsym{:}   \top  }
+  \end{math}
+\end{center}
+We know $\FILLmv{x}  \FILLsym{=}   \mathsf{let}\, \FILLmv{x} \,\mathsf{be}\,  *  \,\mathsf{in}\, \FILLsym{*} $ by
+$\FILLdrulename{Eq\_EtaI}$.  
+
+\item[Case:] the $\eta$-expansion cases: par unit.
+  The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Ax] {
+      \,
+    }{ \FILLmv{x}  \FILLsym{:}   \perp   \vdash  \FILLmv{x}  \FILLsym{:}   \perp  }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Pr] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Pl] {
+        \,
+      }{ \FILLmv{x}  \FILLsym{:}   \perp   \vdash   \cdot  }
+    }{ \FILLmv{x}  \FILLsym{:}   \perp   \vdash   \circ   \FILLsym{:}   \perp  }
+  \end{math}
+\end{center}
+We know $\FILLmv{x}  \FILLsym{=}   \circ $ by $\FILLdrulename{Eq\_EtaParU}$.
+
+\item[Case:] the axiom steps: the axiom step.
+The proof 
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Ax] {
+        \,
+      }{ \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \vdash  \FILLmv{x}  \FILLsym{:}  \FILLnt{A} }
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi}          
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \Delta }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \FILLsym{[}  \FILLmv{x}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi}          
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \Delta }
+  \end{math}
+\end{center}
+By $\FILLdrulename{Eq\_Alpha}$, we know, for any $\FILLnt{t}$ in
+$\Delta$, $\FILLnt{t}  \FILLsym{=}  \FILLsym{[}  \FILLmv{x}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLnt{t}$, and hence $\Delta  \FILLsym{=}  \FILLsym{[}  \FILLmv{x}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta$.
+
+\item[Case:] the axiom steps: conclusion vs. axiom.
+The proof 
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      $$\mprset{flushleft}
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }
+      \,
+      $$\mprset{flushleft}
+      \inferrule* [right=Ax] {
+        \,
+      }{ \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \vdash  \FILLmv{x}  \FILLsym{:}  \FILLnt{A} }
+    }{ \Gamma  \vdash   \Delta  \mid   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLmv{x}   \FILLsym{:}  \FILLnt{A}  }
+  \end{math}
+\end{center}
+transforms into 
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=\text{\tiny Series of Exchanges}] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }
+    }{ \Gamma  \vdash   \Delta  \mid  \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  }
+  \end{math}
+\end{center}
+By the definition of the substitution function we know $\FILLnt{t}  \FILLsym{=}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLmv{x}$.
+
+\item[Case:] the exchange steps: conclusion vs. left-exchange (the
+  first case).
+The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Exl] {        
+        $$\mprset{flushleft}
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \Delta' }        
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \Delta' }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta'  }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=\text{Series of Exchanges}] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }
+      \\
+        $$\mprset{flushleft}
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \Delta' }        
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta'  }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta'  }
+  \end{math}
+\end{center}
+Clearly, all terms are equivalent.  
+
+\item[Case:] the exchange steps: conclusion vs. left-exchange (the
+  second case). The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta  }
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Exl] {        
+        $$\mprset{flushleft}
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \Delta' }        
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \Delta' }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta'  }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=\text{Series of Exchanges}] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta  }
+      \\
+        $$\mprset{flushleft}
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \Delta' }        
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta'  }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta'  }
+  \end{math}
+\end{center}
+Clearly, all terms are equivalent.
+
+\item[Case:] the exchange steps: conclusion vs. right-exchange
+The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Exr] {
+        $$\mprset{flushleft}
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash       \Delta_{{\mathrm{1}}}  \mid  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{B}    \mid  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{C}    \mid  \Delta'  }        
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash       \Delta_{{\mathrm{1}}}  \mid  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{C}    \mid  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{B}    \mid  \Delta'  }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid         \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   \mid   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{:}  \FILLnt{C}    \mid   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}   \FILLsym{:}  \FILLnt{B}    \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta'    }
+  \end{math}
+\end{center}
+transforms into this proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Exr] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }
+      \\
+      $$\mprset{flushleft}
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash       \Delta_{{\mathrm{1}}}  \mid  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{B}    \mid  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{C}    \mid  \Delta'  }        
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid         \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   \mid   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}   \FILLsym{:}  \FILLnt{B}    \mid   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{:}  \FILLnt{C}    \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta'    }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash        \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   \mid   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{:}  \FILLnt{C}    \mid   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}   \FILLsym{:}  \FILLnt{B}    \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta'  }
+  \end{math}
+\end{center}
+Clearly, all terms are equivalent.  
+  
+\item[Case:] principal formula vs. principal formula: tensor.
+The proof 
+\begin{center} 
+    \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=\footnotesize Cut] {
+      $$\mprset{flushleft}
+      \inferrule* [right=\footnotesize Tr] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+      }{ \Gamma_{{\mathrm{1}}}  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta_{{\mathrm{1}}}  }
+      \\
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+      }{ \Gamma_{{\mathrm{2}}}  \vdash   \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta_{{\mathrm{2}}}  }
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash    \FILLnt{t_{{\mathrm{1}}}}  \otimes  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{:}   \FILLnt{A}  \otimes  \FILLnt{B}   \mid    \Delta_{{\mathrm{1}}}  \mid  \Delta_{{\mathrm{2}}}    }
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=\footnotesize Tl] {
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_3}          
+        }{ \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma_{{\mathrm{4}}}  \vdash  \Delta_{{\mathrm{3}}} }
+      }{ \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{A}  \otimes  \FILLnt{B}   \FILLsym{,}  \Gamma_{{\mathrm{4}}}  \vdash    \mathsf{let}\, \FILLmv{z} \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \Delta_{{\mathrm{3}}}   }
+    }{ \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{4}}}  \vdash     \Delta_{{\mathrm{1}}}  \mid  \Delta_{{\mathrm{2}}}    \mid  \FILLsym{[}   \FILLnt{t_{{\mathrm{1}}}}  \otimes  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \FILLsym{(}    \mathsf{let}\, \FILLmv{z} \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \Delta_{{\mathrm{3}}}    \FILLsym{)}  }
+  \end{math}
+\end{center}
+is transformed into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+      }{ \Gamma_{{\mathrm{1}}}  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta_{{\mathrm{1}}}  }
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+      }{ \Gamma_{{\mathrm{2}}}  \vdash   \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta_{{\mathrm{2}}}  }
+      \\
+      \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_3}          
+        }{ \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma_{{\mathrm{4}}}  \vdash  \Delta_{{\mathrm{3}}} }
+      }{ \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{4}}}  \vdash   \Delta_{{\mathrm{2}}}  \mid  \FILLsym{[}  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{3}}}  }
+    }{ \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{4}}}  \vdash     \Delta_{{\mathrm{1}}}  \mid  \Delta_{{\mathrm{2}}}    \mid  \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{3}}}  }
+  \end{math}
+\end{center}
+Without loss of generality suppose $\Delta_{{\mathrm{3}}}  \FILLsym{=}  \FILLnt{t_{{\mathrm{3}}}}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \Delta'_{{\mathrm{3}}}$.  We can see that $ \FILLsym{[}   \FILLnt{t_{{\mathrm{1}}}}  \otimes  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{/}  \FILLmv{z}  \FILLsym{]}   (  \mathsf{let}\, \FILLmv{z} \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \FILLnt{t_{{\mathrm{3}}}}  )    \FILLsym{=}   \mathsf{let}\,  \FILLnt{t_{{\mathrm{1}}}}  \otimes  \FILLnt{t_{{\mathrm{2}}}}  \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \FILLnt{t_{{\mathrm{3}}}} $ by the definition of
+substitution, and by using the $\FILLdrulename{Eq\_Beta1Tensor}$ rule we obtain
+$ \mathsf{let}\,  \FILLnt{t_{{\mathrm{1}}}}  \otimes  \FILLnt{t_{{\mathrm{2}}}}  \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \FILLnt{t_{{\mathrm{3}}}}   \FILLsym{=}  \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLnt{t_{{\mathrm{3}}}}$.  This argument
+can be repeated for any term in $\FILLsym{[}   \FILLnt{t_{{\mathrm{1}}}}  \otimes  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \FILLsym{(}    \mathsf{let}\, \FILLmv{z} \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \Delta'_{{\mathrm{3}}}    \FILLsym{)}$, and thus, $\FILLsym{[}   \FILLnt{t_{{\mathrm{1}}}}  \otimes  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \FILLsym{(}    \mathsf{let}\, \FILLmv{z} \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \Delta_{{\mathrm{3}}}    \FILLsym{)}  \FILLsym{=}  \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{3}}}$.
+
+Note that in the second derivation of the above transformation we
+first cut on $\FILLnt{B}$, and then $\FILLnt{A}$, but we could have cut on
+$\FILLnt{A}$ first, and then $\FILLnt{B}$, but this would yield equivalent
+derivations as above by using
+Lemma~\ref{lemma:substitution_distribution}.
+
+  
+\item[Case:] principal formula vs. principal formula: par.
+The proof
+\begin{center}
+  \scriptsize
+    \begin{math}    
+    $$\mprset{flushleft}
+\inferrule* [right=\tiny Cut] {
+  $$\mprset{flushleft}
+  \inferrule* [leftskip=15px,left=\tiny Parr,rightskip=10px] {
+    \inferrule* [] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+      }{ \Gamma_{{\mathrm{1}}}  \vdash     \Delta_{{\mathrm{1}}}  \mid  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{A}    \mid    \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta_{{\mathrm{2}}}    }
+    }{ \Gamma_{{\mathrm{1}}}  \vdash     \Delta_{{\mathrm{1}}}  \mid   \FILLnt{t_{{\mathrm{1}}}}  \parr  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{:}   \FILLnt{A}  \parr  \FILLnt{B}     \mid  \Delta_{{\mathrm{2}}}  }
+  \\
+  $$\mprset{flushleft}
+  \inferrule* [leftskip=5px,right=\tiny Parl,rightskip=30px] {
+    \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+      }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \vdash  \Delta_{{\mathrm{3}}} }
+      \\
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_3}          
+      }{ \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \vdash  \Delta_{{\mathrm{4}}} }
+  }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{A}  \parr  \FILLnt{B}   \vdash     \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}   \FILLmv{x}  \parr   -    \FILLsym{)} \, \Delta_{{\mathrm{3}}}    \mid    \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}    -   \parr  \FILLmv{y}   \FILLsym{)} \, \Delta_{{\mathrm{4}}}    }
+}{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \Gamma_{{\mathrm{1}}}  \vdash       \Delta_{{\mathrm{1}}}  \mid  \Delta_{{\mathrm{2}}}    \mid   \FILLsym{[}   \FILLnt{t_{{\mathrm{1}}}}  \parr  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \FILLsym{(}   \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}   \FILLmv{x}  \parr   -    \FILLsym{)} \, \Delta_{{\mathrm{3}}}   \FILLsym{)}     \mid   \FILLsym{[}   \FILLnt{t_{{\mathrm{1}}}}  \parr  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \FILLsym{(}   \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}    -   \parr  \FILLmv{y}   \FILLsym{)} \, \Delta_{{\mathrm{4}}}   \FILLsym{)}   }
+  \end{math}    
+\end{center}
+is transformed into the proof
+\begin{center}
+  \scriptsize
+  \begin{math}    
+    $$\mprset{flushleft}
+    \inferrule* [right=  \scriptsize \tiny Series of Exchanges] {
+      $$\mprset{flushleft}
+    \inferrule* [right=  \scriptsize Cut] {
+      $$\mprset{flushleft}
+      \inferrule* [right=  \scriptsize Cut] {
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+        }{ \Gamma_{{\mathrm{1}}}  \vdash     \Delta_{{\mathrm{1}}}  \mid  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{A}    \mid    \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta_{{\mathrm{2}}}    }
+        \\
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_3}          
+        }{ \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \vdash  \Delta_{{\mathrm{4}}} }
+      }{ \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \Gamma_{{\mathrm{1}}}  \vdash       \Delta_{{\mathrm{1}}}  \mid  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{A}    \mid  \Delta_{{\mathrm{2}}}    \mid  \FILLsym{[}  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{4}}}  }
+      \\
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}          
+      }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \vdash  \Delta_{{\mathrm{3}}} }
+    }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \Gamma_{{\mathrm{1}}}  \vdash       \Delta_{{\mathrm{1}}}  \mid  \Delta_{{\mathrm{2}}}    \mid  \FILLsym{[}  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{4}}}    \mid  \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{3}}}  }
+    }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \Gamma_{{\mathrm{1}}}  \vdash     \Delta_{{\mathrm{1}}}  \mid  \Delta_{{\mathrm{2}}}    \mid     \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{3}}}   \mid  \FILLsym{[}  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{4}}}    }
+  \end{math}
+\end{center}
+Without loss of generality consider the case when
+$\Delta_{{\mathrm{3}}} =  \FILLnt{t_{{\mathrm{3}}}}  \FILLsym{:}  \FILLnt{C_{{\mathrm{1}}}}  \mid  \Delta'_{{\mathrm{3}}} $ and $\Delta_{{\mathrm{4}}} =  \FILLnt{t_{{\mathrm{4}}}}  \FILLsym{:}  \FILLnt{C_{{\mathrm{2}}}}  \mid  \Delta'_{{\mathrm{4}}} $.  First,
+$\FILLsym{[}   \FILLnt{t_{{\mathrm{1}}}}  \parr  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{/}  \FILLmv{z}  \FILLsym{]}   (  \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}   \FILLmv{x}  \parr   -    \FILLsym{)} \, \FILLnt{t_{{\mathrm{3}}}}  )   \FILLsym{=}   \mathsf{\operatorname{let-pat} }\,  (  \FILLnt{t_{{\mathrm{1}}}}  \parr  \FILLnt{t_{{\mathrm{2}}}}  )  \, \FILLsym{(}   \FILLmv{x}  \parr   -    \FILLsym{)} \, \FILLnt{t_{{\mathrm{3}}}} $,
+and by $\FILLdrulename{Eq\_Beta1Par}$ we know
+$ \mathsf{\operatorname{let-pat} }\,  (  \FILLnt{t_{{\mathrm{1}}}}  \parr  \FILLnt{t_{{\mathrm{2}}}}  )  \, \FILLsym{(}   \FILLmv{x}  \parr   -    \FILLsym{)} \, \FILLnt{t_{{\mathrm{3}}}}   \FILLsym{=}  \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{3}}}}$ if $ \FILLmv{x}  \in \mathsf{FV}(  \FILLnt{t_{{\mathrm{3}}}}  ) $
+or $ \mathsf{\operatorname{let-pat} }\,  (  \FILLnt{t_{{\mathrm{1}}}}  \parr  \FILLnt{t_{{\mathrm{2}}}}  )  \, \FILLsym{(}   \FILLmv{x}  \parr   -    \FILLsym{)} \, \FILLnt{t_{{\mathrm{3}}}}   \FILLsym{=}  \FILLnt{t_{{\mathrm{3}}}}$ otherwise.  In the
+latter case we can see that $\FILLnt{t_{{\mathrm{3}}}}  \FILLsym{=}  \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{3}}}}$, thus, in both cases
+$ \mathsf{\operatorname{let-pat} }\,  (  \FILLnt{t_{{\mathrm{1}}}}  \parr  \FILLnt{t_{{\mathrm{2}}}}  )  \, \FILLsym{(}   \FILLmv{x}  \parr   -    \FILLsym{)} \, \FILLnt{t_{{\mathrm{3}}}}   \FILLsym{=}  \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{3}}}}$.  This argument can
+be repeated for any terms in $\Delta'_{{\mathrm{3}}}$, and hence
+$\FILLsym{[}   \FILLnt{t_{{\mathrm{1}}}}  \parr  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \FILLsym{(}   \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}   \FILLmv{x}  \parr   -    \FILLsym{)} \, \Delta_{{\mathrm{3}}}   \FILLsym{)} =  \mathsf{\operatorname{let-pat} }\,  (  \FILLnt{t_{{\mathrm{1}}}}  \parr  \FILLnt{t_{{\mathrm{2}}}}  )  \, \FILLsym{(}   \FILLmv{x}  \parr   -    \FILLsym{)} \, \Delta_{{\mathrm{3}}}   \FILLsym{=}  \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{3}}}$.
+We can apply a similar argument for\\
+$\FILLsym{[}   \FILLnt{t_{{\mathrm{1}}}}  \parr  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{/}  \FILLmv{z}  \FILLsym{]}   (  \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}    -   \parr  \FILLmv{y}   \FILLsym{)} \, \FILLnt{t_{{\mathrm{4}}}}  ) $ and
+$\FILLsym{[}   \FILLnt{t_{{\mathrm{1}}}}  \parr  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \FILLsym{(}   \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}    -   \parr  \FILLmv{y}   \FILLsym{)} \, \Delta_{{\mathrm{4}}}   \FILLsym{)}$.
+
+
+  Note that we could have first cut on $\FILLnt{A}$, and then on $\FILLnt{B}$ in
+  the second derivation, but we would have arrived at the same result
+  just with potentially more exchanges on the right.
+
+  \item[Case:] principal formula vs. principal formula: implication.
+The proof
+\begin{center}
+  \scriptsize
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=\scriptsize Cut] {
+      $$\mprset{flushleft}
+      \inferrule* [right=\scriptsize Impr] {
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+        }{ \Gamma  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta  }
+        \\
+         \FILLmv{x}  \not\in \mathsf{FV}(  \Delta  ) 
+      }{ \Gamma  \vdash    \lambda  \FILLmv{x}  .  \FILLnt{t}   \FILLsym{:}   \FILLnt{A}  \multimap   \FILLnt{B}   \mid  \Delta  }
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=\scriptsize Impl] {
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta_{{\mathrm{1}}}  }
+        \\
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_3}          
+        }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \vdash  \Delta_{{\mathrm{2}}} }
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{A}  \multimap   \FILLnt{B}   \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta_{{\mathrm{1}}}  \mid  \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid     \FILLsym{[}   \lambda  \FILLmv{x}  .  \FILLnt{t}   \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   \mid   \FILLsym{[}   \lambda  \FILLmv{x}  .  \FILLnt{t}   \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}}     }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \scriptsize
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=\tiny Series of Exchanges] {
+      $$\mprset{flushleft}
+    \inferrule* [right=\scriptsize Cut] {
+      $$\mprset{flushleft}
+      \inferrule* [right=\scriptsize Cut] {
+        \inferrule* [right=,rightskip=17px] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta_{{\mathrm{1}}}  }
+        \\
+        \inferrule* [right=,rightskip=13px] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+        }{ \Gamma  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta  }
+        \\
+         \FILLmv{x}  \not\in \mathsf{FV}(  \Delta  ) 
+      }{ \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{1}}}  \vdash   \Delta_{{\mathrm{1}}}  \mid     \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t}   \FILLsym{:}  \FILLnt{B}  \mid  \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta    }
+      \\
+      \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_3}          
+        }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \vdash  \Delta_{{\mathrm{2}}} }
+      }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{1}}}  \vdash     \Delta_{{\mathrm{1}}}  \mid  \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta    \mid  \FILLsym{[}  \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash    \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta   \mid    \Delta_{{\mathrm{1}}}  \mid   \FILLsym{[}  \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}}     }
+  \end{math}
+\end{center}
+Without loss of generality consider the case when $\Delta_{{\mathrm{2}}} =  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta'_{{\mathrm{2}}} $. 
+First, by hypothesis we know $ \FILLmv{x}  \not\in \mathsf{FV}(  \Delta  ) $, and so we know $\Delta  \FILLsym{=}  \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta$.  We can see
+that $\FILLsym{[}   \lambda  \FILLmv{x}  .  \FILLnt{t}   \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{=}  \FILLsym{[}   (  \lambda  \FILLmv{x}  .  \FILLnt{t}  )  \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}} = \FILLsym{[}  \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}$ by using the congruence rules
+of equality and the rule $\FILLdrulename{Eq\_BetaFun}$.  This argument can be repeated for any term
+in $\FILLsym{[}   \lambda  \FILLmv{x}  .  \FILLnt{t}   \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta'_{{\mathrm{2}}}$, and so $\FILLsym{[}   \lambda  \FILLmv{x}  .  \FILLnt{t}   \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  \FILLsym{=}  \FILLsym{[}  \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}}$.  Finally, by inspecting the previous
+derivations we can see that $ \FILLmv{z}  \not\in \mathsf{FV}(  \Delta_{{\mathrm{1}}}  ) $, and thus, $\Delta_{{\mathrm{1}}}  \FILLsym{=}  \FILLsym{[}   \lambda  \FILLmv{x}  .  \FILLnt{t}   \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \Delta_{{\mathrm{1}}}$.  
+
+\item[Case:] principal formula vs. principal formula: tensor unit.
+    The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Ir] {
+        \,
+      }{  \cdot   \vdash  \FILLsym{*}  \FILLsym{:}   \top  }
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Il] {
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi}          
+        }{ \Gamma  \vdash  \Delta }
+      }{ \Gamma  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}   \top   \vdash   \mathsf{let}\, \FILLmv{x} \,\mathsf{be}\,  *  \,\mathsf{in}\, \Delta  }
+    }{ \Gamma  \vdash  \FILLsym{[}  \FILLsym{*}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{(}   \mathsf{let}\, \FILLmv{x} \,\mathsf{be}\,  *  \,\mathsf{in}\, \Delta   \FILLsym{)} }
+  \end{math}
+\end{center}
+is transformed into the proof
+\begin{center}
+  \begin{math}
+    \inferrule* [right=] {
+      \inferrule* [right=,vdots=1.5em,fraction=\,] {
+        \,
+      }{\pi}          
+    }{ \Gamma  \vdash  \Delta }
+  \end{math}
+\end{center}
+
+Without loss of generality suppose $\Delta =  \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta' $. We can see that 
+$\FILLsym{[}  \FILLsym{*}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   (  \mathsf{let}\, \FILLmv{x} \,\mathsf{be}\,  *  \,\mathsf{in}\, \FILLnt{t}  )   \FILLsym{=}   \mathsf{let}\, \FILLsym{*} \,\mathsf{be}\,  *  \,\mathsf{in}\, \FILLnt{t}  = \FILLnt{t}$ by the definition of 
+substitution and the $\FILLdrulename{Eq\_EtaI}$ rule.  This argument can be repeated for any
+term in $\FILLsym{[}  \FILLsym{*}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{(}   \mathsf{let}\, \FILLmv{x} \,\mathsf{be}\,  *  \,\mathsf{in}\, \Delta'   \FILLsym{)}$, and hence, $\FILLsym{[}  \FILLsym{*}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{(}   \mathsf{let}\, \FILLmv{x} \,\mathsf{be}\,  *  \,\mathsf{in}\, \Delta   \FILLsym{)}  \FILLsym{=}  \Delta$.
+
+\item[Case:] principal formula vs. principal formula: par unit.
+  The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Pr] {
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi}          
+        }{ \Gamma  \vdash  \Delta }
+      }{ \Gamma  \vdash    \circ   \FILLsym{:}   \perp   \mid  \Delta  }
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Pl] {
+        \,
+      }{ \FILLmv{x}  \FILLsym{:}   \perp   \vdash   \cdot  }
+    }{ \Gamma  \vdash   \Delta  \mid  \FILLsym{[}   \circ   \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   \cdot   }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    \inferrule* [right=] {
+      \inferrule* [right=,vdots=1.5em,fraction=\,] {
+        \,
+      }{\pi}          
+    }{ \Gamma  \vdash  \Delta }
+  \end{math}
+\end{center}
+Clearly, $\FILLsym{[}   \circ   \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   \cdot   \FILLsym{=}   \cdot $.
+
+\item[Case:] secondary conclusion: left introduction of implication.
+The proof 
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Impl] {
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+        }{ \Gamma  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }
+        \\
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta_{{\mathrm{2}}}  }
+      }{ \Gamma  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}   \FILLnt{A}  \multimap   \FILLnt{B}   \FILLsym{,}  \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash     \Delta  \mid   \FILLsym{[}  \FILLmv{y} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{C}     \mid  \FILLsym{[}  \FILLmv{y} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  }
+      \\      
+      \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_3}          
+        }{ \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \Gamma_{{\mathrm{4}}}  \vdash  \Delta_{{\mathrm{3}}} }
+      }{ \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}   \FILLnt{A}  \multimap   \FILLnt{B}   \FILLsym{,}  \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{4}}}  \vdash   \Delta  \mid     \FILLsym{[}  \FILLmv{y} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}   \mid  \FILLsym{[}  \FILLsym{[}  \FILLmv{y} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \Delta_{{\mathrm{3}}}    }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=\tiny Series of Exchanges] {
+      $$\mprset{flushleft}
+    \inferrule* [right=Impl] {
+      \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+        }{ \Gamma  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta_{{\mathrm{2}}}  }
+        \\
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_3}          
+        }{ \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \Gamma_{{\mathrm{4}}}  \vdash  \Delta_{{\mathrm{3}}} }
+      }{ \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{4}}}  \vdash   \Delta_{{\mathrm{2}}}  \mid  \FILLsym{[}  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \Delta_{{\mathrm{3}}}  }
+    }{ \Gamma  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}   \FILLnt{A}  \multimap   \FILLnt{B}   \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{4}}}  \vdash     \Delta  \mid   \FILLsym{[}  \FILLmv{y} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}     \mid  \FILLsym{[}  \FILLmv{y} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \Delta_{{\mathrm{3}}}  }
+  }{ \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}   \FILLnt{A}  \multimap   \FILLnt{B}   \FILLsym{,}  \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{4}}}  \vdash     \Delta  \mid   \FILLsym{[}  \FILLmv{y} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}     \mid  \FILLsym{[}  \FILLmv{y} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \Delta_{{\mathrm{3}}}  }
+  \end{math}
+\end{center}
+This case holds because we can prove that $\FILLsym{[}  \FILLmv{y} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \Delta_{{\mathrm{3}}}  \FILLsym{=}  \FILLsym{[}  \FILLsym{[}  \FILLmv{y} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \Delta_{{\mathrm{3}}}$ by Lemma~\ref{lemma:substitution_distribution}
+and the fact that $ \FILLmv{x}  \not\in \mathsf{FV}(  \Delta_{{\mathrm{3}}}  ) $.
+
+\item[Case:] secondary conclusion: left introduction of exchange.
+  The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Exl] {
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+        }{ \Gamma  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma'  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta  }        
+      }{ \Gamma  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma'  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta  }
+      \\
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}          
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \Delta_{{\mathrm{2}}} }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma'  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Exl] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+        }{ \Gamma  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma'  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta  }        
+        \\
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}          
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \Delta_{{\mathrm{2}}} }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma'  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  }
+  }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma'  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  }
+  \end{math}
+\end{center}
+Clearly, all terms are equivalent.
+
+\item[Case:] secondary conclusion: left introduction of tensor.
+The proof 
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Tl] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta  }      
+      }{ \Gamma  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{A}  \otimes  \FILLnt{B}   \vdash     \mathsf{let}\, \FILLmv{z} \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \FILLnt{t}    \FILLsym{:}  \FILLnt{C}  \mid   \mathsf{let}\, \FILLmv{z} \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \Delta   }
+      \\
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}          
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \Delta_{{\mathrm{2}}} }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{A}  \otimes  \FILLnt{B}   \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash     \mathsf{let}\, \FILLmv{z} \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \Delta    \mid  \FILLsym{[}    \mathsf{let}\, \FILLmv{z} \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \FILLnt{t}    \FILLsym{/}  \FILLmv{w}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Tl] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta  }      
+      \\
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}          
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \Delta_{{\mathrm{2}}} }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{w}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  }      
+  }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{A}  \otimes  \FILLnt{B}   \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash     \mathsf{let}\, \FILLmv{z} \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \Delta    \mid   \mathsf{let}\, \FILLmv{z} \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \FILLsym{(}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{w}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  \FILLsym{)}   }
+  \end{math}
+\end{center}
+It suffices to show that $ \mathsf{let}\, \FILLmv{z} \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \FILLsym{(}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{w}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  \FILLsym{)}   \FILLsym{=}  \FILLsym{[}    \mathsf{let}\, \FILLmv{z} \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \FILLnt{t}    \FILLsym{/}  \FILLmv{w}  \FILLsym{]}  \Delta_{{\mathrm{2}}}$.  This is a simple consequence of the rule
+$\FILLdrulename{Eq\_NatTensor}$.
+
+\item[Case:] secondary conclusion: left introduction of Par
+The proof 
+\begin{center}
+  \scriptsize
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=\scriptsize Cut] {
+      $$\mprset{flushleft}
+      \inferrule* [right=\scriptsize Parl] {
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+        }{ \Gamma  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \vdash  \Delta }      
+        \\
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma'  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \vdash   \FILLnt{t'}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta'  }      
+      }{ \Gamma  \FILLsym{,}  \Gamma'  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{A}  \parr  \FILLnt{B}   \vdash       \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}   \FILLmv{x}  \parr   -    \FILLsym{)} \, \Delta    \mid    \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}    -   \parr  \FILLmv{y}   \FILLsym{)} \, \FILLnt{t'}    \FILLsym{:}  \FILLnt{C}    \mid    \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}    -   \parr  \FILLmv{y}   \FILLsym{)} \, \Delta'    }
+      \\
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_3}          
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \Delta_{{\mathrm{2}}} }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma'  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{A}  \parr  \FILLnt{B}   \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash       \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}   \FILLmv{x}  \parr   -    \FILLsym{)} \, \Delta    \mid    \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}    -   \parr  \FILLmv{y}   \FILLsym{)} \, \Delta'      \mid  \FILLsym{[}    \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}    -   \parr  \FILLmv{y}   \FILLsym{)} \, \FILLnt{t'}    \FILLsym{/}  \FILLmv{w}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  }
+  \end{math}
+\end{center}
+is transformed into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=\tiny Series of Exchanges] {
+      $$\mprset{flushleft}
+    \inferrule* [right=Parl] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \vdash  \Delta }      
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma'  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \vdash   \FILLnt{t'}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta'  }      
+        \\
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_3}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \Delta_{{\mathrm{2}}} }
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma'  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta'  \mid  \FILLsym{[}  \FILLnt{t'}  \FILLsym{/}  \FILLmv{w}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  }
+    }{ \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma'  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{A}  \parr  \FILLnt{B}   \vdash       \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}   \FILLmv{x}  \parr   -    \FILLsym{)} \, \Delta    \mid    \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}    -   \parr  \FILLmv{y}   \FILLsym{)} \, \Delta'      \mid    \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}    -   \parr  \FILLmv{y}   \FILLsym{)} \, \FILLsym{[}  \FILLnt{t'}  \FILLsym{/}  \FILLmv{w}  \FILLsym{]}  \Delta_{{\mathrm{2}}}    }
+  }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma'  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{A}  \parr  \FILLnt{B}   \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash       \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}   \FILLmv{x}  \parr   -    \FILLsym{)} \, \Delta    \mid    \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}    -   \parr  \FILLmv{y}   \FILLsym{)} \, \Delta'      \mid    \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}    -   \parr  \FILLmv{y}   \FILLsym{)} \, \FILLsym{[}  \FILLnt{t'}  \FILLsym{/}  \FILLmv{w}  \FILLsym{]}  \Delta_{{\mathrm{2}}}    }
+  \end{math}
+\end{center}
+It suffices to show that $ \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}    -   \parr  \FILLmv{y}   \FILLsym{)} \, \FILLsym{[}  \FILLnt{t'}  \FILLsym{/}  \FILLmv{w}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  = \FILLsym{[}    \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}    -   \parr  \FILLmv{y}   \FILLsym{)} \, \FILLnt{t'}    \FILLsym{/}  \FILLmv{w}  \FILLsym{]}  \Delta_{{\mathrm{2}}}$.  This follows from the rule
+$\FILLdrulename{Eq\_Nat2Par}$.
+
+\item[Case:] secondary conclusion: left introduction of tensor unit.
+The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Il] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta  }      
+      }{ \Gamma  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}   \top   \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta  }
+      \\
+      \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \Delta_{{\mathrm{1}}} }
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}   \top   \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{w}  \FILLsym{]}  \Delta_{{\mathrm{1}}}  }
+  \end{math}
+\end{center}
+is transformed into the following:
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=\tiny Series of Exchanges] {
+      $$\mprset{flushleft}
+    \inferrule* [right=Il] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+        }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta  }      
+        \\
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \Delta_{{\mathrm{1}}} }  
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{w}  \FILLsym{]}  \Delta_{{\mathrm{1}}}  }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}   \top   \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{w}  \FILLsym{]}  \Delta_{{\mathrm{1}}}  }
+  }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}   \top   \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{w}  \FILLsym{]}  \Delta_{{\mathrm{1}}}  }
+  \end{math}
+\end{center}
+Clearly, all terms are equivalent.  Note that we do not give a case
+for secondary conclusion of the left introduction of par's unit,
+because it can only be introduced given an empty right context, and
+thus there is no cut formula.
+
+\item[Case:] secondary hypothesis: left introduction of tensor.
+The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Tl] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}          
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{D}  \mid  \Delta_{{\mathrm{1}}}  }                  
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}   \FILLnt{B}  \otimes  \FILLnt{C}   \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash     \mathsf{let}\, \FILLmv{w} \,\mathsf{be}\,  \FILLmv{y}  \otimes  \FILLmv{z}  \,\mathsf{in}\, \FILLnt{t_{{\mathrm{1}}}}    \FILLsym{:}  \FILLnt{D}  \mid   \mathsf{let}\, \FILLmv{w} \,\mathsf{be}\,  \FILLmv{y}  \otimes  \FILLmv{z}  \,\mathsf{in}\, \Delta_{{\mathrm{1}}}   }
+  }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}   \FILLnt{B}  \otimes  \FILLnt{C}   \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash   \Delta  \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   (  \mathsf{let}\, \FILLmv{w} \,\mathsf{be}\,  \FILLmv{y}  \otimes  \FILLmv{z}  \,\mathsf{in}\, \FILLnt{t_{{\mathrm{1}}}}  )    \FILLsym{:}  \FILLnt{D}  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{(}   \mathsf{let}\, \FILLmv{w} \,\mathsf{be}\,  \FILLmv{y}  \otimes  \FILLmv{z}  \,\mathsf{in}\, \Delta_{{\mathrm{1}}}   \FILLsym{)}    }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Tl] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+      \\
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}          
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{D}  \mid  \Delta_{{\mathrm{1}}}  }                  
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash     \Delta  \mid   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}   \FILLsym{:}  \FILLnt{D}    \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}  }
+  }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}   \FILLnt{B}  \otimes  \FILLnt{C}   \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash       \mathsf{let}\, \FILLmv{w} \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \Delta    \mid    \mathsf{let}\, \FILLmv{w} \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}    \FILLsym{:}  \FILLnt{D}    \mid   \mathsf{let}\, \FILLmv{w} \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   }
+  \end{math}
+\end{center}
+First, we can see by inspection of the previous derivations that
+$ \FILLmv{x} , \FILLmv{y}  \not\in \mathsf{FV}(  \Delta  ) $, thus, by using similar reasoning as above we can
+use the $\FILLdrulename{EtaTensor}$ rule to obtain $ \mathsf{let}\, \FILLmv{w} \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \Delta   \FILLsym{=}  \Delta$.  It is a well-known property of substitution that 
+$\FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   (  \mathsf{let}\, \FILLmv{w} \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \FILLnt{t_{{\mathrm{1}}}}  )  =  \mathsf{let}\, \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLmv{w} \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}  =  \mathsf{let}\, \FILLmv{w} \,\mathsf{be}\,  \FILLmv{x}  \otimes  \FILLmv{y}  \,\mathsf{in}\, \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}} $.
+
+\item[Case:] secondary hypothesis: right introduction of tensor (first
+  case).
+The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Tr] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}          
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta_{{\mathrm{1}}}  }      
+      \\
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_3}          
+      }{ \Gamma_{{\mathrm{3}}}  \vdash   \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta_{{\mathrm{2}}}  }      
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash    \FILLnt{t_{{\mathrm{1}}}}  \otimes  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{:}   \FILLnt{B}  \otimes  \FILLnt{C}   \mid    \Delta_{{\mathrm{1}}}  \mid  \Delta_{{\mathrm{2}}}    }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash   \Delta  \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   (  \FILLnt{t_{{\mathrm{1}}}}  \otimes  \FILLnt{t_{{\mathrm{2}}}}  )    \FILLsym{:}   \FILLnt{B}  \otimes  \FILLnt{C}   \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}      }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=\tiny Series of Exchanges] {
+      $$\mprset{flushleft}
+    \inferrule* [right=Tr] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+      \\
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}          
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta_{{\mathrm{1}}}  }      
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}   \FILLsym{:}  \FILLnt{B}  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}    }
+    \\
+    \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_3}          
+      }{ \Gamma_{{\mathrm{3}}}  \vdash   \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta_{{\mathrm{2}}}  }      
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash      \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}   \otimes  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{:}   \FILLnt{B}  \otimes  \FILLnt{C}    \mid    \Delta  \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   \mid  \Delta_{{\mathrm{2}}}      }
+  }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash   \Delta  \mid       ( \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}} )   \otimes  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{:}   \FILLnt{B}  \otimes  \FILLnt{C}    \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   \mid  \Delta_{{\mathrm{2}}}      }
+  \end{math}
+\end{center}
+By inspection of the previous derivations we can see that $ \FILLmv{x}  \not\in \mathsf{FV}(  \FILLnt{t_{{\mathrm{2}}}}  ) $ and $ \FILLmv{x}  \not\in \mathsf{FV}(  \Delta_{{\mathrm{2}}}  ) $.  Thus, $\FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  \FILLsym{=}  \Delta_{{\mathrm{2}}}$ and
+$\FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   (  \FILLnt{t_{{\mathrm{1}}}}  \otimes  \FILLnt{t_{{\mathrm{2}}}}  )   \FILLsym{=}    ( \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}} )   \otimes   ( \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}} )   =   ( \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}} )   \otimes  \FILLnt{t_{{\mathrm{2}}}} $.
+
+\item[Case:] secondary hypothesis: right introduction of tensor
+  (second case).
+The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Tr] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}          
+      }{ \Gamma_{{\mathrm{1}}}  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta_{{\mathrm{1}}}  }      
+      \\
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_3}          
+      }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash   \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta_{{\mathrm{2}}}  }      
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash    \FILLnt{t_{{\mathrm{1}}}}  \otimes  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{:}   \FILLnt{B}  \otimes  \FILLnt{C}   \mid    \Delta_{{\mathrm{1}}}  \mid  \Delta_{{\mathrm{2}}}    }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash   \Delta  \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   (  \FILLnt{t_{{\mathrm{1}}}}  \otimes  \FILLnt{t_{{\mathrm{2}}}}  )    \FILLsym{:}   \FILLnt{B}  \otimes  \FILLnt{C}   \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}      }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=\tiny Series of Exchanges] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Tr] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}          
+      }{ \Gamma_{{\mathrm{1}}}  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta_{{\mathrm{1}}}  }      
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+      \\
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_3}          
+      }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash   \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta_{{\mathrm{2}}}  }      
+    }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash   \Delta  \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{:}  \FILLnt{C}  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}    }       
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash     \FILLnt{t_{{\mathrm{1}}}}  \otimes   ( \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}} )    \FILLsym{:}   \FILLnt{B}  \otimes  \FILLnt{C}    \mid    \Delta_{{\mathrm{1}}}  \mid    \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}      }
+  }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash   \Delta  \mid      \FILLnt{t_{{\mathrm{1}}}}  \otimes   ( \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}} )    \FILLsym{:}   \FILLnt{B}  \otimes  \FILLnt{C}    \mid    \Delta_{{\mathrm{1}}}  \mid   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}       }
+  \end{math}
+\end{center}
+This case is similar to the previous case.  
+
+\item[Case:] secondary hypothesis: right introduction of par.
+The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Parr] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}          
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash     \Delta_{{\mathrm{1}}}  \mid    \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{B}  \mid  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{C}      \mid  \Delta_{{\mathrm{2}}}  }                  
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash     \Delta_{{\mathrm{1}}}  \mid    \FILLnt{t_{{\mathrm{1}}}}  \parr  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{:}   \FILLnt{B}  \parr  \FILLnt{C}      \mid  \Delta_{{\mathrm{2}}}  }
+  }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid       \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   \mid   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   (  \FILLnt{t_{{\mathrm{1}}}}  \parr  \FILLnt{t_{{\mathrm{2}}}}  )   \FILLsym{:}   \FILLnt{B}  \parr  \FILLnt{C}      \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}    }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+\inferrule* [right=Parr] {
+  $$\mprset{flushleft}
+  \inferrule* [right=Cut] {
+    \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+      \\
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}          
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash     \Delta_{{\mathrm{1}}}  \mid    \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{B}  \mid  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{C}      \mid  \Delta_{{\mathrm{2}}}  }                  
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid       \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}   \FILLsym{:}  \FILLnt{B}  \mid   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{:}  \FILLnt{C}      \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}    }
+  }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid       \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   \mid    \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}   \parr   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}    \FILLsym{:}   \FILLnt{B}  \parr  \FILLnt{C}     \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}    }
+  \end{math}
+\end{center}
+Clearly, $\FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   (  \FILLnt{t_{{\mathrm{1}}}}  \parr  \FILLnt{t_{{\mathrm{2}}}}  )   \FILLsym{=}    ( \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}} )   \parr  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}} $.
+
+\item[Case:] secondary hypothesis: left introduction of par (first
+  case).
+The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [leftskip=10px,right=\tiny Cut] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=\tiny Parl] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}          
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \vdash  \Delta_{{\mathrm{1}}} }      
+      \\
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_3}          
+      }{ \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}  \FILLnt{C}  \vdash  \Delta_{{\mathrm{2}}} }      
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}   \FILLnt{B}  \parr  \FILLnt{C}   \vdash     \mathsf{\operatorname{let-pat} }\, \FILLmv{w} \, \FILLsym{(}   \FILLmv{y}  \parr   -    \FILLsym{)} \, \Delta_{{\mathrm{1}}}    \mid    \mathsf{\operatorname{let-pat} }\, \FILLmv{w} \, \FILLsym{(}    -   \parr  \FILLmv{z}   \FILLsym{)} \, \Delta_{{\mathrm{2}}}    }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}   \FILLnt{B}  \parr  \FILLnt{C}   \vdash   \Delta  \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{(}   \mathsf{\operatorname{let-pat} }\, \FILLmv{w} \, \FILLsym{(}   \FILLmv{y}  \parr   -    \FILLsym{)} \, \Delta_{{\mathrm{1}}}   \FILLsym{)}   \mid   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{(}   \mathsf{\operatorname{let-pat} }\, \FILLmv{w} \, \FILLsym{(}    -   \parr  \FILLmv{z}   \FILLsym{)} \, \Delta_{{\mathrm{2}}}   \FILLsym{)}     }
+  \end{math}
+\end{center}
+\noindent
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=\tiny ParL] {
+      $$\mprset{flushleft}
+      \inferrule* [right=\tiny Cut] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+      \\
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}          
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \vdash  \Delta_{{\mathrm{1}}} }      
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}  }
+      \\
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_3}          
+      }{ \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}  \FILLnt{C}  \vdash  \Delta_{{\mathrm{2}}} }      
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}   \FILLnt{B}  \parr  \FILLnt{C}   \vdash       \mathsf{\operatorname{let-pat} }\, \FILLmv{w} \, \FILLsym{(}   \FILLmv{y}  \parr   -    \FILLsym{)} \, \Delta    \mid    \mathsf{\operatorname{let-pat} }\, \FILLmv{w} \, \FILLsym{(}   \FILLmv{y}  \parr   -    \FILLsym{)} \, \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}      \mid   \mathsf{\operatorname{let-pat} }\, \FILLmv{w} \, \FILLsym{(}    -   \parr  \FILLmv{z}   \FILLsym{)} \, \Delta_{{\mathrm{2}}}   }
+  \end{math}
+\end{center}
+First, by inspection of the previous proofs we can see that $ \FILLmv{y}  \not\in \mathsf{FV}(  \Delta  ) $ and $ \FILLmv{x}  \not\in \mathsf{FV}(  \Delta_{{\mathrm{2}}}  ) $.  Thus, $ \mathsf{\operatorname{let-pat} }\, \FILLmv{w} \, \FILLsym{(}   \FILLmv{y}  \parr   -    \FILLsym{)} \, \Delta   \FILLsym{=}  \Delta$, and $\FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{(}   \mathsf{\operatorname{let-pat} }\, \FILLmv{w} \, \FILLsym{(}    -   \parr  \FILLmv{z}   \FILLsym{)} \, \Delta_{{\mathrm{2}}}   \FILLsym{)}  \FILLsym{=}   \mathsf{\operatorname{let-pat} }\, \FILLmv{w} \, \FILLsym{(}    -   \parr  \FILLmv{z}   \FILLsym{)} \, \Delta_{{\mathrm{2}}} $. It suffices to show that $\FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{(}   \mathsf{\operatorname{let-pat} }\, \FILLmv{w} \, \FILLsym{(}   \FILLmv{y}  \parr   -    \FILLsym{)} \, \Delta_{{\mathrm{1}}}   \FILLsym{)}  \FILLsym{=}   \mathsf{\operatorname{let-pat} }\, \FILLmv{w} \, \FILLsym{(}   \FILLmv{y}  \parr   -    \FILLsym{)} \, \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}} $ but this follows by distributing
+the substitution into the let-pat, and then simplifying using the fact
+that $w \neq x$.
+
+\item[Case:] secondary hypothesis: left introduction of par (second
+  case).
+The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Parl] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}          
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \vdash  \Delta_{{\mathrm{1}}} }      
+      \\
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_3}          
+      }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}  \FILLnt{C}  \vdash  \Delta_{{\mathrm{2}}} }      
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}   \FILLnt{B}  \parr  \FILLnt{C}   \vdash     \mathsf{\operatorname{let-pat} }\, \FILLmv{w} \, \FILLsym{(}   \FILLmv{y}  \parr   -    \FILLsym{)} \, \Delta_{{\mathrm{1}}}    \mid    \mathsf{\operatorname{let-pat} }\, \FILLmv{w} \, \FILLsym{(}    -   \parr  \FILLmv{z}   \FILLsym{)} \, \Delta_{{\mathrm{2}}}    }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}   \FILLnt{B}  \parr  \FILLnt{C}   \vdash   \Delta  \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{(}   \mathsf{\operatorname{let-pat} }\, \FILLmv{w} \, \FILLsym{(}   \FILLmv{y}  \parr   -    \FILLsym{)} \, \Delta_{{\mathrm{1}}}   \FILLsym{)}   \mid   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{(}   \mathsf{\operatorname{let-pat} }\, \FILLmv{w} \, \FILLsym{(}    -   \parr  \FILLmv{z}   \FILLsym{)} \, \Delta_{{\mathrm{2}}}   \FILLsym{)}     }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Parl] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}          
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \vdash  \Delta_{{\mathrm{1}}} }      
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+      \\
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_3}          
+      }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}  \FILLnt{C}  \vdash  \Delta_{{\mathrm{2}}} }      
+    }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}  \FILLnt{C}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}   \FILLnt{B}  \parr  \FILLnt{C}   \vdash     \mathsf{\operatorname{let-pat} }\, \FILLmv{w} \, \FILLsym{(}   \FILLmv{y}  \parr   -    \FILLsym{)} \, \Delta_{{\mathrm{1}}}    \mid      \mathsf{\operatorname{let-pat} }\, \FILLmv{w} \, \FILLsym{(}    -   \parr  \FILLmv{z}   \FILLsym{)} \, \Delta    \mid    \mathsf{\operatorname{let-pat} }\, \FILLmv{w} \, \FILLsym{(}    -   \parr  \FILLmv{z}   \FILLsym{)} \, \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}      }
+  \end{math}
+\end{center}
+
+Similar to the previous case.
+
+\item[Case:] secondary hypothesis: left introduction of implication
+  (first case).
+The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Impl] {
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta_{{\mathrm{1}}}  }      
+        \\
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_3}          
+        }{ \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{C}  \vdash  \Delta_{{\mathrm{2}}} }      
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{B}  \multimap   \FILLnt{C}   \vdash   \Delta_{{\mathrm{1}}}  \mid  \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{B}  \multimap   \FILLnt{C}   \vdash   \Delta  \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}}     }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Impl] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+      \\
+      \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta_{{\mathrm{1}}}  }      
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash     \Delta  \mid   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}   \FILLsym{:}  \FILLnt{B}    \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}  }
+      \\
+      \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_3}          
+        }{ \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{C}  \vdash  \Delta_{{\mathrm{2}}} }      
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{B}  \multimap   \FILLnt{C}   \vdash     \Delta  \mid   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}     \mid  \FILLsym{[}  \FILLmv{z} \,  ( \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}} )   \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  }
+  \end{math}
+\end{center}
+By inspection of the above derivations we can see that $ \FILLmv{x}  \not\in \mathsf{FV}(  \Delta_{{\mathrm{2}}}  ) $, and hence, by this fact and substitution distribution
+(Lemma~\ref{lemma:substitution_distribution}) we know 
+$\FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}}   \FILLsym{=}   \FILLsym{[}   ( \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLmv{z} )  \,  ( \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}} )   \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  =  \FILLsym{[}  \FILLmv{z} \,  ( \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}} )   \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}} $.
+
+\item[Case:] secondary hypothesis: left introduction of implication
+  (second case).
+The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Impl] {
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta_{{\mathrm{1}}}  }      
+        \\
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_3}          
+        }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{C}  \vdash  \Delta_{{\mathrm{2}}} }      
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{B}  \multimap   \FILLnt{C}   \vdash   \Delta_{{\mathrm{1}}}  \mid  \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{B}  \multimap   \FILLnt{C}   \vdash   \Delta  \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}}     }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=\tiny Series of Exchanges] {
+      $$\mprset{flushleft}
+    \inferrule* [right=Impl] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}          
+      }{ \Gamma_{{\mathrm{1}}}  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta_{{\mathrm{1}}}  }      
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+      \\
+      \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_3}          
+        }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{C}  \vdash  \Delta_{{\mathrm{2}}} }      
+      }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{C}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{B}  \multimap   \FILLnt{C}   \vdash   \Delta_{{\mathrm{1}}}  \mid     \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta   \mid   \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}     }
+  }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{B}  \multimap   \FILLnt{C}   \vdash     \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta   \mid    \Delta_{{\mathrm{1}}}  \mid   \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}      }
+  \end{math}
+\end{center}
+By inspection of the above proofs we can see that $ \FILLmv{y}  \not\in \mathsf{FV}(  \Delta  ) $. Thus, $\FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta  \FILLsym{=}  \Delta$.  The same can be said for the
+variable $\FILLmv{x}$ and context $\Delta_{{\mathrm{1}}}$, and hence, $\FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}  \FILLsym{=}  \Delta_{{\mathrm{1}}}$.
+Finally, by inspection of the above proofs $ \FILLmv{x}  \not\in \mathsf{FV}(  \FILLnt{t_{{\mathrm{1}}}}  ) $ and so
+by substitution distribution
+(Lemma~\ref{lemma:substitution_distribution}) we know $\FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}}   \FILLsym{=}  \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}$.
+
+\item[Case:] secondary hypothesis: left introduction of implication
+  (third case).
+The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Impl] {
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta_{{\mathrm{1}}}  }      
+        \\
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_3}          
+        }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \vdash  \Delta_{{\mathrm{2}}} }      
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{B}  \multimap   \FILLnt{C}   \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \vdash   \Delta_{{\mathrm{1}}}  \mid  \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{B}  \multimap   \FILLnt{C}   \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \Gamma  \vdash   \Delta  \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta_{{\mathrm{2}}}     }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=\tiny Series of Exchanges] {
+      $$\mprset{flushleft}
+    \inferrule* [right=Impl] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}          
+      }{ \Gamma_{{\mathrm{1}}}  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{B}  \mid  \Delta_{{\mathrm{1}}}  }      
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+      \\
+      \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_3}          
+        }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \vdash  \Delta_{{\mathrm{2}}} }      
+      }{ \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \Gamma  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{B}  \multimap   \FILLnt{C}   \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \Gamma  \vdash   \Delta_{{\mathrm{1}}}  \mid     \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta   \mid   \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}     }
+  }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{B}  \multimap   \FILLnt{C}   \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \FILLsym{,}  \Gamma  \vdash     \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \Delta   \mid    \Delta_{{\mathrm{1}}}  \mid   \FILLsym{[}  \FILLmv{z} \, \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}      }
+  \end{math}
+\end{center}
+Similar to the previous case.
+
+\item[Case:] secondary hypothesis: right introduction of implication.
+The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_1}          
+      }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+      \\
+      $$\mprset{flushleft}
+      \inferrule* [right=Impr] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+          \,
+        }{\pi_2}          
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta_{{\mathrm{1}}}  }      
+      \\
+       \FILLmv{y}  \not\in \mathsf{FV}(  \Delta_{{\mathrm{1}}}  ) 
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash    \lambda  \FILLmv{y}  .  \FILLnt{t_{{\mathrm{1}}}}   \FILLsym{:}   \FILLnt{B}  \multimap   \FILLnt{C}   \mid  \Delta_{{\mathrm{1}}}  }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   (  \lambda  \FILLmv{y}  .  \FILLnt{t_{{\mathrm{1}}}}  )    \FILLsym{:}   \FILLnt{B}  \multimap   \FILLnt{C}   \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}    }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Impr] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+        }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+        \\        
+          \inferrule* [right=] {
+            \inferrule* [right=,vdots=1.5em,fraction=\,] {
+              \,
+            }{\pi_2}          
+          }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \vdash   \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{C}  \mid  \Delta_{{\mathrm{1}}}  }      
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \vdash   \Delta  \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}   \FILLsym{:}  \FILLnt{C}  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}    }
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid      \lambda  \FILLmv{y}  .  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}    \FILLsym{:}   \FILLnt{B}  \multimap   \FILLnt{C}   \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}    }
+    \end{math}
+  \end{center}
+Clearly, $\FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   (  \lambda  \FILLmv{y}  .  \FILLnt{t_{{\mathrm{1}}}}  )   \FILLsym{=}   \lambda  \FILLmv{y}  .  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}} $.
+
+\item[Case:] secondary hypothesis: left introduction of tensor unit.
+The proof 
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+        }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+        \\
+        $$\mprset{flushleft}
+        \inferrule* [right=Il] {
+          \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \Delta_{{\mathrm{1}}} }      
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}   \top   \vdash   \mathsf{let}\, \FILLmv{y} \,\mathsf{be}\,  *  \,\mathsf{in}\, \Delta_{{\mathrm{1}}}  }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}   \top   \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{(}   \mathsf{let}\, \FILLmv{y} \,\mathsf{be}\,  *  \,\mathsf{in}\, \Delta_{{\mathrm{1}}}   \FILLsym{)}  }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Il] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+        }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+        \\
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \Delta_{{\mathrm{1}}} }      
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}  }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}   \top   \vdash     \mathsf{let}\, \FILLmv{y} \,\mathsf{be}\,  *  \,\mathsf{in}\, \Delta    \mid   \mathsf{let}\, \FILLmv{y} \,\mathsf{be}\,  *  \,\mathsf{in}\, \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   }
+  \end{math}
+\end{center}
+It suffices to show that $\Delta =  \mathsf{let}\, \FILLmv{y} \,\mathsf{be}\,  *  \,\mathsf{in}\, \Delta $ and
+$\FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{(}   \mathsf{let}\, \FILLmv{y} \,\mathsf{be}\,  *  \,\mathsf{in}\, \Delta_{{\mathrm{1}}}   \FILLsym{)} =  \mathsf{let}\, \FILLmv{y} \,\mathsf{be}\,  *  \,\mathsf{in}\, \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}} $.
+Without loss of generality suppose $\Delta = \FILLnt{t}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Delta'$.  We know
+that it must be the case that $ \FILLmv{y}  \not\in \mathsf{FV}(  \FILLnt{t}  ) $, and we know that
+$\FILLsym{[}  \FILLmv{y}  \FILLsym{/}  \FILLmv{z}  \FILLsym{]}  \FILLnt{t} = \FILLnt{t}$ when $ \FILLmv{z}  \not\in \mathsf{FV}(  \FILLnt{t}  ) $.  Then by
+$\FILLdrulename{Eq\_Eta2I}$ we have $\FILLnt{t} =  \mathsf{let}\, \FILLmv{y} \,\mathsf{be}\,  *  \,\mathsf{in}\, \FILLnt{t} $.  This
+argument can be repeated for any other term in $\Delta'$.  Thus,
+$\Delta =  \mathsf{let}\, \FILLmv{y} \,\mathsf{be}\,  *  \,\mathsf{in}\, \Delta $.  It is easy to see that
+$\FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{(}   \mathsf{let}\, \FILLmv{y} \,\mathsf{be}\,  *  \,\mathsf{in}\, \Delta_{{\mathrm{1}}}   \FILLsym{)} =  \mathsf{let}\, \FILLmv{y} \,\mathsf{be}\,  *  \,\mathsf{in}\, \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}} $ using
+the rule $\FILLdrulename{Eq\_NatI}$.
+
+\item[Case:] secondary hypothesis: right introduction of par unit.
+The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+        }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+        \\
+        $$\mprset{flushleft}
+        \inferrule* [right=Pr] {
+          \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \Delta_{{\mathrm{1}}} }      
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash    \circ   \FILLsym{:}   \perp   \mid  \Delta_{{\mathrm{1}}}  }
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   \circ    \FILLsym{:}   \perp   \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}    }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=\tiny Series of Exchanges] {
+      $$\mprset{flushleft}
+    \inferrule* [right=Pr] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+        }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+        \\
+        \inferrule* [right=] {
+          \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash  \Delta_{{\mathrm{1}}} }      
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}  }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash    \circ   \FILLsym{:}   \perp   \mid    \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}    }
+  }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid     \circ   \FILLsym{:}   \perp   \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}    }
+  \end{math}
+\end{center}
+Clearly, $\FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   \circ   \FILLsym{=}   \circ $.
+
+\item[Case:] secondary hypothesis: left introduction of exchange.
+The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+        }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+        \\
+        $$\mprset{flushleft}
+        \inferrule* [right=Exl] {
+          \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash  \Delta_{{\mathrm{1}}} }      
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash  \Delta_{{\mathrm{1}}} }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}  }
+  \end{math}
+\end{center}
+transforms into the proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Exl] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+        }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+        \\
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash  \Delta_{{\mathrm{1}}} }      
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}  }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{C}  \FILLsym{,}  \FILLmv{w}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Gamma_{{\mathrm{3}}}  \vdash   \Delta  \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}  }
+  \end{math}
+\end{center}
+Clearly, all terms are equivalent.
+
+\item[Case:] secondary hypothesis: right introduction of exchange.
+The proof
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Cut] {
+      \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+        }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+        \\
+        $$\mprset{flushleft}
+        \inferrule* [right=Exr] {
+          \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta_{{\mathrm{1}}}  \mid      \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{B}  \mid  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{C}    \mid  \Delta_{{\mathrm{2}}}    }      
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta_{{\mathrm{1}}}  \mid      \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{C}  \mid  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{B}    \mid  \Delta_{{\mathrm{2}}}    }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   \mid       \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{:}  \FILLnt{C}  \mid   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}   \FILLsym{:}  \FILLnt{B}    \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}      }
+  \end{math}
+\end{center}
+is transformed into 
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=Exr] {
+      $$\mprset{flushleft}
+      \inferrule* [right=Cut] {
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_1}          
+        }{ \Gamma  \vdash   \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \mid  \Delta  }      
+        \\
+        \inferrule* [right=] {
+        \inferrule* [right=,vdots=1.5em,fraction=\,] {
+            \,
+          }{\pi_2}          
+        }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta_{{\mathrm{1}}}  \mid      \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{B}  \mid  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{:}  \FILLnt{C}    \mid  \Delta_{{\mathrm{2}}}    }      
+      }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   \mid       \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}   \FILLsym{:}  \FILLnt{B}  \mid   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{:}  \FILLnt{C}    \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}      }
+    }{ \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma  \FILLsym{,}  \Gamma_{{\mathrm{2}}}  \vdash   \Delta  \mid     \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}   \mid       \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}   \FILLsym{:}  \FILLnt{C}  \mid   \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{1}}}}   \FILLsym{:}  \FILLnt{B}    \mid  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}      }
+  \end{math}
+\end{center}
+Clearly, all terms are equivalent.
+  \end{itemize}
+   \end{report}

@@ -1,0 +1,60 @@
+\begin{report}
+  Now we show that show that $\dial_!$ is cartesian.  Notice that
+  $\dial_!$ is a subcategory of $\dial$, and there is a functor $J :
+  \dial \to \dial_!$ which is defined equivalently to the endofunctor
+  $!$ from the proof of Lemma~\ref{lemma:ddial_is_a_linear_category}.
+  In fact, $\dial_!$ is the co-Kleisli category with objects free
+  !-coalgebras and is cartesian closed \cite{dePaiva:1987}.  However,
+  we only need the fact that it is cartesian.
+  \begin{itemize}
+  \item Suppose $A = (U , X , \alpha)$ and $B = (V , Y , \beta)$ are
+    objects of $\dial$. Then we define $A \times B = (U \times V, (X +
+    Y), \alpha \times \beta)$, where $((u , v), i) \in \alpha \times
+    \beta$ iff when $i \in X$, then $(u , i) \in \alpha$, otherwise
+    when $i \in Y$, then $(v , i) \in \beta$.  Now the cartesian
+    product in $\dial_!$ is defined as $J(A \times B)$.
+
+  \item The terminal object in $\dial$ is defined by $(\top, \perp,
+    \alpha_\top)$ where $\top$ and $\perp$ are the terminal and
+    initial objects in $\sets$ respectively, and $(x , y) \in
+    \alpha_\top$ iff true. The proof that this is terminal, and is the
+    unit to the cartesian product can be found in the formal
+    development.
+    
+  \item Suppose $A = (U , X , \alpha)$, $B = (V , Y , \beta)$, and $C
+    = (W , Z , \gamma)$ are objects of $\dial$.  Then we define
+    the following morphisms -- the proofs of the morphism conditions
+    have been omitted, but the details can be found in the formal
+    development:
+    \begin{itemize}
+    \item Define the first projection by $(\pi_1, F_{\pi_1}) : J(A
+      \times B) \to J(A)$, where $\pi_1$ is the first projection in
+      $\sets$, and $F_{\pi_1}$ takes a function $f : U \to X^*$ and a
+      pair $(u , v) \in U \times V$, and returns the sequence $(X +
+      Y)^*$ by mapping the first coproduct injection over $f(u ,v)$.
+
+    \item The second projection is defined similar to the first,
+      $(\pi_2, F_{\pi_2}) : J(A \times B) \to J(B)$, but $F_{\pi_2}$ maps
+      the second projection instead of the first.
+
+    \item Suppose $j_1 = (f , F) : J(C) \to J(A)$ and $j_2 = (g , G) : J(C) \to
+      J(B)$ are morphisms in $\dial_!$.  Then we define the morphism
+      $(j_1, j_2) = ((f,g),\lambda j.\lambda w.F(h_1(j),w) \circ F(h_2(j),w))
+      : J(C) \to J(A \times B)$, where $(f,g) = \lambda w.(f(w),g(w))$ is the unique morphism
+      from the cartesian structure of $\sets$, and
+      $h_1(j) = \lambda u.\iota_1(j(u,g(w)))$ and
+      $h_2(j) = \lambda u.\iota_2(j(u,f(w)))$.
+      Notice that $F$ is defined in terms of unique morphisms, and thus,
+      $(j_1,j_2)$ is unique.
+    \end{itemize}
+    All of the previous morphisms satisfy the usual diagram for
+    cartesian products.    
+  \end{itemize}
+
+  By Lemma~\ref{corollary:dial-FLNL} we know $\dial$ is a full LNL
+  model, and thus, there is an adjunction between $\dial$ and
+  $\dial_!$ where the left-adjoint is the forgetful functor $G :
+  \dial_! \to \dial$, and the right adjoint is the free functor $J :
+  \dial \to \dial_!$.  Therefore, $\dial$ is a model of full tensorial
+  logic, as expected.
+  \end{report}
