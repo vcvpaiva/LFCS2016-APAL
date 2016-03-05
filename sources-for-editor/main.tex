@@ -87,23 +87,24 @@
   not possible to incorporate all of the linear connectives,
   e.g. tensor, par, and implication, into an intuitionistic linear
   logic. It was shown that their formalization of FILL did not enjoy
-  cut-elimination by Bierman, but Bellin proposed a small change to the
-  definition of FILL allowing to regain cut-elimination, using proofnets.  
-  In this note we adopt Bellin's proposed change and give a direct proof of
-  cut-elimination for the sequent calculus.  
-  Then we show that a categorical model of FILL in
-  the basic dialectica category is also a LinearNonLinear (LNL)
-  model of Benton and a
-  full tensor model of Melli\`es' and Tabareau's tensorial logic.
-  Lastly, we give a double-negation translation of linear logic into
-  FILL that explicitly uses par in addition to tensor.
+  cut-elimination by Bierman, but Bellin proposed a small change to
+  the definition of FILL allowing to regain cut-elimination, using
+  proofnets.  In this note we adopt Bellin's proposed change and give
+  a direct proof of cut-elimination for the sequent calculus.  Then we
+  show that a categorical model of FILL in the basic dialectica
+  category is also a LinearNonLinear (LNL) model of Benton and a full
+  tensor model of Melli\`es' and Tabareau's tensorial logic.  We give
+  a double-negation translation of linear logic into FILL that
+  explicitly uses par in addition to tensor.  Lastly, we introduce a
+  new library to be used in the proof assistant Agda for proving
+  properties of dialectica categories.
 \end{abstract}
 
 \begin{keyword}
 full intuitionistic linear logic \sep classical linear logic \sep
 dialectica category \sep cut-elimination \sep tensorial logic \sep
 linear/non-linear models \sep categorical model \sep proof theory \sep
-par
+par \sep formal proof \sep proof assistants
 \end{keyword}
 
 \maketitle
@@ -251,7 +252,12 @@ Section~\ref{sec:full_lnl_models} and Section~\ref{sec:tensor_logic}
 double-negation translation in
 Section~\ref{subsec:a_negative_translation_of_linear_logic_into_fill_using_tensorial_negation}
 -- in the Agda proof assistant\footnote{The Agda development can be
-  found at \url{https://github.com/heades/cut-fill-agda}.}.
+  found at \url{https://github.com/heades/cut-fill-agda}.}.  We
+extracted a general library for proving properties of dialectica
+categories and introduce it in
+Section~\ref{sec:the_agda_formalization:_a_library_for_studying_dialectica_categories}
+along with generalizations of dialectica categories using the notion
+of a lineale.
 
 \textbf{Related Work.} The first formalization of FILL with
 cut-elimination was due to Bra\"uner and de Paiva \cite{Brauner:1998}.
@@ -1161,7 +1167,7 @@ we recall a generalization of the dialectica categories from de
 Paiva's thesis \cite{dePaiva:1988}.
 
 \subsection{Lineales and Dialectica Spaces}
-\label{subsec:dialectica_spaces}
+\label{subsec:lineales_dialectica_spaces}
 As we introduced in Definition~\ref{def:dial2sets} the objects of
 $\dial$ are triples $(U, X, \alpha)$ where $\alpha \subseteq U \times
 X$.  Equivalently, the relation $\alpha$ can be taken as a function
