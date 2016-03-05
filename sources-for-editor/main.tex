@@ -58,6 +58,8 @@
 \newcommand{\homs}[3]{\mathsf{Hom}_{\cat{#1}}(#2,#3)}
 \newcommand{\limp}[0]{\multimap}
 \newcommand{\dial}[0]{\mathsf{Dial_2}(\mathsf{Sets})}
+\newcommand{\dialSets}[1]{\mathsf{Dial_{#1}}(\mathsf{Sets})}
+\newcommand{\dcSets}[1]{\mathsf{DC_{#1}}(\mathsf{Sets})}
 \newcommand{\sets}[0]{\mathsf{Sets}}
 \newcommand{\obj}[1]{\mathsf{Obj}(#1)}
 \newcommand{\mor}[1]{\mathsf{Mor(#1)}}
@@ -98,10 +100,10 @@
 \end{abstract}
 
 \begin{keyword}
-full intuitionistic linear logic \sep classical linear
-  logic \sep dialectica category \sep cut-elimination \sep
-  tensorial logic \sep linear/non-linear models \sep categorical
-  model \sep proof theory \sep par
+full intuitionistic linear logic \sep classical linear logic \sep
+dialectica category \sep cut-elimination \sep tensorial logic \sep
+linear/non-linear models \sep categorical model \sep proof theory \sep
+par
 \end{keyword}
 
 \maketitle
@@ -1141,6 +1143,189 @@ the statement of the result.
 
 % section tensorial_logic (end)
 
+\section{The Agda Formalization: A Library for Studying Dialectica Categories}
+\label{sec:the_agda_formalization:_a_library_for_studying_dialectica_categories}
+
+The majority of the results from the last few sections have been about
+the category $\dial$ which, as we have said, corresponds to the
+dialectica category $\mathsf{GC}$ from de Paiva's thesis
+\cite{dePaiva:1988}.  All of those results have been formalized in the
+proof assistant Agda\footnote{More about Agda can be found here
+  \url{http://wiki.portal.chalmers.se/agda/pmwiki.php}, and the Agda
+  development associated with this article can be found at
+  \url{https://github.com/heades/cut-fill-agda}.}.  This formalization
+is based on a general library for proving properties of dialectica
+categories in sets that we believe may be of interest to the wider
+logical community.  This section introduces this library, but before
+we recall a generalization of the dialectica categories from de
+Paiva's thesis \cite{dePaiva:1988}.
+
+\subsection{Lineales and Dialectica Spaces}
+\label{subsec:dialectica_spaces}
+As we introduced in Definition~\ref{def:dial2sets} the objects of
+$\dial$ are triples $(U, X, \alpha)$ where $\alpha \subseteq U \times
+X$.  Equivalently, the relation $\alpha$ can be taken as a function
+$\alpha : U \times X \to \mathsf{2}$, where $\mathsf{2} =
+\{0,1\}$. Hyland and de Paiva showed that these relations can be
+generalized to maps of the form $\alpha : U \times X \to L$ where the
+set $L$ is a lineale \cite{Hyland:1991}, but here we give a slightly
+more general definition.
+
+\subsubsection{Lineales}
+\label{subsec:lineales}
+A lineale is essentially a symmetric monoidal category in the category
+of prosets -- preorder sets -- which we call a monoidal proset.
+\begin{definition}
+  \label{def:monoidal-proset}
+  A \textbf{monoidal proset} is a proset, $(L, \leq)$, with a given
+  symmetric monoidal structure $(L, \circ, e)$.  That is, a set $L$
+  with a given binary relation $\leq : L \times L \to L$ satisfying
+  the following:
+  \begin{itemize}
+  \item (reflexivity) $a \leq a$ for any $a \in L$
+  \item (transitivity) If $a \leq b$ and $b \leq c$, then $a \leq c$
+  \end{itemize}
+  together with a monoidal structure $(\circ, e)$ consisting of a
+  binary operation, called multiplication, $\circ : L \times L \to L$
+  and a distinguished element $e \in L$ called the unit such that the
+  following hold:
+  \begin{itemize}
+  \item (associativity) $(a \circ b) \circ c = a \circ (b \circ c)$
+  \item (identity) $a \circ e = a = e \circ a$
+  \item (symmetry) $a \circ b = b \circ a$
+  \end{itemize}
+  Finally, the structures must be compatible, that is, if $a \leq b$,
+  then $a \circ c \leq b \circ c$ for any $c \in L$.
+\end{definition}
+Now a lineale can be seen as essentially a closed symmetric monoidal
+category in the category prosets.
+\begin{definition}
+  \label{def:lineale}
+  A \textbf{lineale} is a monoidal proset, $(L, \leq, \circ, e)$, with
+  a given binary operation, called implication, $\limp : L \times L
+  \to L$ such that the following hold:
+  \begin{itemize}
+  \item (relative complement) $a \circ (a \limp b) \leq b$ 
+  \item (adjunction) If $a \circ y \leq b$, then $y \leq a \limp b$
+  \end{itemize}
+\end{definition}
+The set $\mathsf{2}$ is an example of a lineale where the order is the
+usual one, the multiplication is boolean conjunction, and the
+implication is boolean implication.  This example is not that
+interesting, because $\mathsf{2}$ is a boolean algebra.  An example of
+a proper lineale can be given using the three element set
+$\{0,\frac{1}{2}, 1\}$ and the details -- along with some other
+examples -- can be found in the Agda
+development\footnote{\url{https://github.com/heades/dialectica-spaces/blob/master/concrete-lineales.agda\#L123}},
+but one must be careful when defining lineales, because it is possible
+to instead define Heyting algebras, and hence, become nonlinear.
+
+The definition of lineales given here is a slight generalization over
+the original definition given by Hyland and de Paiva -- see Definition
+1 of \cite{Hyland:1991}.  They base lineales on posets instead of
+prosets, but our formalization given here shows that anti-symmetry can
+be safely dropped.  In fact, the formalization we present in the next
+section is nearly a complete formal verification of all of their
+results.
+% subsubsection lineales (end)
+
+\subsubsection{Dialectica Spaces}
+\label{subsec:dialectica_spaces}
+Dialectica categories come in two flavors: one called $\mathsf{GC}$
+and one called $\mathsf{DC}$.  The former specialized to sets where
+the third coordinate of the objects are binary relations corresponds
+to $\dial$.  In this section we specialize both GC and DC to sets
+using lineales whose objects we call \textbf{dialectica spaces}.
+
+\textbf{The category $\dialSets{L}$}.  This category of dialectica
+spaces is defined similarly to the definition given in
+Definition~\ref{def:dial2sets}.  The following definition is due to
+Hyland and de Paiva \cite{Hyland:1991}.
+\begin{definition}
+  \label{def:dial-space-dialSets}
+  Suppose we are given a lineale $(L, \leq, \circ, e, \limp_L)$. Then
+  the dialectica space $\dialSets{L}$ is a category that
+  consists of
+  \begin{itemize}
+  \item objects, or dialectica spaces, that are triples, $A =
+    (U,X,\alpha)$, where $U$ and $X$ are sets, and $\alpha : U \times
+    X \to L$ is a function, and
+  \item maps that are pairs $(f,F) : (U,X,\alpha) \to (V,Y,\beta)$
+    where $f : U \to V$ and $F : Y \to X$ such that
+    \begin{itemize}
+    \item For any $u \in U$ and $y \in Y$, $\alpha(u,F(y)) \leq \beta(f(u),y)$.
+    \end{itemize}
+  \end{itemize}
+\end{definition}
+The category $\dial$ is simply an instantiation of the previous
+category with the concrete lineale $\mathsf{2}$.
+
+\textbf{The category $\dcSets{L}$}.  The dialectica
+category $\mathsf{DC}$ was first proposed in de Paiva's thesis
+\cite{dePaiva:1988}.  It corresponds to a model of single-conclusion
+intuitionistic linear logic without par.  We can restrict its
+definition to sets just as we did for the category $\mathsf{GC}$.
+\begin{definition}
+  \label{def:dial-space-dcSets}
+  Suppose we are given a lineale $(L, \leq, \circ, e, \limp_L)$. Then
+  the dialectica space $\dcSets{L}$ is a category that
+  consists of
+  \begin{itemize}
+  \item objects, or dialectica spaces, that are triples, $A =
+    (U,X,\alpha)$, where $U$ and $X$ are sets, and $\alpha : U \times
+    X \to L$ is a function, and
+  \item maps that are pairs $(f,F) : (U,X,\alpha) \to (V,Y,\beta)$
+    where $f : U \to V$ and $F : U \times Y \to X$ such that
+    \begin{itemize}
+    \item For any $u \in U$ and $y \in Y$, $\alpha(u,F(u, y)) \leq \beta(f(u),y)$.
+    \end{itemize}
+  \end{itemize}
+\end{definition}
+The differences between the two categories can be seen in the
+definition of morphisms between dialectica spaces. In $\dialSets{L}$
+the second coordinate is the map $F : Y \to X$, but in $\dcSets{L}$
+this map is $F : U \times Y \to X$.  This small modification is enough
+to prevent the ability to define a second monoidal structure to model
+the linear connective par.
+% subsubsection dialectica_spaces (end)
+
+The generalizations to lineales may seem academic, but they do have
+applications in concurrency.  de Paiva showed that the dialectica
+category $\dial$ has a lot in common with Chu construct on sets and on
+$\mathsf{2}$ \cite{dePaiva:2006}.  Pratt and Gupta showed that Chu
+spaces can be seen as a model of concurrency, but in classical linear
+logic, while dialectica spaces should provide a model of currency in
+intuitionistic linear logic.
+% subsection dialectica_spaces (end)
+
+\subsection{The Dialectica Space Agda Library}
+\label{subsec:the_dialectica_space_agda_library}
+Proving properties about constructions on dialectica spaces can be
+quite involved due to the large number of nested definitions.  This
+complexity can be seen in the proofs of
+Lemma~\ref{lemma:ddial_is_a_linear_category},
+Lemma~\ref{lemma:dial-tensorial}, and
+Lemma~\ref{lemma:full-tensorial-logic}.  One of the many powers of
+proof assistants like Agda is their ability to simplify set theoretic
+based definitions automatically within goals exposing the minimal goal
+within.  This greatly simplifies working with dialectica spaces.  In
+fact, the developments here actually show that proving properties
+about dialectica spaces is actually easier in a proof assistant than
+by hand, and with a greater confidence that the proofs are correct.
+
+We extracted a general library for working with dialectica spaces from
+our formalization of the results discussed in this article. The
+library itself is hosted on Github and can be found at the address
+\url{https://github.com/heades/dialectica-spaces}.  It consists of the
+definition of lineales, \verb!lineale.agda!, several definitions of
+example concrete lineales, \verb!concrete-lineales.agda!, the general
+definition of $\dialSets{L}$, \verb!DialSets.agda!, and the general
+definition of $\dcSets{L}$, \verb!DCSets.agda!. The definitions of the
+latter two are parametric in the choice of lineale.  The formalization
+of the results of this paper can be seen as an example of how to use
+this library to prove properties of dialectica spaces.
+% subsection the_dialectica_space_agda_library (end)
+% section the_agda_formalization:_a_library_for_studying_dialectica_categories (end)
 
 \section{Conclusion and Future Work}
 \label{sec:conclusion_and_future_work}
@@ -1219,19 +1404,23 @@ obtain a sound and complete semantics in Lorenzen games for FILL.
   distributive categories. J. of Pure and Applied Algebra, 114(2),
   133--173 (1997)
 
-\bibitem{dePaiva:1988} de~Paiva V.: The Dialectica Categories. PhD
-  thesis, University of Cambridge (1988)
-
 \bibitem{dePaiva:1987} de~Paiva V.: Dialectica categories. In: Gray
   .J, Scedrov A. (eds.)  CSL 1989, AMS, vol. 92, pp. 47--62 (1989)
-
-\bibitem{dePaiva:2011} de~Paiva V.: Abstract: Lorenzen games for full
-  intuitionistic linear logic. 14th International Congress of Logic,
-  Methodology and Philosophy of Science (CLMPS) (2011)
+  
+\bibitem{dePaiva:1988} de~Paiva V.: The Dialectica Categories. PhD
+  thesis, University of Cambridge (1988)
 
 \bibitem{dePaiva:2005} de~Paiva V. and Carlos L.P.: A short note on
   intuitionistic propositional logic with multiple conclusions.
   MANUSCRITO - Rev. Int. Fil., vol. 28(2), pp. 317 -- 329 (2005)
+
+\bibitem{dePaiva:2006} de~Paiva V.: Dialectica and Chu Constructions:
+  Cousins?  Theory and Applications of Categories, Vol. 17, No. 7, pp
+  127-152 (2006)
+  
+\bibitem{dePaiva:2011} de~Paiva V.: Abstract: Lorenzen games for full
+  intuitionistic linear logic. 14th International Congress of Logic,
+  Methodology and Philosophy of Science (CLMPS) (2011)
 
 \bibitem{Dragalin:1988} Dragalin. A.G.: Mathematical Intuitionism. Introduction to Proof Theory,
   Translations of Mathematical Monographs. 67, AMS (1988)
@@ -1240,6 +1429,11 @@ obtain a sound and complete semantics in Lorenzen games for FILL.
   linear logic (extended abstract). J. Annals of Pure and Applied
   Logic, 64(3), 273 -- 291 (1993)
 
+\bibitem{Hyland:1991} Hyland M., de~Paiva V.: Lineales. In "O que nos
+  faz pensar" Special number in Logic of "Cadernos do Dept. de
+  Filosofia da PUC", Pontificial Catholic University of Rio de
+  Janeiro (1991).
+  
 \bibitem{Eades:2015} Eades III H., de~Paiva V.: Compainion report:
   Multiple conclusion intuitionistic linear logic and cut elimination.
   \url{http://metatheorem.org/papers/FILL-report.pdf}.
