@@ -86,15 +86,12 @@
   Hyland and de Paiva, and went against current beliefs that it was
   not possible to incorporate all of the linear connectives,
   e.g. tensor, par, and implication, into an intuitionistic linear
-  logic. It was shown that their formalization of FILL did not enjoy
-  cut-elimination by Bierman, but Bellin proposed a small change to
-  the definition of FILL allowing to regain cut-elimination, using
+  logic. Bierman showed that their formalization of FILL did not enjoy cut-elimination as such, but Bellin proposed a small change to the definition of FILL  regaining cut-elimination and using
   proofnets.  In this note we adopt Bellin's proposed change and give
   a direct proof of cut-elimination for the sequent calculus.  Then we
   show that a categorical model of FILL in the basic dialectica
   category is also a LinearNonLinear (LNL) model of Benton and a full
-  tensor model of Melli\`es' and Tabareau's tensorial logic.  We give
-  a double-negation translation of linear logic into FILL that
+  tensor model of Melli\`es' and Tabareau's tensorial logic.  We give a double-negation translation of linear logic into FILL that
   explicitly uses par in addition to tensor.  Lastly, we introduce a
   new library to be used in the proof assistant Agda for proving
   properties of dialectica categories.
@@ -103,7 +100,7 @@
 \begin{keyword}
 full intuitionistic linear logic \sep classical linear logic \sep
 dialectica category \sep cut-elimination \sep tensorial logic \sep
-linear/non-linear models \sep categorical model \sep proof theory \sep
+%linear/non-linear models \sep categorical model \sep proof theory \sep
 par \sep formal proof \sep proof assistants
 \end{keyword}
 
@@ -119,29 +116,27 @@ gave a categorical understanding of G\"odel's Dialectica
 interpretation in terms of dialectica categories
 \cite{dePaiva:1987,dePaiva:1988}.  
 
-Dialectica categories were initially believed to be models of
+Dialectica categories were originally conceived  as models of
 intuitionistic logic, but they are actually models of intuitionistic
 linear logic, containing the linear connectives: tensor, implication,
 the additives, and the exponentials.  Further work improved de Paiva's
 models to capture both intuitionistic and classical linear logic.
 Armed with this semantic insight de Paiva gave the first formalization
-of Full Intuitionistic Linear Logic (FILL) \cite{dePaiva:1988}.  FILL
+of Full Intuitionistic Linear Logic (FILL) \cite{dePaiva:1988}. The logical system FILL
 is a sequent calculus with multiple conclusions in addition to
 multiple hypotheses.  Logics of this type go back to Gentzen's work on
 the sequent calculus for classical logic LK and for intuitionistic
 logic LJ, and Maehara's work on LJ' \cite{Maehara:1954,Takeuti:1975}.
-The sequents in these types of logics usually have the form $\Gamma
-\vdash \Delta$ where $\Gamma$ and $\Delta$ are multisets of formulas.
+The sequents in these types of logics usually have the form $\Gamma\vdash \Delta$ where $\Gamma$ and $\Delta$ are multisets of formulas.
 Sequents such as these are read as ``the conjunction of the formulas
 in $\Gamma$ imply the disjunction of the formulas in $\Delta$''.  For
 a brief, but more complete history of logics with multiple conclusions
 see the introduction to \cite{dePaiva:2005}.
 
 Gentzen showed that to obtain intuitionistic logic one could start
-with the logic LK and then place a cardinality restriction on the
-right-hand side of sequents, however, this is not the only means of
-enforcing intuitionism.  Maehara showed that in the propositional case
-one could simply place the cardinality restriction on the premise of
+with the classical logic LK and  place a cardinality restriction on the
+right-hand side of sequents, saying that only one or no formula was allowed in every inference rule. However, this is not the only means of
+enforcing intuitionism.  Maehara showed that in the propositional case one could simply place the cardinality restriction on the premise of
 the implication right rule, and leave all of the other rules of LK
 unrestricted.  This restriction is sometimes called the Dragalin
 restriction, as it appeared in his AMS textbook \cite{Dragalin:1988}.
@@ -163,12 +158,12 @@ By placing the Dragalin restriction on the previous rule we obtain:
     }{\Gamma \vdash  \FILLnt{A}  \multimap   \FILLnt{B} }
   \end{math}
 \end{center}
-de Paiva's first formalization of FILL used the Dragalin restriction,
+The first formalization of FILL used the Dragalin restriction,
 see \cite{dePaiva:1988} p. 58, but Schellinx showed that this restriction has
 the unfortunate consequence of breaking cut-elimination
 \cite{Schellinx:1991}.
 
-Later, Hyland and de Paiva gave an alternative formalization of FILL
+ Hyland and de Paiva gave an alternative formalization of FILL
 with the intention of regaining cut-elimination \cite{Hyland:1993}.  This
 new formalization lifted the Dragalin restriction by decorating
 sequents with a term assignment.  Hypotheses were assigned variables,
@@ -186,12 +181,11 @@ proposed a new implication right rule:
   \end{math}
 \end{center}
 Intuitionism is enforced in this rule by requiring that the variable
-being discharged, $x$, is not free terms annotating other conclusions.
-Unfortunately, this formalization did not enjoy cut-elimination
-either.
+being discharged, $x$, is not free in terms annotating other conclusions.
+This formalization did not enjoy cut-elimination either.
 
 Bierman was able to give a counterexample to cut-elimination
-\cite{Bierman:1996}.  As Bierman explains the problem was with the
+\cite{Bierman:1996}.  As Bierman explains the problem then was with the
 left rule for the multiplicative disjunction par.  The original rule
 was as follows:
 \begin{center}
@@ -215,9 +209,8 @@ $z$ using implication right, but after the cut is commuted past the
 left rule for par, the variable $z$ becomes free in more than one
 conclusion, and thus, can no longer be discharged.
 
-In the conclusion of Bierman's note he gives an alternate left rule
-for par that he attributes to Bellin.  This new left-rule is as
-follows:
+In the conclusion of Bierman's note he describes Bellin's  alternate left rule
+for par.  This new left-rule is as follows:
 \begin{center}
   \begin{math}
     \FILLdruleParl{}
@@ -242,7 +235,7 @@ categorical model of FILL called $\dial$, the basic dialectica
 category, is also a linear/non-linear model of Benton
 (Section~\ref{sec:full_lnl_models}) and a full tensor model of
 Melli\`es' and Tabareau's tensor logic
-(Section~\ref{sec:tensor_logic}). Finally, we give a double-negation
+(Section~\ref{sec:tensor_logic}). Then we give a double-negation
 translation of multi-conclusion classical linear logic into FILL
 (Section~\ref{subsec:a_negative_translation_of_linear_logic_into_fill_using_tensorial_negation}).
 Due to the complexities of working in $\dial$ we have formalized all
@@ -253,7 +246,9 @@ double-negation translation in
 Section~\ref{subsec:a_negative_translation_of_linear_logic_into_fill_using_tensorial_negation}
 -- in the Agda proof assistant\footnote{The Agda development can be
   found at \url{https://github.com/heades/cut-fill-agda}.}.  We
-extracted a general library for proving properties of dialectica
+%extracted 
+synthetized
+a general library for proving properties of dialectica
 categories and introduce it in
 Section~\ref{sec:the_agda_formalization:_a_library_for_studying_dialectica_categories}
 along with generalizations of dialectica categories using the notion
@@ -284,7 +279,7 @@ tracking system by erasing the terms on conclusions and then tracking
 which variable is free in which conclusion.  However, as we stated
 above a direct proof is more desirable than a relative one.
 
-de Paiva and Pereira used annotations on the sequents of LK to arrive
+The work of de Paiva and Pereira used annotations on the sequents of LK to arrive
 at full intuitionistic logic (FIL) with multiple conclusion that
 enjoys cut-elimination \cite{dePaiva:2005}. They annotate hypothesis
 with natural number indices, and conclusions with finite sets of
@@ -452,7 +447,7 @@ The inference rules for FILL are defined in Figure~\ref{def:infr}.
   \caption{Inference rules for FILL}
   \label{def:infr}
 \end{figure}
-The $\FILLdrulename{Parl}$ rule depends on the function $ \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLnt{p} \, \Delta $ which we define next.
+The par left $\FILLdrulename{Parl}$ rule depends on the function $ \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLnt{p} \, \Delta $ which we define next.
 \begin{definition}
   \label{def:let-pat-term}
   The function $ \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLnt{p} \, \FILLnt{t} $ is defined as follows:
@@ -549,7 +544,7 @@ the rules presented in \cite{Hyland:1993}.
 \section{Cut-elimination}
 \label{sec:cut-elimination}
 
-FILL can be viewed from two different angles: i. as an intuitionistic
+The system FILL can be viewed from two different angles: i. as an intuitionistic
 linear logic with par, or ii. as a restricted form of classical linear
 logic.  Thus, to prove cut-elimination of FILL one only needs to start
 with the cut-elimination procedure for intuitionistic linear logic,
@@ -598,7 +593,9 @@ We finally arrive at cut-elimination.
 \end{theorem}
 \begin{proof}
   The cut-elimination procedure given here is the standard\\
-  cut-elimination procedure for classical linear logic except the
+  %are you sure you want this \\ here? looks odd
+  cut-elimination
+  procedure for classical linear logic except that the
   cases involving the implication right rule have the FILL
   restriction. The structure of our procedure follows the structure of
   the procedure found in \cite{Mellies:2009}. Throughout this proof we
@@ -624,8 +621,8 @@ correct categorical interpretation of $!$ should involve a
 relationship between a cartesian closed category, and the model of
 intuitionistic linear logic.
 
-de Paiva gave some of the first categorical models of both classical
-and intuitionistic linear logic in her thesis \cite{dePaiva:1988}. She
+The work of de Paiva gave some of the very first categorical models for both classical
+and intuitionistic linear logic in the thesis \cite{dePaiva:1988}. She
 showed that a particular dialectica category called $\dial$ is a model
 of FILL where $!$ is interpreted as a comonad which produces natural
 comonoids, see page 76 of \cite{dePaiva:1988}.
@@ -652,15 +649,20 @@ categories called $GC$ over a base category $C$, see page 41 of
 \cite{dePaiva:1988}.  The category $\dial$ defined above can be seen
 as an instantiation of $GC$ by setting $C$ to be the category $\sets$
 of sets and functions between them.  This model is a non-trivial model
-(all four units of the multiplicative and additive disjunction are
+(all four units of the multiplicative and additive conjunction and disjunction are
 different objects in the category), and does not model classical
 logic; see \cite{dePaiva:1988} page 58.
 
 Seely gave a different, syntactic categorical model that confirmed
 that the of-course exponential should be modeled by a comonad
 \cite{Seely:1989}.  However, Seely's model turned out to be unsound,
-as pointed out by Bierman \cite{Bierman:1994}.  This then prompted
-Bierman, Hyland, de Paiva, and Benton to define another categorical
+as pointed out by Bierman \cite{Bierman:1994}.  This 
+%then prompted
+was noticed when
+%this is back-to-front here
+Benton, Bierman,  de Paiva, and Hyland,  
+%to define 
+worked out another categorical
 model called linear categories (Definition~\ref{def:linear-cat}) that
 are sound, and also model $!$ using a monoidal comonad
 \cite{Bierman:1994}.  
@@ -736,12 +738,25 @@ from Benton \cite{Benton:1994}:
   Eilenberg-Moore category $\cat{L}^!$ whose objects are exponentiable
   coalgebras denoted $\mathsf{Exp}(\cat{L}^!)$.  He shows that
   this subcategory is cartesian closed, and contains the (co)Kleisli
-  category, $\cat{L}_!$, Lemma~11 on page 23 of \cite{Benton:1994}.
+  category, $\cat{L}_!$, see Lemma~11 on page 23 of \cite{Benton:1994}.
   The required adjunction
   $F : \mathsf{Exp}(\cat{L}^!) \to L : G$ can be defined using the
   adjunct functors $F(A,h_A) = A$ and $G(A) = (!A,\delta_A)$, see
   lemmata 13 - 16 of \cite{Benton:1994}.
 \end{proof}
+While this theorem is totally satisfactory for our goals in this paper, one should perhaps remark that it does not answer the harder question of which kind of morphisms should one consider between models of Linear Logic. A fuller discussion can be found in %\cite{Maietti:2005}.
+\iffalse
+@article{Maietti:2005,
+  title={Relating categorical semantics for intuitionistic linear logic},
+  author={Maietti, Maria Emilia and Maneggia, Paola and De Paiva, Valeria and Ritter, Eike},
+  journal={Applied Categorical Structures},
+  volume={13},
+  number={1},
+  pages={1--36},
+  year={2005},
+  publisher={Kluwer Academic Publishers}
+}
+\fi
 
 Next we show that the category $\dial$ is a full version of a linear
 category. First, we extend the definitions of linear categories and
@@ -755,7 +770,7 @@ model par and its unit.
   distribution natural transformations $\mathsf{dist}_1 : A \otimes (B
   \parr C) \to (A \otimes B) \parr C$ and $\mathsf{dist}_2 : (A \parr
   B) \otimes C \to A \parr (B \otimes C)$.  The distributors must
-  satisfy several coherence conditions which can all be found in
+  satisfy several coherence conditions which can  be found in
   \cite{Cockett:1997}.
 \end{definition}
 \begin{definition}
@@ -772,9 +787,13 @@ that $\dial$ is a full LNL model. In order for this to work we
 need to know that $\dial$ has a symmetric \textit{monoidal} comonad $(!,
 \epsilon, \delta, m_{A,B}, m_I)$.  At the time of de Paiva's
 thesis it was not known that the comonad modeling the of-course
-exponential needed to be monoidal.  We were able to show that the maps
-$m_{A,B}$ and $m_I$ exist in the more general setting of dialectica
-categories, and thus, these maps exist in $\dial$. Intuitively, given
+modality needed to be \textit{monoidal}.  
+
+We  show that the  monoidal maps
+$m_{A,B}$ and $m_I$ exist in the  general setting of dialectica
+categories, and thus, these maps exist in $\dial$. 
+%need a bit more here?did you define the comonad ! yet?
+Intuitively, given
 two objects $A = (X,U,\alpha)$ and $B = (V,Y,\beta)$ of $\dial$ the
 map $m_{A,B}$ is defined as the pair $(\id_{U \times V},F)$, where $F
 = (F_1,F_2)$, $F_1 : (U \times V) \Rightarrow (V \Rightarrow X)^* \to
@@ -797,7 +816,7 @@ We can now show that the following holds.
     we must show that $\dial$ is a linear category.  The majority of
     the linear structure of $\dial$ is in de Paiva's thesis
     \cite{dePaiva:1988}.  We had to extend her definitions to show
-    that the comonad $(!A,\delta,\epsilon)$ is monoidal, however, this
+    that the comonad $(!A,\delta,\epsilon)$ is monoidal. However, this extension
     is straightforward.
 
     After showing that $\dial$ is a linear category one must show that
@@ -852,17 +871,19 @@ is indeed sound and complete as a LNL model too.
 \section{Tensorial Logic}
 \label{sec:tensor_logic}
 
-Melli\`es and Tabareau introduced tensorial logic as a means of
+Melli\`es and Tabareau introduced tensorial logic \cite{Mellies:2008} as a means of
 generalizing linear logic to a theory of tensor and a non-involutive
 negation called tensorial negation.  That is, instead of an
 isomorphism $A = \lnot\lnot A$ we have only a natural transformation
-$A \to \lnot\lnot A$ \cite{Mellies:2008}.  Tensorial logic makes the
+$A \to \lnot\lnot A$, just as one does in FILL.  Tensorial logic makes the
 claim that tensor and tensorial negation are more fundamental than
-tensor and negation defined via implication.  This is at odds with
-FILL where implication is considered to be fundamental.  In this
+tensor and negation defined via implication into false, as in FILL.  This is at odds with
+FILL where implication is considered  fundamental. 
+
+In this
 section we show that multiplicative tensorial logic can be modeled by
 $\dial$ (Lemma~\ref{lemma:dial-tensorial}) by showing that tensorial
-negation arises as a simple property of the implication in any SMCC
+negation arises as a simple property of the implication in any symmetric monoidal closed category
 (Lemma~\ref{lemma:monoidal-fact1}).  While this is expected (after all
 negation being defined in terms of implication into absurdity is one
 of the staples of intuitionism) we think it bolsters our claim that
@@ -898,7 +919,7 @@ category with a tensorial negation.
   \]
 \end{definition}
 The most basic form of tensorial logic is called multiplicative tensorial
-logic and only consists of tensor and a tensorial negation.  The model
+logic and only consists of a tensor and a tensorial negation.  The model
 of multiplicative tensorial logic is called a dialogue category.
 \begin{definition}
   \label{def:dialogue-cat}
@@ -906,7 +927,7 @@ of multiplicative tensorial logic is called a dialogue category.
   equipped with a tensorial negation.
 \end{definition}
 
-At this point we show that tensorial negation arises as a simple
+We show that tensorial negation arises as a simple
 property of implication, as is traditional.
 \begin{lemma}
   \label{lemma:monoidal-fact1}
@@ -975,9 +996,9 @@ definition of tensorial negation.
   $\dial$ is a model of multiplicative tensorial logic.
 \end{lemma}
 \begin{proof}
-  We have already shown $\dial$ to be a model of FILL, and thus, has a
-  SMCC structure as well as the negation functor, and thus, by
-  Lemma~\ref{lemma:monoidal-fact1} has a tensorial
+  We have already shown $\dial$ to be a model of FILL, and thus, it has a
+  symmetric monoidl closed structure as well as the negation functor, and thus, by
+  Lemma~\ref{lemma:monoidal-fact1} it has a tensorial
   negation\footnote{We give a full proof in the formalization see the
     file
     \url{https://github.com/heades/cut-fill-agda/blob/master/Tensorial.agda}.}.
@@ -1091,7 +1112,7 @@ source logical system.
   \label{fig:LL}
 \end{figure}
 
-The following definition defines a translation of linear logic formulas into FILL formulas.
+The following definition provides a translation of linear logic formulas into FILL formulas.
 \begin{definition}
   \label{def:ll-to-fill}
   The following is the double-negation translation of linear logic
@@ -1149,7 +1170,7 @@ the statement of the result.
 
 % section tensorial_logic (end)
 
-\section{The Agda Formalization: A Library for Studying Dialectica Categories}
+\section{Agda Formalization: A Library for Dialectica Categories}
 \label{sec:the_agda_formalization:_a_library_for_studying_dialectica_categories}
 
 The majority of the results from the last few sections have been about
@@ -1161,8 +1182,7 @@ proof assistant Agda\footnote{More about Agda can be found here
   development associated with this article can be found at
   \url{https://github.com/heades/cut-fill-agda}.}.  This formalization
 is based on a general library for proving properties of dialectica
-categories in sets that we believe may be of interest to the wider
-logical community.  This section introduces this library, but before
+categories in sets that we believe may be of interest to the wider community.  This section introduces this library, but before
 we recall a generalization of the dialectica categories from de
 Paiva's thesis \cite{dePaiva:1988}.
 
@@ -1179,7 +1199,7 @@ more general definition.
 
 \subsubsection{Lineales}
 \label{subsec:lineales}
-A lineale is essentially a symmetric monoidal category in the category
+A lineale is essentially a symmetric monoidal closed category in the category
 of prosets -- preorder sets -- which we call a monoidal proset.
 \begin{definition}
   \label{def:monoidal-proset}
@@ -1203,7 +1223,7 @@ of prosets -- preorder sets -- which we call a monoidal proset.
   Finally, the structures must be compatible, that is, if $a \leq b$,
   then $a \circ c \leq b \circ c$ for any $c \in L$.
 \end{definition}
-Now a lineale can be seen as essentially a closed symmetric monoidal
+Now a lineale can be seen as essentially a  symmetric monoidal closed
 category in the category prosets.
 \begin{definition}
   \label{def:lineale}
@@ -1229,7 +1249,7 @@ to instead define Heyting algebras, and hence, become nonlinear.
 The definition of lineales given here is a slight generalization over
 the original definition given by Hyland and de Paiva -- see Definition
 1 of \cite{Hyland:1991}.  They base lineales on posets instead of
-prosets, but our formalization given here shows that anti-symmetry can
+prosets, but the formalization given here shows that anti-symmetry can
 be safely dropped.  In fact, the formalization we present in the next
 section is nearly a complete formal verification of all of their
 results.
@@ -1290,17 +1310,16 @@ definition to sets just as we did for the category $\mathsf{GC}$.
 The differences between the two categories can be seen in the
 definition of morphisms between dialectica spaces. In $\dialSets{L}$
 the second coordinate is the map $F : Y \to X$, but in $\dcSets{L}$
-this map is $F : U \times Y \to X$.  This small modification is enough
-to prevent the ability to define a second monoidal structure to model
-the linear connective par.
+this map is $F : U \times Y \to X$.  The difference in the definition of morphims may seem small, but  while the modification prevents the definition of a second monoidal structure  modeling
+the  connective par in the category $\dcSets{2}$, it is  this category that has a free comonoid structure, the only non merely syntactic example in the literature, we believe.
 % subsubsection dialectica_spaces (end)
 
-The generalizations to lineales may seem academic, but they do have
-applications in concurrency.  de Paiva showed that the dialectica
-category $\dial$ has a lot in common with Chu construct on sets and on
+The generalizations to lineales may seem academic, but they do have applications in concurrency.  %de Paiva showed that 
+The dialectica
+category $\dial$ shares many  of the properties of Chu spaces  on sets and on
 $\mathsf{2}$ \cite{dePaiva:2006}.  Pratt and Gupta showed that Chu
 spaces can be seen as a model of concurrency, but in classical linear
-logic, while dialectica spaces should provide a model of currency in
+logic, while dialectica spaces should provide a model of concurrency in full
 intuitionistic linear logic.
 % subsection dialectica_spaces (end)
 
@@ -1333,25 +1352,27 @@ this library to prove properties of dialectica spaces.
 % subsection the_dialectica_space_agda_library (end)
 % section the_agda_formalization:_a_library_for_studying_dialectica_categories (end)
 
-\section{Conclusion and Future Work}
+\section{Conclusions
+%and Future Work
+}
 \label{sec:conclusion_and_future_work}
 
-We first recalled the definition of full intuitionistic linear logic
-using the left rule for par proposed by Bellin in
-Section~\ref{sec:full_intuitionistic_linear_logic_(fill)}, but using
-only proof-theoretic methods, no proof nets.  We then directly proved
-cut-elimination for FILL in Section~\ref{sec:cut-elimination} by
+We first recalled the definition of full intuitionistic linear logic using the  par rule proposed by Bellin 
+%in Section~\ref{sec:full_intuitionistic_linear_logic_(fill)}, 
+but using
+%only proof-theoretic methods,
+%proofnets are proof-theoretical
+no proof nets.  We then directly proved cut-elimination for FILL in Section~\ref{sec:cut-elimination} by
 adapting the well-known cut-elimination procedure for classical linear
 logic to FILL.
 
 In Section~\ref{sec:full_lnl_models} we showed that the category
-$\dial$, a model of FILL, is a full LNL model by showing that it is a
-full linear category, and then replaying the proof that linear
+$\dial$, a model of FILL, is a full LNL model by 
+%showing that %it is a full linear category, and then
+replaying the proof that linear
 categories are LNL models by Benton. Then in
-Section~\ref{sec:tensor_logic} we showed that $\dial$ is a model of
-full tensorial logic. The point of this exercise in categorical logic
-is to show that, despite linear logicians infatuation with linear
-negation, there is value in keeping all your connectives independent
+Section~\ref{sec:tensor_logic} we showed that $\dial$ is a model of full tensorial logic. The point of this exercise in categorical logic
+is to show that, despite linear logicians infatuation with linear negation, there is value in keeping all your connectives independent
 of each other. Only making them definable in terms of others, for
 specific applications.
 
@@ -1369,13 +1390,11 @@ par, the multiplicative disjunction. The second author has talked
 about games for FILL in the style of Lorenzen \cite{dePaiva:2011},
 building up on the work of Rahman
 \cite{Keiff:2011,Rahman:2005}. Rahman showed that Lorenzen games could
-be defined for classical linear logic \cite{Rahman:2002} and was able
-to define a sound and complete semantics in Lorenzen games for
-classical linear logic. While Rahman does mention that one could adopt
-a particular structural rule that enforces intuitionism, we have not
-seen a complete proof of soundness and completeness for this
-semantics.  We plan to show that by adopting this rule we actually
-obtain a sound and complete semantics in Lorenzen games for FILL.
+be defined for classical linear logic \cite{Rahman:2002} and discusses  a sound and complete semantics in Lorenzen games for
+classical linear logic. Rahman suggests that one could adopt
+a particular structural rule  enforcing intuitionism, but we have not
+seen a fuller discussion nor a  proof of soundness and completeness for  semantics of such a system. As future work we would like to show that by adapting our work on FILL  we can actually
+obtain a sound and complete semantics of Lorenzen games.
 
 % section conclusion_and_future_work (end)
 
