@@ -1,0 +1,1422 @@
+\documentclass[preprint,6pt]{elsarticle}
+
+\usepackage{version} 
+
+\includeversion{report}
+\excludeversion{paper}
+
+\usepackage{amssymb,amsmath}
+\usepackage{cmll}
+\usepackage{stmaryrd}
+\usepackage{todonotes}
+\usepackage{mathpartir}
+\usepackage{hyperref}
+\usepackage[barr]{xy}
+\usepackage{fullpage}
+
+% Commands that are useful for writing about type theory and programming language design.
+%% \newcommand{\case}[4]{\text{case}\ #1\ \text{of}\ #2\text{.}#3\text{,}#2\text{.}#4}
+\newcommand{\interp}[1]{\llbracket #1 \rrbracket}
+\newcommand{\normto}[0]{\rightsquigarrow^{!}}
+\newcommand{\join}[0]{\downarrow}
+\newcommand{\redto}[0]{\rightsquigarrow}
+\newcommand{\nat}[0]{\mathbb{N}}
+\newcommand{\fun}[2]{\lambda #1.#2}
+\newcommand{\CRI}[0]{\text{CR-Norm}}
+\newcommand{\CRII}[0]{\text{CR-Pres}}
+\newcommand{\CRIII}[0]{\text{CR-Prog}}
+\newcommand{\subexp}[0]{\sqsubseteq}
+%% Must include \usepackage{mathrsfs} for this to work.
+\newcommand{\powerset}[0]{\mathscr{P}}
+
+\date{}
+
+% Ott includes.
+\usepackage{color}
+
+\input{ott-commands}
+
+% Renewing some Ott commands to shrink some of the labels.
+\renewcommand{\FILLdrulename}[1]{\scriptsize \textsc{#1}}
+\newcommand{\ifrName}[1]{\scriptsize \textsc{#1}}
+
+% Cat commands.
+\newcommand{\cat}[1]{\mathcal{#1}}
+\newcommand{\catop}[1]{\cat{#1}^{\mathsf{op}}}
+\newcommand{\homs}[3]{\mathsf{Hom}_{\cat{#1}}(#2,#3)}
+\newcommand{\limp}[0]{\multimap}
+\newcommand{\dial}[0]{\mathsf{Dial_2}(\mathsf{Sets})}
+\newcommand{\dialSets}[1]{\mathsf{Dial_{#1}}(\mathsf{Sets})}
+\newcommand{\dcSets}[1]{\mathsf{DC_{#1}}(\mathsf{Sets})}
+\newcommand{\sets}[0]{\mathsf{Sets}}
+\newcommand{\obj}[1]{\mathsf{Obj}(#1)}
+\newcommand{\mor}[1]{\mathsf{Mor(#1)}}
+\newcommand{\id}[0]{\mathsf{id}}
+\newcommand{\lett}[0]{\mathsf{let}\,}
+\newcommand{\inn}[0]{\,\mathsf{in}\,}
+\newcommand{\cur}[1]{\mathsf{cur}(#1)}
+\newcommand{\curi}[1]{\mathsf{cur}^{-1}(#1)}
+
+\newtheorem{theorem}{Theorem} 
+\newtheorem{lemma}[theorem]{Lemma} 
+\newtheorem{corollary}[theorem]{Corollary} 
+\newdefinition{definition}{Definition} 
+\newproof{proof}{Proof} 
+
+\begin{document}
+
+\newcounter{condCounter}
+
+\newcommand{\rcond}[0]{\refstepcounter{condCounter}\arabic{condCounter}}
+
+\begin{frontmatter}
+\title{Multiple Conclusion Linear Logic: \\ Cut Elimination and more}
+
+\author[au]{Harley Eades III\corref{cor1}}
+\ead{heades@augusta.edu}
+
+\author[nuance]{Valeria de Paiva}
+\ead{valeria.depaiva@gmail.com}
+
+\cortext[cor1]{Corresponding author}
+\address[au]{Computer and Information Sciences, Allgood Hall, Augusta University, 120 15th Street, Augusta, GA 30912}
+\address[nuance]{AI Sunnyvale Lab, Nuance Communications, 1198 E. Arques Ave, Sunnyvale, CA 94085}
+
+\begin{abstract}
+  Full Intuitionistic Linear Logic (FILL) was first introduced by
+  Hyland and de Paiva, and went against current beliefs that it was
+  not possible to incorporate all of the linear connectives,
+  e.g. tensor, par, and implication, into an intuitionistic linear
+  logic. Bierman showed that their formalization of FILL did not enjoy
+  cut-elimination as such, but Bellin proposed a small change to the
+  definition of FILL regaining cut-elimination and using proofnets.
+  In this note we adopt Bellin's proposed change and give a direct
+  proof of cut-elimination for the sequent calculus.  Then we show
+  that a categorical model of FILL in the basic dialectica category is
+  also a LinearNonLinear (LNL) model of Benton and a full tensor model
+  of Melli\`es' and Tabareau's tensorial logic.  We give a
+  double-negation translation of linear logic into FILL that
+  explicitly uses par in addition to tensor.  Lastly, we introduce a
+  new library to be used in the proof assistant Agda for proving
+  properties of dialectica categories.
+\end{abstract}
+
+\begin{keyword}
+full intuitionistic linear logic \sep classical linear logic \sep
+dialectica category \sep cut-elimination \sep tensorial logic \sep
+%linear/non-linear models \sep categorical model \sep proof theory \sep
+par \sep formal proof \sep proof assistants
+\end{keyword}
+
+%% \maketitle
+\end{frontmatter}
+\section{Introduction}
+\label{sec:introduction}
+
+A commonly held belief during the early history of linear logic was
+that the linear-connective par could not be incorporated into an
+intuitionistic linear logic.  This belief was challenged when de Paiva
+gave a categorical understanding of G\"odel's Dialectica
+interpretation in terms of dialectica categories
+\cite{dePaiva:1987,dePaiva:1988}.  
+
+Dialectica categories were originally conceived  as models of
+intuitionistic logic, but they are actually models of intuitionistic
+linear logic, containing the linear connectives: tensor, implication,
+the additives, and the exponentials.  Further work improved de Paiva's
+models to capture both intuitionistic and classical linear logic.
+Armed with this semantic insight de Paiva gave the first formalization
+of Full Intuitionistic Linear Logic (FILL) \cite{dePaiva:1988}. The logical system FILL
+is a sequent calculus with multiple conclusions in addition to
+multiple hypotheses.  Logics of this type go back to Gentzen's work on
+the sequent calculus for classical logic LK and for intuitionistic
+logic LJ, and Maehara's work on LJ' \cite{Maehara:1954,Takeuti:1975}.
+The sequents in these types of logics usually have the form $\Gamma\vdash \Delta$ where $\Gamma$ and $\Delta$ are multisets of formulas.
+Sequents such as these are read as ``the conjunction of the formulas
+in $\Gamma$ imply the disjunction of the formulas in $\Delta$''.  For
+a brief, but more complete history of logics with multiple conclusions
+see the introduction to \cite{dePaiva:2005}.
+
+Gentzen showed that to obtain intuitionistic logic one could start
+with the classical logic LK and  place a cardinality restriction on the
+right-hand side of sequents, saying that only one or no formula was allowed in every inference rule. However, this is not the only means of
+enforcing intuitionism.  Maehara showed that in the propositional case one could simply place the cardinality restriction on the premise of
+the implication right rule, and leave all of the other rules of LK
+unrestricted.  This restriction is sometimes called the Dragalin
+restriction, as it appeared in his AMS textbook \cite{Dragalin:1988}.
+The classical implication right rule has the form:
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=impR] {
+      \Gamma, \FILLnt{A} \vdash \FILLnt{B}, \Delta
+    }{\Gamma \vdash  \FILLnt{A}  \multimap   \FILLnt{B} , \Delta}
+  \end{math}
+\end{center}
+By placing the Dragalin restriction on the previous rule we obtain:
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=impR] {
+      \Gamma, \FILLnt{A} \vdash \FILLnt{B}
+    }{\Gamma \vdash  \FILLnt{A}  \multimap   \FILLnt{B} }
+  \end{math}
+\end{center}
+The first formalization of FILL used the Dragalin restriction,
+see \cite{dePaiva:1988} p. 58, but Schellinx showed that this restriction has
+the unfortunate consequence of breaking cut-elimination
+\cite{Schellinx:1991}.
+
+ Hyland and de Paiva gave an alternative formalization of FILL
+with the intention of regaining cut-elimination \cite{Hyland:1993}.  This
+new formalization lifted the Dragalin restriction by decorating
+sequents with a term assignment.  Hypotheses were assigned variables,
+and the conclusions were assigned terms.  Then using these terms one
+can track the use of hypotheses throughout a derivation.  They
+proposed a new implication right rule:
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=impR] {
+       \Gamma  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \vdash  \FILLnt{t}  \FILLsym{:}  \FILLnt{B}  \FILLsym{,}  \Delta 
+      \\
+       \FILLmv{x}  \not\in \mathsf{FV}(  \Delta  ) 
+    }{ \Gamma  \vdash   \lambda  \FILLmv{x}  .  \FILLnt{t}   \FILLsym{:}   \FILLnt{A}  \multimap   \FILLnt{B}   \FILLsym{,}  \Delta }
+  \end{math}
+\end{center}
+Intuitionism is enforced in this rule by requiring that the variable
+being discharged, $x$, is not free in terms annotating other conclusions.
+This formalization did not enjoy cut-elimination either.
+
+Bierman was able to give a counterexample to cut-elimination
+\cite{Bierman:1996}.  As Bierman explains the problem then was with the
+left rule for the multiplicative disjunction par.  The original rule
+was as follows:
+\begin{center}
+  \begin{math}
+    $$\mprset{flushleft}
+    \inferrule* [right=parL] {
+       \Gamma  \FILLsym{,}  \FILLmv{x}  \FILLsym{:}  \FILLnt{A}  \vdash  \Delta  
+      \\
+       \Gamma'  \FILLsym{,}  \FILLmv{y}  \FILLsym{:}  \FILLnt{B}  \vdash  \Delta' 
+    }{ \Gamma  \FILLsym{,}  \Gamma'  \FILLsym{,}  \FILLmv{z}  \FILLsym{:}   \FILLnt{A}  \parr  \FILLnt{B}   \vdash     \mathsf{let}\, \FILLmv{z} \,\mathsf{be}\, \FILLsym{(}   \FILLmv{x}  \parr   -    \FILLsym{)} \,\mathsf{in}\, \Delta    \mid    \mathsf{let}\, \FILLmv{z} \,\mathsf{be}\, \FILLsym{(}    -   \parr  \FILLmv{y}   \FILLsym{)} \,\mathsf{in}\, \Delta'    }
+  \end{math}
+\end{center}
+In this rule the pattern variables $x$ and $y$ are bound in each term
+of $\Delta$ and $\Delta'$ respectively. Notice that the variable $z$
+becomes free in every term in $\Delta$ and $\Delta'$. Bierman showed
+that this rule mixed with the restriction on implication right
+prevents the usual cut-elimination step that commutes cut with the
+left rule for par.  The main idea behind the counterexample is that in
+the derivation before commuting the cut it is possible to discharge
+$z$ using implication right, but after the cut is commuted past the
+left rule for par, the variable $z$ becomes free in more than one
+conclusion, and thus, can no longer be discharged.
+
+In the conclusion of Bierman's note he describes Bellin's  alternate left rule
+for par.  This new left-rule is as follows:
+\begin{center}
+  \begin{math}
+    \FILLdruleParl{}
+  \end{math}
+\end{center}
+In this rule $ \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}   \FILLmv{x}  \parr   -    \FILLsym{)} \, \FILLnt{t} $ and $ \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}    -   \parr  \FILLmv{y}   \FILLsym{)} \, \FILLnt{t'} $ only let-bind $z$ in $t$ or $t'$ if $x \in FV(t)$ or $y \in
+FV(t')$.  Otherwise the terms are left unaltered.  Bellin showed that
+by adopting this rule cut-elimination can be proven by reduction to
+the cut-elimination procedure for proof nets for multiplicative linear
+logic with the mix rule \cite{Bellin:1997}.  However, this is an
+indirect proof that requires the adoption of proof nets.
+
+\textbf{Contributions.} In this paper our main contribution is to give
+a direct proof of cut-elimination for FILL with Bellin's proposed
+par-left rule (Section~\ref{sec:cut-elimination}).  A direct proof
+accomplishes two goals: the first is to complete the picture of FILL
+Hyland and de Paiva started, and the second is to view a direct proof
+of cut-elimination as a means of checking the correctness of the
+formulation of FILL given here.  The latter point is important for
+future work.  Following the proof of cut-elimination we show that the
+categorical model of FILL called $\dial$, the basic dialectica
+category, is also a linear/non-linear model of Benton
+(Section~\ref{sec:full_lnl_models}) and a full tensor model of
+Melli\`es' and Tabareau's tensor logic
+(Section~\ref{sec:tensor_logic}). Then we give a double-negation
+translation of multi-conclusion classical linear logic into FILL
+(Section~\ref{subsec:a_negative_translation_of_linear_logic_into_fill_using_tensorial_negation}).
+Due to the complexities of working in $\dial$ we have formalized all
+of the constructions and proofs used in
+Section~\ref{sec:full_lnl_models} and Section~\ref{sec:tensor_logic}
+-- although our formal verification does not include the
+double-negation translation in
+Section~\ref{subsec:a_negative_translation_of_linear_logic_into_fill_using_tensorial_negation}
+-- in the Agda proof assistant\footnote{The Agda development can be
+  found at \url{https://github.com/heades/cut-fill-agda}.}.  We
+%extracted 
+synthetized
+a general library for proving properties of dialectica
+categories and introduce it in
+Section~\ref{sec:the_agda_formalization:_a_library_for_studying_dialectica_categories}
+along with generalizations of dialectica categories using the notion
+of a lineale.
+
+\textbf{Related Work.} The first formalization of FILL with
+cut-elimination was due to Bra\"uner and de Paiva \cite{Brauner:1998}.
+Their formalization can be seen as a linear version of LK with a
+sophisticated meta-level dependency tracking system.  A proof of a
+FILL sequent in their formalization amounts to a classical derivation,
+$\pi$, invariant in what they call the FILL property:
+\begin{center}
+  \begin{itemize}
+  \item The hypothesis discharged by an application of the implication
+    right rule in $\pi$ is a dependency of the conclusion of the
+    implication being introduced.
+  \end{itemize}
+\end{center}
+They were able to show that their formalization is sound, complete,
+and enjoys cut-elimination.  In favor of the term assignment
+formalization given here over Bra\"uner and de Paiva's formalization
+we can say that the dependency tracking system complicates both the
+definition of the logic and its use.  However, one might conjecture
+that their system is more fundamental and hence more generalizable.
+It might be possible to prove cut-elimination of the term assignment
+formalization of FILL relative to Bra\"uner and de Paiva's dependency
+tracking system by erasing the terms on conclusions and then tracking
+which variable is free in which conclusion.  However, as we stated
+above a direct proof is more desirable than a relative one.
+
+The work of de Paiva and Pereira used annotations on the sequents of LK to arrive
+at full intuitionistic logic (FIL) with multiple conclusion that
+enjoys cut-elimination \cite{dePaiva:2005}. They annotate hypothesis
+with natural number indices, and conclusions with finite sets of
+indices.  The sets of indices on conclusions correspond to the
+collection of the hypotheses that the conclusion depends on.  Then
+they have a similar property to that of Bra\"uner and de Paiva's
+formalization.  In fact, the dependency tracking system is very
+similar to this formalization, but the dependency tracking has been
+collapsed into the object language instead of being at the meta-level.
+
+Clouston et al. give both a deep inference calculus and a display
+calculus for FILL that admits cut-elimination \cite{Clouston:2013}.
+Both of these systems are refinements of a larger one called
+bi-intuitionistic linear logic (BiLL).  This logic contains every
+logical connective of FILL with the addition of the exclusion (or
+subtraction) connective.  This connective can be defined categorically
+as the left-adjoint to par.  Thus, exclusion is the dual to
+implication.  A positive aspect to this work is that the resulting
+systems are annotation free, but at a price of complexity.  Deep
+inference and display calculi are harder to understand, and their
+system requires FILL to be defined as a refinement of a system with
+additional connectives.  We show in this paper that such a refinement
+is unnecessary.  In addition, a term assignment system is closer to
+traditional logic than deep inference and display calculi, and it is
+closer, through the lens of the Curry-Howard-Lambek correspondence, to
+a type theoretic understanding of FILL.
+% section introduction (end)
+
+\section{Full Intuitionistic Linear Logic (FILL)}
+\label{sec:full_intuitionistic_linear_logic_(fill)}
+
+In this section we give a brief description of FILL.  We first give
+the syntax of formulas, patterns, terms, and contexts.  Following the
+syntax we define several meta-functions that will be used when
+defining the inference rules of the logic.
+
+\begin{definition}
+  \label{def:syntax}
+  The syntax for FILL is as follows:
+  \begin{center}
+    \begin{math}
+      \begin{array}{cll}
+        \text{(Formulas)}       & \FILLnt{A}, \FILLnt{B}, \FILLnt{C}, \FILLnt{D}, \FILLnt{E} ::=  \top  \mid  \perp 
+        \mid  \FILLnt{A}  \multimap   \FILLnt{B}  \mid  \FILLnt{A}  \otimes  \FILLnt{B}  \mid  \FILLnt{A}  \parr  \FILLnt{B}  \\
+        \text{(Patterns)} & \FILLnt{p} ::=  *  \mid  -  \mid \FILLmv{x} \mid  \FILLnt{p_{{\mathrm{1}}}}  \otimes  \FILLnt{p_{{\mathrm{2}}}}  \mid  \FILLnt{p_{{\mathrm{1}}}}  \parr  \FILLnt{p_{{\mathrm{2}}}} \\
+        \text{(Terms)}          & \FILLnt{t}, \FILLnt{e} ::= \FILLmv{x} \mid \FILLsym{*} \mid  \circ  \mid
+         \FILLnt{t_{{\mathrm{1}}}}  \otimes  \FILLnt{t_{{\mathrm{2}}}}  \mid  \FILLnt{t_{{\mathrm{1}}}}  \parr  \FILLnt{t_{{\mathrm{2}}}}  \mid  \lambda  \FILLmv{x}  .  \FILLnt{t}  \mid  \mathsf{let}\, \FILLnt{t} \,\mathsf{be}\, \FILLnt{p} \,\mathsf{in}\, \FILLnt{e}  \mid \FILLnt{t_{{\mathrm{1}}}} \, \FILLnt{t_{{\mathrm{2}}}}\\
+        \text{(Left Contexts)}  & \Gamma ::=  \cdot  \mid \FILLmv{x}  \FILLsym{:}  \FILLnt{A} \mid \Gamma_{{\mathrm{1}}}  \FILLsym{,}  \Gamma_{{\mathrm{2}}}\\
+        \text{(Right Contexts)} & \Delta ::=  \cdot  \mid \FILLnt{t}  \FILLsym{:}  \FILLnt{A} \mid \Delta_{{\mathrm{1}}}  \FILLsym{,}  \Delta_{{\mathrm{2}}}\\
+      \end{array}
+    \end{math}
+  \end{center}
+\end{definition}
+
+The formulas of FILL are standard, but we denote the unit of tensor as
+$\top$ and the unit of par as $\perp$. Patterns are used to
+distinguish between the various let-expressions for tensor, par, and
+their units.  There are three different let-expressions:
+\begin{center}
+  \begin{math}
+    \begin{array}{lll}
+      \begin{array}{lll}
+        \text{Tensor:}\\
+        \,\,\,\, \mathsf{let}\, \FILLnt{t} \,\mathsf{be}\,  \FILLnt{p_{{\mathrm{1}}}}  \otimes  \FILLnt{p_{{\mathrm{2}}}}  \,\mathsf{in}\, \FILLnt{e} 
+      \end{array}
+      &
+      \begin{array}{lll}
+        \text{Par:}\\
+        \,\,\,\, \mathsf{let}\, \FILLnt{t} \,\mathsf{be}\,  \FILLnt{p_{{\mathrm{1}}}}  \parr  \FILLnt{p_{{\mathrm{2}}}}  \,\mathsf{in}\, \FILLnt{e} 
+      \end{array}
+      &
+      \begin{array}{lll}
+        \text{Tensor Unit:}\\
+        \,\,\,\, \mathsf{let}\, \FILLnt{t} \,\mathsf{be}\,  *  \,\mathsf{in}\, \FILLnt{e} 
+      \end{array}
+    \end{array}
+    %% \begin{array}{rll}
+    %%   \text{Tensor:} &  \mathsf{let}\, \FILLnt{t} \,\mathsf{be}\,  \FILLnt{p_{{\mathrm{1}}}}  \otimes  \FILLnt{p_{{\mathrm{2}}}}  \,\mathsf{in}\, \FILLnt{e} \\
+    %%   \text{Par:} &  \mathsf{let}\, \FILLnt{t} \,\mathsf{be}\,  \FILLnt{p_{{\mathrm{1}}}}  \parr  \FILLnt{p_{{\mathrm{2}}}}  \,\mathsf{in}\, \FILLnt{e} \\
+    %%   \text{Tensor Unit:} &  \mathsf{let}\, \FILLnt{t} \,\mathsf{be}\,  *  \,\mathsf{in}\, \FILLnt{e} \\
+    %% \end{array}
+  \end{math}
+\end{center}
+In addition, each of these will have their own equational rules, see
+Figure~\ref{def:FILL-eq}.  The role each term plays in the overall
+logic will become clear after we introduce the inference rules.
+
+At this point we introduce some syntax and meta-level functions that
+will be used in the definition of the inference rules for FILL. Left
+contexts are multisets of formulas each labeled with a variable, and
+right contexts are multisets of formulas each labeled with a term.  We
+will often write $ \Delta_{{\mathrm{1}}}  \mid  \Delta_{{\mathrm{2}}} $ as syntactic sugar for $\Delta_{{\mathrm{1}}}  \FILLsym{,}  \Delta_{{\mathrm{2}}}$.
+The former should be read as ``$\Delta_{{\mathrm{1}}}$ or $\Delta_{{\mathrm{2}}}$.''  We denote the
+usual capture-avoiding substitution by $\FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t'}$, and its
+straightforward extension to right contexts as $\FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta$.
+% \begin{definition}
+%   \label{def:delta-sub}
+%   We extend the capture-avoiding substitution function to right
+%   contexts as follows:
+%   \begin{center}
+%     \begin{math}
+%       \begin{array}{lll}
+%         \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}   \cdot  =  \cdot \\
+%         \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{(}  \FILLnt{t'}  \FILLsym{:}  \FILLnt{A}  \FILLsym{)} =  ( \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t'} )   \FILLsym{:}  \FILLnt{A}\\
+%         \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{(}   \Delta_{{\mathrm{1}}}  \mid  \Delta_{{\mathrm{2}}}   \FILLsym{)} =  \FILLsym{(}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{1}}}  \FILLsym{)}  \mid  \FILLsym{(}  \FILLsym{[}  \FILLnt{t}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \Delta_{{\mathrm{2}}}  \FILLsym{)} \\
+%       \end{array}
+%     \end{math}
+%   \end{center}
+% \end{definition}
+Similarly, we find it convenient to be able to do this style of
+extension for the let-binding as well.
+\begin{definition}
+  \label{def:delta-let}
+  We extend let-binding terms to right contexts as follows:
+  \begin{center}
+    \begin{math}
+      \begin{array}{lll}
+         \mathsf{let}\, \FILLnt{t} \,\mathsf{be}\, \FILLnt{p} \,\mathsf{in}\,  \cdot   =  \cdot \\
+         \mathsf{let}\, \FILLnt{t} \,\mathsf{be}\, \FILLnt{p} \,\mathsf{in}\, \FILLsym{(}  \FILLnt{t'}  \FILLsym{:}  \FILLnt{A}  \FILLsym{)}  =  (  \mathsf{let}\, \FILLnt{t} \,\mathsf{be}\, \FILLnt{p} \,\mathsf{in}\, \FILLnt{t'}  )   \FILLsym{:}  \FILLnt{A}\\
+         \mathsf{let}\, \FILLnt{t} \,\mathsf{be}\, \FILLnt{p} \,\mathsf{in}\, \FILLsym{(}   \Delta_{{\mathrm{1}}}  \mid  \Delta_{{\mathrm{2}}}   \FILLsym{)}  =  \FILLsym{(}   \mathsf{let}\, \FILLnt{t} \,\mathsf{be}\, \FILLnt{p} \,\mathsf{in}\, \Delta_{{\mathrm{1}}}   \FILLsym{)}  \mid  \FILLsym{(}   \mathsf{let}\, \FILLnt{t} \,\mathsf{be}\, \FILLnt{p} \,\mathsf{in}\, \Delta_{{\mathrm{2}}}   \FILLsym{)} \\
+      \end{array}
+    \end{math}
+  \end{center}
+\end{definition}
+\noindent
+Lastly, we denote the usual function that computes the set of free
+variables in a term by $\mathsf{FV}(\FILLnt{t})$, and its straightforward
+extension to right contexts as $\mathsf{FV}(\Delta)$.
+% \begin{definition}
+%   \label{def:delta-FV}
+%   We extend the free-variable function on terms to right contexts as
+%   follows:
+%   \begin{center}
+%     \begin{math}
+%       \begin{array}{lll}
+%          \mathsf{FV}(  \cdot  )  = \emptyset\\
+%          \mathsf{FV}( \FILLnt{t}  \FILLsym{:}  \FILLnt{A} )  =  \mathsf{FV}( \FILLnt{t} ) \\
+%          \mathsf{FV}(  \Delta_{{\mathrm{1}}}  \mid  \Delta_{{\mathrm{2}}}  )  =  \mathsf{FV}( \Delta_{{\mathrm{1}}} )  \cup  \mathsf{FV}( \Delta_{{\mathrm{2}}} ) \\
+%       \end{array}
+%     \end{math}
+%   \end{center}
+% \end{definition}
+
+The inference rules for FILL are defined in Figure~\ref{def:infr}.
+\begin{figure}
+    \begin{center}
+    \scriptsize
+      \begin{mathpar}
+        \FILLdruleAx{}    \and 
+        \FILLdruleCut{}     \and 
+        \FILLdruleTl{}            \and 
+        \FILLdruleTr{}    \and 
+        \FILLdruleTenl{}    \and 
+        \FILLdruleTenr{}    \and 
+        \FILLdrulePl{}    \and 
+        \FILLdrulePr{}    \and 
+        \FILLdruleParl{}    \and 
+        \FILLdruleParr{}    \and 
+        \FILLdruleImpl{}    \and 
+        \FILLdruleImpr{}    \and 
+        \FILLdruleExl{}    \and 
+        \FILLdruleExr{}    
+    \end{mathpar}
+  \end{center}
+  \caption{Inference rules for FILL}
+  \label{def:infr}
+\end{figure}
+The par left $\FILLdrulename{Parl}$ rule depends on the function $ \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLnt{p} \, \Delta $ which we define next.
+\begin{definition}
+  \label{def:let-pat-term}
+  The function $ \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLnt{p} \, \FILLnt{t} $ is defined as follows:
+  \begin{center}
+  \footnotesize
+    \begin{math}
+      \begin{array}{lllllllll}      
+        \begin{array}{lll}
+           \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}   \FILLmv{x}  \parr   -    \FILLsym{)} \, \FILLnt{t}  = \FILLnt{t}\\
+          \,\,\,\,\,\,\text{where } \FILLmv{x} \not\in \mathsf{FV}(\FILLnt{t})\\
+        \end{array}
+        & \quad &
+          \begin{array}{lll}
+             \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLsym{(}    -   \parr  \FILLmv{y}   \FILLsym{)} \, \FILLnt{t}  = \FILLnt{t}\\
+        \,\,\,\,\,\,\text{where } \FILLmv{y} \not\in \mathsf{FV}(\FILLnt{t})\\
+          \end{array}
+        & \quad &
+          \begin{array}{lll}
+             \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLnt{p} \, \FILLnt{t}  =  \mathsf{let}\, \FILLmv{z} \,\mathsf{be}\, \FILLnt{p} \,\mathsf{in}\, \FILLnt{t} \\
+            & \\
+          \end{array}
+      \end{array}
+    \end{math}
+  \end{center}
+  It is straightforward to extend the previous definition to
+  right-contexts, and we denote this extension by $ \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLnt{p} \, \Delta $.
+  % \begin{center}
+  %   \begin{math}
+  %     \begin{array}{lll}      
+  %        \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLnt{p} \,  \cdot   =  \cdot \\                
+  %        \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLnt{p} \, \FILLsym{(}  \FILLnt{t}  \FILLsym{:}  \FILLnt{A}  \FILLsym{)}  =  (  \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLnt{p} \, \FILLnt{t}  )   \FILLsym{:}  \FILLnt{A}\\
+  %        \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLnt{p} \, \FILLsym{(}   \Delta_{{\mathrm{1}}}  \mid  \Delta_{{\mathrm{2}}}   \FILLsym{)}  =  \FILLsym{(}   \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLnt{p} \, \Delta_{{\mathrm{1}}}   \FILLsym{)}  \mid  \FILLsym{(}   \mathsf{\operatorname{let-pat} }\, \FILLmv{z} \, \FILLnt{p} \, \Delta_{{\mathrm{2}}}   \FILLsym{)} \\
+  %     \end{array}
+  %   \end{math}
+  % \end{center}
+\end{definition}
+The motivation behind this function is that it only binds the pattern
+variables in $ \FILLmv{x}  \parr   -  $ and $  -   \parr  \FILLmv{y} $ if and only if those
+pattern variables are free in the body of the let.  This overcomes the
+counterexample given by Bierman in \cite{Bierman:1996}.  
+
+The terms of FILL are equipped with an equivalence relation defined in
+Figure~\ref{def:FILL-eq}.
+\begin{figure}[t]
+  \begin{center}
+    \footnotesize
+    \begin{mathpar}
+      \FILLdruleAlpha{} \and
+      \FILLdruleEtaFun{} \and
+      \FILLdruleBetaFun{} \and
+      \FILLdruleEtaOneI{} \and
+\begin{report}
+  \FILLdruleEtaTwoI{} \and
+\end{report}
+      \FILLdruleBetaI{} \and
+      \FILLdruleNatI{} \and
+      \begin{report}
+        \FILLdruleEtaTen{} \and
+      \end{report}
+      \FILLdruleBetaOneTen{} \and
+      \FILLdruleBetaTwoTen{} \and
+      \FILLdruleNatTen{} \and
+      \FILLdruleEtaParU{} \and
+      \FILLdruleEtaPar{} \and
+      \FILLdruleBetaOnePar{} \and
+      \FILLdruleBetaTwoPar{} \and
+      \FILLdruleNatOnePar{} \and
+      \FILLdruleNatTwoPar{} 
+      \begin{report}
+        \and
+      \FILLdruleLam{} \and
+      \FILLdruleAppOne{} \and
+      \FILLdruleAppTwo{} \and
+      \FILLdruleTenOne{} \and
+      \FILLdruleTenTwo{} \and
+      \FILLdruleParOne{} \and
+      \FILLdruleParTwo{} \and
+      \FILLdruleLetOne{} \and
+      \FILLdruleLetTwo{} \and
+      \FILLdruleRefl{} \and
+      \FILLdruleSym{} \and
+      \FILLdruleTrans{}
+      \end{report}
+    \end{mathpar}
+  \end{center}
+  \caption{Equivalence on terms}
+  \label{def:FILL-eq}
+\end{figure}
+There are a number of $\alpha$, $\beta$, and $\eta$ like rules as well
+as several rules we call naturality rules.  These rules are similar to
+the rules presented in \cite{Hyland:1993}.
+% section full_intuitionistic_linear_logic_(fill) (end)
+
+\section{Cut-elimination}
+\label{sec:cut-elimination}
+
+The system FILL can be viewed from two different angles: i. as an intuitionistic
+linear logic with par, or ii. as a restricted form of classical linear
+logic.  Thus, to prove cut-elimination of FILL one only needs to start
+with the cut-elimination procedure for intuitionistic linear logic,
+and then dualize all of the steps in the procedure for tensor and its
+unit to obtain the steps for par and its unit.  Similarly, one could
+just as easily start with the cut-elimination procedure for classical
+linear logic, and then apply the restriction on the implication right
+rule producing a cut-elimination procedure for FILL.
+
+The major difference between proving cut-elimination of FILL from
+classical or intuitionistic linear logic is that we must prove an
+invariant across each step in the procedure.  The invariant is that if
+a derivation $\pi$ is transformed into a derivation $\pi'$, then the
+terms in the conclusion of the final rule applied in $\pi$ must be be
+transformable, when the equivalences defined in
+Figure~\ref{def:FILL-eq} are taken as left-to-right rewrite rules,
+into the terms in the conclusion of the final rule applied in $\pi'$.
+
+\begin{report}
+  The cut elimination procedure requires the following two basic
+results:
+\begin{lemma}[Substitution Distribution]
+  \label{lemma:substitution_distribution}
+  For any terms $\FILLnt{t}$, $\FILLnt{t_{{\mathrm{1}}}}$, and $\FILLnt{t_{{\mathrm{2}}}}$,
+  $\FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLnt{t} = \FILLsym{[}  \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLsym{[}  \FILLnt{t_{{\mathrm{2}}}}  \FILLsym{/}  \FILLmv{x}  \FILLsym{]}  \FILLnt{t}$.
+\end{lemma}
+\begin{proof}
+  This proof holds by straightforward induction on the form of $t$.
+\end{proof}
+
+\begin{lemma}[Let-pat Distribution]
+  \label{lemma:let-pat_distribution}
+  For any terms $\FILLnt{t}$, $\FILLnt{t_{{\mathrm{1}}}}$, and $\FILLnt{t_{{\mathrm{2}}}}$, and pattern p, 
+  $ \mathsf{\operatorname{let-pat} }\, \FILLnt{t} \, \FILLnt{p} \, \FILLsym{[}  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}  = \FILLsym{[}   \mathsf{\operatorname{let-pat} }\, \FILLnt{t} \, \FILLnt{p} \, \FILLnt{t_{{\mathrm{1}}}}   \FILLsym{/}  \FILLmv{y}  \FILLsym{]}  \FILLnt{t_{{\mathrm{2}}}}$.
+\end{lemma}
+\begin{proof}
+  This proof holds by case splitting over $p$, and then using the
+  naturality equations for the respective pattern.
+\end{proof}
+\end{report}
+
+We finally arrive at cut-elimination.
+\begin{theorem}
+  \label{thm:cut-pro}
+  If $ \Gamma  \vdash  \FILLnt{t_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{A_{{\mathrm{1}}}}  \FILLsym{,} \, ... \, \FILLsym{,}  \FILLnt{t_{\FILLmv{i}}}  \FILLsym{:}  \FILLnt{A_{\FILLmv{i}}} $ steps to $ \Gamma  \vdash  \FILLnt{t'_{{\mathrm{1}}}}  \FILLsym{:}  \FILLnt{A_{{\mathrm{1}}}}  \FILLsym{,} \, ... \, \FILLsym{,}  \FILLnt{t'_{\FILLmv{i}}}  \FILLsym{:}  \FILLnt{A_{\FILLmv{i}}} $ using the cut-elimination procedure, then $\FILLnt{t_{\FILLmv{j}}}  \FILLsym{=}  \FILLnt{t'_{\FILLmv{j}}}$
+  for $1 \leq j \leq i$.
+\end{theorem}
+\begin{proof}
+  The cut-elimination procedure given here is the standard\\
+  %are you sure you want this \\ here? looks odd
+  cut-elimination
+  procedure for classical linear logic except that the
+  cases involving the implication right rule have the FILL
+  restriction. The structure of our procedure follows the structure of
+  the procedure found in \cite{Mellies:2009}. Throughout this proof we
+  treat the equivalences defined in Figure~\ref{def:FILL-eq} as
+  left-to-right rewrite rules. \begin{paper} For the entire proof see
+    the companion report \cite{Eades:2015}.\end{paper}
+  \input{cut-elimination-proof}
+\end{proof}
+
+\begin{corollary}[Cut-Elimination]
+  \label{corollary:cut-elimination}
+  Cut-elimination holds for FILL.
+\end{corollary}
+% section cut-elimination (end)
+
+\section{Full LNL Models}
+\label{sec:full_lnl_models}
+One of the difficult questions considering the categorical models of
+linear logic was how to model Girard's exponential, $!$, which is read
+``of course''.  The $!$ modality can be used to translate
+intuitionistic logic into intuitionistic linear logic, and so the
+correct categorical interpretation of $!$ should involve a
+relationship between a cartesian closed category, and the model of
+intuitionistic linear logic.
+
+The work of de Paiva gave some of the very first categorical models for both classical
+and intuitionistic linear logic in the thesis \cite{dePaiva:1988}. She
+showed that a particular dialectica category called $\dial$ is a model
+of FILL where $!$ is interpreted as a comonad which produces natural
+comonoids, see page 76 of \cite{dePaiva:1988}.
+\begin{definition}
+  \label{def:dial2sets}
+  The category $\dial$ consists of 
+  \begin{itemize}
+  \item objects that are triples, $A = (U,X,\alpha)$, where $U$ and
+    $X$ are sets, and $\alpha \subseteq U \times X$ is a relation, and
+  \item maps that are pairs $(f,F) : (U,X,\alpha) \to (V,Y,\beta)$
+    where $f : U \to V$ and $F : Y \to X$ such that
+    \begin{itemize}
+    \item For any $u \in U$ and $y \in Y$, $\alpha(u,F(y))$ implies $\beta(f(u),y)$.
+    \end{itemize}
+  \end{itemize}
+  Suppose $A = (U,X,\alpha)$, $B = (V,Y,\beta)$, and
+  $C = (W,Z,\gamma)$.  Then identities are given by
+  $(\id_U,\id_X) : A \to A$.  The composition of the maps
+  $(f,F) : A \to B$ and $(g, G) : B \to C$ is defined as
+  $(f;g,G;F) : A \to C$.
+\end{definition}
+In her thesis de Paiva defines a particular class of dialectica
+categories called $GC$ over a base category $C$, see page 41 of
+\cite{dePaiva:1988}.  The category $\dial$ defined above can be seen
+as an instantiation of $GC$ by setting $C$ to be the category $\sets$
+of sets and functions between them.  This model is a non-trivial model
+(all four units of the multiplicative and additive conjunction and disjunction are
+different objects in the category), and does not model classical
+logic; see \cite{dePaiva:1988} page 58.
+
+Seely gave a different, syntactic categorical model that confirmed
+that the of-course exponential should be modeled by a comonad
+\cite{Seely:1989}.  However, Seely's model turned out to be unsound,
+as pointed out by Bierman \cite{Bierman:1994}.  This 
+%then prompted
+was noticed when
+%this is back-to-front here
+Benton, Bierman,  de Paiva, and Hyland,  
+%to define 
+worked out another categorical
+model called linear categories (Definition~\ref{def:linear-cat}) that
+are sound, and also model $!$ using a monoidal comonad
+\cite{Bierman:1994}.  
+\begin{definition}
+  \label{def:linear-cat}
+  A \textbf{linear category}, $\mathcal{L}$, consists of:
+  \begin{center}
+    \begin{itemize}
+    \item A symmetric monoidal closed category $\mathcal{L}$,
+    \item A symmetric monoidal comonad $(!, \epsilon, \delta, m_{A,B},
+      m_I)$ such that 
+      \begin{itemize}
+      \item For every free $!$-coalgebra $(!A,\delta_A)$ there are two\\
+        distinguished monoidal natural transformations $e_A : !A \to
+        I$ and $d_A : !A \to !A \otimes !A$ which form a commutative
+        comonoid and are coalgebra morphisms.
+      \item If $f : (!A,\delta_A) \to (!B,\delta_B)$ is a coalgebra
+        morphism between free coalgebras, then it is also a comonoid
+        morphism.
+      \end{itemize}
+    \end{itemize}
+  \end{center}
+  This definition is the one given by Bierman in his thesis, see
+  \cite{Bierman:1994} for full definitions.
+\end{definition}
+\noindent
+Intuitionistic logic can be interpreted in a linear category as a
+full subcategory of the category of $!$-coalgebras for the comonad,
+see proposition 17 of \cite{Bierman:1994}.
+
+Benton gave a more balanced view of linear categories called LNL
+models.
+\begin{definition}
+  \label{def:LNL-model}
+  A \textbf{linear/non-linear model (LNL model)} consists of
+  \begin{itemize}
+  \item a cartesian closed category $(\cat{C}, 1, \times,
+    \Rightarrow)$,
+  \item a SMCC $(\cat{L},I,\otimes,\limp)$, and
+  \item a pair of symmetric monoidal functors $(G,n) : \cat{L} \to
+    \cat{C}$ and $(F,m) : \cat{C} \to \cat{L}$ between them that form
+    a symmetric monoidal adjunction with $F \dashv G$.
+  \end{itemize}
+  See Benton, \cite{Benton:1994}, for the definitions of symmetric
+  monoidal functors and adjunctions.
+\end{definition}
+A non-trivial consequence of the definition of a LNL model is that the
+$!$ modality can indeed be interpreted as a monoidal comonad.  Suppose
+$(\cat{L}, \cat{C},F,G)$ is a LNL model. Then the comonad is given by
+$(\mathop{!}, \epsilon : \mathop{!} \to \mathsf{Id}, \delta :
+\mathop{!} \to \mathop{!!})$
+where $! = FG$, $\epsilon$ is the counit of the adjunction and
+$\delta$ is the natural transformation $\delta_A = F(\eta_{G(A)})$,
+see page 15 of \cite{Benton:1994}.  We recall the following result
+from Benton \cite{Benton:1994}:
+\begin{theorem}[LNL Models and Linear Categories]
+  \label{thm:lnl_models_are_linear_categories}
+  \begin{itemize}
+  \item[]
+  \item[i.] (Section~2.2.1 of \cite{Benton:1994}) Every LNL model is a linear category.
+  \item[ii.] (Section~2.2.2 of \cite{Benton:1994}) Every linear category is a LNL model.
+  \end{itemize}
+\end{theorem}
+\begin{proof}
+  The proof of part i. is a matter of checking that each part of the
+  definition of a linear category can be constructed using the
+  definition of a LNL model. See lemmata 3-7 of \cite{Benton:1994}.
+
+  As for the proof of part ii. Given a linear category we have a SMCC and so the difficulty of
+  proving this result is constructing the CCC and the adjunction
+  between both parts of the model.  Suppose $\cat{L}$ is a linear
+  category.  Benton constructs the CCC out of the full subcategory of
+  Eilenberg-Moore category $\cat{L}^!$ whose objects are exponentiable
+  coalgebras denoted $\mathsf{Exp}(\cat{L}^!)$.  He shows that
+  this subcategory is cartesian closed, and contains the (co)Kleisli
+  category, $\cat{L}_!$, see Lemma~11 on page 23 of \cite{Benton:1994}.
+  The required adjunction
+  $F : \mathsf{Exp}(\cat{L}^!) \to L : G$ can be defined using the
+  adjunct functors $F(A,h_A) = A$ and $G(A) = (!A,\delta_A)$, see
+  lemmata 13 - 16 of \cite{Benton:1994}.
+\end{proof}
+While this theorem is totally satisfactory for our goals in this
+paper, one should perhaps remark that it does not answer the harder
+question of which kind of morphisms should one consider between models
+of Linear Logic. A fuller discussion can be found in
+\cite{Maietti:2005}.
+
+Next we show that the category $\dial$ is a full version of a linear
+category. First, we extend the definitions of linear categories and
+LNL models to be equipped with the necessary categorical structure to
+model par and its unit.
+\begin{definition}
+  \label{def:full-linear-cat}
+  A \textbf{full linear category}, $\mathcal{L}$, consists of a linear
+  category \\$(\mathcal{L}, \top, \otimes, \limp,!A,e_A,d_A)$, a
+  symmetric monoidal structure on $L$, $(\perp, \parr)$, and
+  distribution natural transformations $\mathsf{dist}_1 : A \otimes (B
+  \parr C) \to (A \otimes B) \parr C$ and $\mathsf{dist}_2 : (A \parr
+  B) \otimes C \to A \parr (B \otimes C)$.  The distributors must
+  satisfy several coherence conditions which can  be found in
+  \cite{Cockett:1997}.
+\end{definition}
+\begin{definition}
+  \label{def:full-lnl-model}
+  A \textbf{full linear/non-linear model (full LNL model)} consists of
+  a LNL model $(\cat{L}, \cat{C},F,G)$, and a symmetric monoidal
+  structure on $L$, $(\perp, \parr)$, as above.
+\end{definition}
+
+\noindent
+First we show that $\dial$ is a full linear category, and then using
+the proof by Benton that linear categories are LNL models we obtain
+that \\ $\dial$ is a full LNL model. In order for this to work we
+need to know that $\dial$ has a symmetric \textit{monoidal} comonad $(!,
+\epsilon, \delta, m_{A,B}, m_I)$.  At the time of de Paiva's
+thesis it was not known that the comonad modeling the of-course
+modality needed to be \textit{monoidal}.  
+
+The comonad $(!, \epsilon, \delta, m_{A,B}, m_I)$ can be defined by
+setting $!(U , X , \alpha) = (U , U \to X^*, \alpha*)$ where $X^*$ the
+commutative monoid consisting of finite sequences of elements of $X$,
+and $\alpha^* \subseteq U \times X^*$ is the extension of $\alpha$ to
+finite sequences, that is, $\alpha^*(u , f)$ iff $\alpha(u , x_1)
+\land \cdots \land \alpha(u, x_n)$, where $f(u) = x_1,\ldots,x_n$. The
+definitions of $\epsilon$ and $\delta$ can be found in the formal
+development.
+
+We can show that the monoidal maps $m_{A,B} : !A \otimes !B \to !(A
+\otimes B)$ and $m_I : I \to !I$ exist in the general setting of
+dialectica categories, and thus, these maps exist in $\dial$.
+%need a bit more here?did you define the comonad ! yet?
+Intuitively, given
+two objects $A = (X,U,\alpha)$ and $B = (V,Y,\beta)$ of $\dial$ the
+map $m_{A,B}$ is defined as the pair $(\id_{U \times V},F)$, where $F
+= (F_1,F_2)$, $F_1 : (U \times V) \Rightarrow (V \Rightarrow X)^* \to
+V \Rightarrow (U \Rightarrow X^*)$ and $F_2 : (U \times V) \Rightarrow
+(U \Rightarrow Y)^* \to U \Rightarrow (V \Rightarrow Y^*)$.  The maps
+$F_1$ and $F_2$ build the sequence of all the results of applying each
+function in the input sequence to the input coordinate.
+
+We can now show that the following holds.
+\begin{lemma}
+  \label{lemma:ddial_is_a_linear_category}
+  The category $\dial$ is a full linear category.
+\end{lemma}
+\begin{proof}
+  \begin{paper}
+    We only give a sketch of the proof here, but for the full details
+    see that companion report \cite{Eades:2015}\footnote{This proof
+      was formalized in the Agda proof assistant see the file
+      \url{https://github.com/heades/cut-fill-agda/blob/master/FullLinCat.agda}}. First,
+    we must show that $\dial$ is a linear category.  The majority of
+    the linear structure of $\dial$ is in de Paiva's thesis
+    \cite{dePaiva:1988}.  We had to extend her definitions to show
+    that the comonad $(!A,\delta,\epsilon)$ is monoidal. However, this extension
+    is straightforward.
+
+    After showing that $\dial$ is a linear category one must show that
+    $\dial$ is a model of par and its unit.  This easily follows from
+    de Paiva's thesis.  The bifunctor which models par is given by de
+    Paiva in Definition 10 on page 47 of \cite{dePaiva:1988}.
+
+    Finally, $\dial$ must be distributive.  The natural
+    transformations $dist_1$ and $dist_2$ can be defined in terms of
+    the maps $k : (A \otimes A') \otimes (B \parr C) \to (A \otimes B)
+    \parr (A' \otimes C)$ and $k' : (A \parr B) \otimes (C \otimes C')
+    \to (A \otimes C) \parr (B \otimes C')$ given on page 52 of
+    \cite{dePaiva:1988}.  Set $A' = \top$ in $k$ and $C = \top$ in
+    $k'$ to obtain $dist_1$ and $dist_2$ respectively.  They can also
+    be shown to satisfy the coherence conditions given in
+    \cite{Cockett:1997}.
+  \end{paper}
+  \input{ddial-linear-cat-proof}
+\end{proof}
+
+\begin{corollary}
+  \label{corollary:dial-FLNL}
+  The category $\dial$ is a full LNL model.
+\end{corollary}
+\begin{proof}
+  This follows directly from the previous lemma and
+  Theorem~\ref{thm:lnl_models_are_linear_categories} which shows that
+  linear categories are LNL models.
+\end{proof}
+
+%% \textbf{Remark:} It would appear, from the fact that tensorial logic
+%% \cite{Mellies:2008} is a relaxing of linear logic where instead of an
+%% involutive negation we have a natural transformation $\eta_A\colon A
+%% \to \neg\neg A$ that $\dial$ would be a model of tensorial
+%% logic. After all in $\dial$ we do have a natural transformation of the
+%% shape described, taking an object $(U,X, \alpha)$ to $(X, U, \neg
+%% \alpha)$ and then to $(U, X, \neg\neg \alpha)$ which is "almost" an
+%% isomorphism: we use identities in U and X, but unless the predicate
+%% $\alpha$ itself is double-negated, we have a morphism $\alpha \to
+%% \neg\neg \alpha$, but not a converse one. But we have not had the time
+%% to check whether the other structure of tensorial logic is present and
+%% hence we leave this to future work.
+% section full_linear_categories (end)
+
+The point of these calculations is to show that the several different
+axiomatizations available for models for linear logic are consistent
+and that a model proved sound and complete according to Seely's
+definition (using the Seely isomorphisms $!(A \times B)\cong !A\otimes
+!B$ and $!1\cong \top$ but adding to it monoidicicty of the comonad)
+is indeed sound and complete as a LNL model too.
+
+\section{Tensorial Logic}
+\label{sec:tensor_logic}
+
+Melli\`es and Tabareau introduced tensorial logic \cite{Mellies:2008} as a means of
+generalizing linear logic to a theory of tensor and a non-involutive
+negation called tensorial negation.  That is, instead of an
+isomorphism $A = \lnot\lnot A$ we have only a natural transformation
+$A \to \lnot\lnot A$, just as one does in FILL.  Tensorial logic makes the
+claim that tensor and tensorial negation are more fundamental than
+tensor and negation defined via implication into false, as in FILL.  This is at odds with
+FILL where implication is considered  fundamental. 
+
+In this
+section we show that multiplicative tensorial logic can be modeled by
+$\dial$ (Lemma~\ref{lemma:dial-tensorial}) by showing that tensorial
+negation arises as a simple property of the implication in any symmetric monoidal closed category
+(Lemma~\ref{lemma:monoidal-fact1}).  While this is expected (after all
+negation being defined in terms of implication into absurdity is one
+of the staples of intuitionism) we think it bolsters our claim that
+linear implication is a fundamental connective that should not be
+redefined in terms of the multiplicative disjunction par.  In any
+case, any model of FILL can be seen as a model of multiplicative
+tensorial logic.  
+
+A categorical model of tensorial logic is a symmetric monoidal
+category with a tensorial negation.
+\begin{definition}
+  \label{def:tensorial-negation}
+  A \textbf{tensorial negation} on a symmetric monoidal category\\
+  $(\cat{C},\otimes,I)$ is defined as a functor $\lnot : \cat{C} \to
+  \catop{C}$ together with a family of bijections $\phi_{A,B,C} :
+  \homs{C}{A \otimes B}{\lnot C} \cong \homs{C}{A}{\lnot (B \otimes C)}$
+  natural in $A$, $B$, and $C$.  Furthermore, the following
+  diagram must commute:
+  \[
+  \bfig
+  \morphism(0,85)|l|/<-/<0,480>[`;\phi_{A,B \otimes C,D}]
+  \vSquares/->``->```->`->/<300,300>%
+              [\homs{}{A \otimes (B \otimes C)}{\lnot D}`%
+                \homs{}{(A \otimes B) \otimes C}{\lnot D}``%
+                \homs{}{A \otimes B}{\lnot (C \otimes D)}`%
+                \homs{}{A}{\lnot ((B \otimes C) \otimes D)}`%
+                \homs{}{A}{\lnot (B \otimes (C \otimes D))};%
+                \homs{}{\alpha_{A,B,C}}{\id_{\lnot D}}``%
+                \phi_{A \otimes B,C,D}```%
+                \phi_{A,B,C \otimes D}`%
+                \homs{}{\id_{A}}{\lnot \alpha_{B,C,D}}]
+  \efig
+  \]
+\end{definition}
+The most basic form of tensorial logic is called multiplicative tensorial
+logic and only consists of a tensor and a tensorial negation.  The model
+of multiplicative tensorial logic is called a dialogue category.
+\begin{definition}
+  \label{def:dialogue-cat}
+  A \textbf{dialogue category} is a symmetric monoidal category
+  equipped with a tensorial negation.
+\end{definition}
+
+We show that tensorial negation arises as a simple
+property of implication, as is traditional.
+\begin{lemma}
+  \label{lemma:monoidal-fact1}
+  In any monoidal closed category, $\cat{C}$, there is a natural bijection
+  $\phi_{A,B,C,D} : \homs{C}{A \otimes B}{C \limp D} \cong \homs{C}{A}{(B \otimes C) \limp D}$.
+  Furthermore, the following diagram commutes:
+  \[
+  \scriptsize
+  \bfig
+  \morphism(0,85)|l|/<-/<0,480>[`;\phi_{A,B \otimes C,D,E}]
+  \vSquares/->``->```->`->/<300,300>%
+              [\homs{}{A \otimes (B \otimes C)}{D \limp E}`%
+                \homs{}{(A \otimes B) \otimes C}{D \limp E}``%
+                \homs{}{A \otimes B}{(C \otimes D) \limp E}`%
+                \homs{}{A}{((B \otimes C) \otimes D) \limp E}`%
+                \homs{}{A}{(B \otimes (C \otimes D)) \limp E};%
+                \homs{}{\alpha_{A,B,C}}{\id_{D \limp E}}``%
+                \phi_{A \otimes B,C,D,E}```%
+                \phi_{A,B,C \otimes D,E}`%
+                \homs{}{\id_{A}}{\alpha_{B,C,D} \limp E}]
+  \efig
+  \]
+\end{lemma}
+\begin{proof}
+  Suppose $\cat{C}$ is a monoidal closed category.  Then we can define
+  $\phi(f : A \otimes B \to C \limp D) = \cur{\alpha^{-1} ; \curi{f}}$
+  and $\phi^{-1}(g : A \to (B \otimes C) \limp D) = \cur{\alpha ;
+    \curi{g}}$.  Clearly, these are mutual inverses, and hence, $\phi$
+  is a bijection.  Naturality of $\phi$ easily follows. \begin{paper}
+    Lastly, the diagram given above also commutes.  For the complete
+    proof see the companion report \cite{Eades:2015}.
+  \end{paper}
+
+  \begin{report}
+    \ \\
+  \noindent
+  Suppose $f : A \otimes (B \otimes C) \to D \limp E$.  The required
+  diagram commutes by the following equational reasoning:
+  \begin{center}
+    \begin{math}
+      \begin{array}{lllllllll}
+        \phi(\phi(\alpha;f))
+        & = & \phi(\cur{\alpha^{-1};\curi{\alpha;f}}) & \quad & \text{(Definition)}\\
+        & = & \cur{\alpha^{-1};\curi{\cur{\alpha^{-1};\curi{\alpha;f}}}} && \text{(Definition)}\\
+        & = & \cur{\alpha^{-1};(\alpha^{-1};\curi{\alpha;f})} && \text{(Inverses)}\\
+        & = & \cur{(\alpha^{-1};\alpha^{-1});\curi{\alpha;f}} && \text{(Associativity)}\\
+        & = & \cur{(\alpha^{-1};\alpha^{-1});(\alpha \otimes \id);\curi{f}} && \text{(Naturality of } \mathsf{cur}\text{)}\\
+        & = & \cur{(\id \otimes \alpha^{-1});\alpha^{-1};(\alpha^{-1} \otimes \id);(\alpha \otimes \id);\curi{f}} && \text{(Monoidal Pentagon)}\\
+        & = & \cur{(\id \otimes \alpha^{-1});\alpha^{-1};(\alpha^{-1};\alpha \otimes \id);\curi{f}} && \text{(Functorality)}\\
+        & = & \cur{(\id \otimes \alpha^{-1});\alpha^{-1};(\id \otimes \id);\curi{f}} && \text{(Inverses)}\\
+        & = & \cur{(\id \otimes \alpha^{-1});\alpha^{-1};\id;\curi{f}} && \text{(Functorality)}\\
+        & = & \cur{(\id \otimes \alpha^{-1});\alpha^{-1};\curi{f}} && \text{(Identity)}\\
+        & = & \cur{\alpha^{-1};\curi{f}};(\alpha^{-1} \limp \id) && \text{(Naturality of } \mathsf{cur}\text{)}\\
+        & = & \phi(f);(\alpha^{-1} \limp \id) && \text{(Definition)}\\
+      \end{array}
+    \end{math}
+  \end{center}
+  \end{report}
+\end{proof}
+Any model of FILL contains the unit of par, $\perp$, and thus, can be
+used to define the negation function $\lnot A := A \limp \perp$.  Now
+replacing $D$ and $E$ in the previous result with $\perp$ yields the
+definition of tensorial negation.
+\begin{lemma}
+  \label{lemma:dial-tensorial}
+  $\dial$ is a model of multiplicative tensorial logic.
+\end{lemma}
+\begin{proof}
+  We have already shown $\dial$ to be a model of FILL, and thus, it has a
+  symmetric monoidl closed structure as well as the negation functor, and thus, by
+  Lemma~\ref{lemma:monoidal-fact1} it has a tensorial
+  negation\footnote{We give a full proof in the formalization see the
+    file
+    \url{https://github.com/heades/cut-fill-agda/blob/master/Tensorial.agda}.}.
+\end{proof}
+
+Extending a model of multiplicative tensorial logic with an exponential
+resource modality yields a model of full tensorial logic.
+\begin{definition}
+  \label{def:resource-modality}
+  A \textbf{resource modality} on a symmetric monoidal category\\
+  $(\cat{C}, \otimes, I)$ is an adjunction with a symmetric monoidal
+  category $(\cat{M}, \otimes', I')$:
+  \[
+  \bfig
+  \morphism(0,0)|a|/{@{>}@/^1em/}/<500,0>[\cat{M}`\cat{C};F]
+  \morphism(0,0)|b|/{@{<-}@/_1em/}/<500,0>[\cat{M}`\cat{C};G]
+  \efig
+  \]
+  A resource modality is called an \textbf{exponential resource
+    modality} if $\cat{M}$ is cartesian where $\otimes'$ is the
+  product and $I'$ is the terminal object.
+\end{definition}
+
+A model of full tensorial logic is defined to be a model of
+multiplicative tensorial logic with an exponential resource
+modality. We now know that $\dial$ is a model of multiplicative
+tensorial logic.  By constructing the co-Kleisli category which
+consists of the $!$-coalgebras as objects, and happens to be
+cartesian, we can show that $\dial$ is a model of full tensorial
+logic.  The adjunction with the co-Kleisli category naturally arises
+from the proof that $\dial$ is a full LNL model
+(Corollary~\ref{corollary:dial-FLNL}).
+\begin{lemma}
+  \label{lemma:full-tensorial-logic}
+  The category $\dial$ is a model of full tensorial logic.
+\end{lemma}
+\begin{proof}
+    It suffices to show that there is an adjunction between $\dial$ and
+  a cartesian category.  Define the category $\dial_!$ as follows:
+  \begin{itemize}
+  \item Take as objects $(U , (U \Rightarrow X^*), \alpha_!)$
+    where $U$ and $X$ are sets, and $\alpha \subseteq U \times (U \Rightarrow X^*)$.
+    
+  \item Take as morphisms $(f , F) : (U , (U \Rightarrow X^*),
+    \alpha_!) \to (V , (V \Rightarrow Y^*), \beta_!)$ where $f : U \to
+    V$ and $F : (V \Rightarrow Y^*) \to (U \Rightarrow X^*)$ subject
+    to the same condition on morphisms as $\dial$.  Composition and
+    identities are defined similarly to $\dial$.
+  \end{itemize}
+  \begin{paper}
+    
+    Next we must show that $\dial_!$ is cartesian.  Notice that
+    $\dial_!$ is a subcategory of $\dial$, and there is a functor
+    \\ $J : \dial \to \dial_!$ which is defined equivalently to the
+    endofunctor $!$ from the proof of
+    Lemma~\ref{lemma:ddial_is_a_linear_category}.  In fact, $\dial_!$
+    is the co-Kleisli category with objects free !-coalgebras and is
+    cartesian closed \cite{dePaiva:1987}.  However, we only need the
+    fact that it is cartesian.
+    
+    To show that $\dial_!$ is cartesian it suffices to show that $J$
+    preserves the cartesian structure of $\dial$ -- the proof that
+    $\dial$ is cartesian can be found on page 48 of
+    \cite{dePaiva:1988}.  This follows by straightforward reasoning.
+    For the complete proof see the companion report \cite{Eades:2015}.
+  \end{paper}
+  \input{ddial-tensorial-cat-proof}
+\end{proof}
+
+\subsection{Double Negation Translation}
+\label{subsec:a_negative_translation_of_linear_logic_into_fill_using_tensorial_negation}
+
+In this section we show that we can use intuitionistic negation --
+which we showed was tensorial in the previous section -- to define a
+negative translation of multi-conclusion linear logic
+(Figure~\ref{fig:LL}) into FILL where implication plays a central
+role.  Melli\`es and Tabareau give a negative translation of the
+multiplicative fragment of linear logic into tensorial logic
+\cite{Mellies:2010} using tensor as the main connective.  For example,
+they define $( \FILLnt{A}  \otimes  \FILLnt{B} )^N =  \lnot  \FILLsym{(}     \lnot   ( \FILLnt{A} )^N     \otimes   \lnot   ( \FILLnt{B} )^N     \FILLsym{)} $, and thus,
+they simulate par using tensor and negation.  This definition would
+cause some syntactic issues with FILL, because the left-rule to par
+requires the let-pattern term defined in
+Definition~\ref{def:let-pat-term}, thus, encoding par in terms of
+tensor would require the let-pattern term to be used in the left-rule
+for tensor.  While simulating par, using tensor and negation, can be
+seen as useful, in applications where only the tensor product can be
+actually calculated, in other applications we do have an extra
+bifunctor like par. This is true in the case of FILL, so we can modify
+Melli\`es and Tabareau's translation into one that better fits the
+source logical system.
+\begin{figure}
+  \begin{center}
+    \begin{mathpar}
+      \FILLdruleLLXXAx{} \and
+      \FILLdruleLLXXCut{} \and
+      \FILLdruleLLXXTl{} \and
+      \FILLdruleLLXXTr{} \and
+      \FILLdruleLLXXTenl{} \and
+      \FILLdruleLLXXTenr{} \and
+      \FILLdruleLLXXPl{} \and
+      \FILLdruleLLXXPr{} \and
+      \FILLdruleLLXXParl{} \and
+      \FILLdruleLLXXParr{} \and
+      \FILLdruleLLXXImpl{} \and
+      \FILLdruleLLXXImpr{} \and
+      \FILLdruleLLXXExl{} \and
+      \FILLdruleLLXXExr{} \and
+    \end{mathpar}
+  \end{center}
+  \caption{Multi-Conclusion Linear Logic}
+  \label{fig:LL}
+\end{figure}
+
+The following definition provides a translation of linear logic formulas into FILL formulas.
+\begin{definition}
+  \label{def:ll-to-fill}
+  The following is the double-negation translation of linear logic
+  into FILL:
+  \begin{center}
+  \begin{math}
+    \begin{array}{lll}
+       (  \top  )^N  & = &  \top \\
+       (  \perp  )^N  & = &  \perp \\
+       (  \FILLnt{A} ^{\perp}  )^N  & = &  \lnot  \FILLsym{(}   ( \FILLnt{A} )^N   \FILLsym{)} \\
+       (  \FILLnt{A}  \parr  \FILLnt{B}  )^N  & = &    \lnot    \lnot  \FILLsym{(}   ( \FILLnt{A} )^N   \FILLsym{)}      \parr   \lnot    \lnot  \FILLsym{(}   ( \FILLnt{B} )^N   \FILLsym{)}    \\
+       (  \FILLnt{A}  \otimes  \FILLnt{B}  )^N  & = &    \lnot    \lnot  \FILLsym{(}   ( \FILLnt{A} )^N   \FILLsym{)}      \otimes   \lnot    \lnot  \FILLsym{(}   ( \FILLnt{B} )^N   \FILLsym{)}    \\
+    \end{array}
+  \end{math}
+\end{center}
+\end{definition}
+\noindent
+The main point of the previous definition is that because FILL has
+intuitionistic versions of all of the operators of linear logic we can
+give a very natural translation that preserves these operators by
+double negating their arguments.  
+
+At this point we need to extend the translation of linear logic
+formulas to sequents.  However, we must be careful, because in FILL
+implication has the FILL restriction, and thus, if we choose the wrong
+translation then we will run into problems trying to satisfy the FILL
+condition.  The method we employ here is to first translate a linear
+logic sequent into a single-sided sequent, and then translate that to
+FILL using the well-known translation.  That is, it is easy to see
+that any linear logic sequent $ \FILLnt{A_{{\mathrm{1}}}}  \FILLsym{,} \, ... \, \FILLsym{,}  \FILLnt{A_{\FILLmv{i}}}  \vdash  \FILLnt{B_{{\mathrm{1}}}}  \FILLsym{,} \, ... \, \FILLsym{,}  \FILLnt{B_{\FILLmv{j}}} $ is
+logically equivalent to the sequent $  \cdot   \vdash   \FILLnt{A_{{\mathrm{1}}}} ^{\perp}   \FILLsym{,} \, ... \, \FILLsym{,}   \FILLnt{A_{\FILLmv{i}}} ^{\perp}   \FILLsym{,}  \FILLnt{B_{{\mathrm{1}}}}  \FILLsym{,} \, ... \, \FILLsym{,}  \FILLnt{B_{\FILLmv{j}}} $.  Then we translate the latter into FILL as $ \FILLmv{x_{{\mathrm{1}}}}  \FILLsym{:}   \lnot  \FILLsym{(}   (  \FILLnt{A_{{\mathrm{1}}}} ^{\perp}  )^N   \FILLsym{)}   \FILLsym{,} \, ... \, \FILLsym{,}  \FILLmv{x_{\FILLmv{i}}}  \FILLsym{:}   \lnot  \FILLsym{(}   (  \FILLnt{A_{\FILLmv{i}}} ^{\perp}  )^N   \FILLsym{)}   \FILLsym{,}  \FILLmv{y_{{\mathrm{1}}}}  \FILLsym{:}   \lnot  \FILLsym{(}   ( \FILLnt{B_{{\mathrm{1}}}} )^N   \FILLsym{)}   \FILLsym{,} \, ... \, \FILLsym{,}  \FILLmv{y_{\FILLmv{j}}}  \FILLsym{:}   \lnot  \FILLsym{(}   ( \FILLnt{B_{\FILLmv{j}}} )^N   \FILLsym{)}   \vdash   \cdot  $ for any free variables $\FILLmv{x_{{\mathrm{1}}}},\ldots,\FILLmv{x_{\FILLmv{i}}}$ and
+$\FILLmv{y_{{\mathrm{1}}}},\ldots,\FILLmv{y_{\FILLmv{j}}}$, but this is equivalent to $ \FILLmv{x_{{\mathrm{1}}}}  \FILLsym{:}   \lnot    \lnot  \FILLsym{(}   ( \FILLnt{A_{{\mathrm{1}}}} )^N   \FILLsym{)}     \FILLsym{,} \, ... \, \FILLsym{,}  \FILLmv{x_{\FILLmv{i}}}  \FILLsym{:}   \lnot    \lnot  \FILLsym{(}   ( \FILLnt{A_{\FILLmv{i}}} )^N   \FILLsym{)}     \FILLsym{,}  \FILLmv{y_{{\mathrm{1}}}}  \FILLsym{:}   \lnot  \FILLsym{(}   ( \FILLnt{B_{{\mathrm{1}}}} )^N   \FILLsym{)}   \FILLsym{,} \, ... \, \FILLsym{,}  \FILLmv{y_{\FILLmv{j}}}  \FILLsym{:}   \lnot  \FILLsym{(}   ( \FILLnt{B_{\FILLmv{j}}} )^N   \FILLsym{)}   \vdash   \cdot  $.  The reader may realize that this is indeed the
+translation of single-sided classical linear logic into
+single-conclusion intuitionistic linear logic.  This translation also
+has the benefit that we do not have to worry about mentioning terms in
+the statement of the result.
+
+\begin{lemma}[Negative Translation]
+  \label{lemma:negative_translation}
+  If $ \FILLnt{A_{{\mathrm{1}}}}  \FILLsym{,} \, ... \, \FILLsym{,}  \FILLnt{A_{\FILLmv{i}}}  \vdash  \FILLnt{B_{{\mathrm{1}}}}  \FILLsym{,} \, ... \, \FILLsym{,}  \FILLnt{B_{\FILLmv{j}}} $ is derivable, then for any
+  unique fresh variables
+  $\FILLmv{x_{{\mathrm{1}}}},\ldots,\FILLmv{x_{\FILLmv{i}}}$, and
+  $\FILLmv{y_{{\mathrm{1}}}},\ldots,\FILLmv{y_{\FILLmv{j}}}$, the sequent
+  $ \FILLmv{x_{{\mathrm{1}}}}  \FILLsym{:}   \lnot    \lnot  \FILLsym{(}   ( \FILLnt{A_{{\mathrm{1}}}} )^N   \FILLsym{)}     \FILLsym{,} \, ... \, \FILLsym{,}  \FILLmv{x_{\FILLmv{i}}}  \FILLsym{:}   \lnot    \lnot  \FILLsym{(}   ( \FILLnt{A_{\FILLmv{i}}} )^N   \FILLsym{)}     \FILLsym{,}  \FILLmv{y_{{\mathrm{1}}}}  \FILLsym{:}   \lnot  \FILLsym{(}   ( \FILLnt{B_{{\mathrm{1}}}} )^N   \FILLsym{)}   \FILLsym{,} \, ... \, \FILLsym{,}  \FILLmv{y_{\FILLmv{j}}}  \FILLsym{:}   \lnot  \FILLsym{(}   ( \FILLnt{B_{\FILLmv{j}}} )^N   \FILLsym{)}   \vdash   \cdot  $
+  is derivable.
+\end{lemma}
+\begin{proof}
+  \begin{paper}
+    This can be shown by induction on the assumed sequent.  For the
+    complete proof see the companion report \cite{Eades:2015}.
+  \end{paper}
+  \input{neg-trans-proof}
+\end{proof}
+% subsection a_negative_translation_of_linear_logic_into_fill_using_tensorial_negation (end)
+
+% section tensorial_logic (end)
+
+\section{Agda Formalization: A Library for Dialectica Categories}
+\label{sec:the_agda_formalization:_a_library_for_studying_dialectica_categories}
+
+The majority of the results from the last few sections have been about
+the category $\dial$ which, as we have said, corresponds to the
+dialectica category $\mathsf{GC}$ from de Paiva's thesis
+\cite{dePaiva:1988}.  All of those results have been formalized in the
+proof assistant Agda\footnote{More about Agda can be found here
+  \url{http://wiki.portal.chalmers.se/agda/pmwiki.php}, and the Agda
+  development associated with this article can be found at
+  \url{https://github.com/heades/cut-fill-agda}.}.  This formalization
+is based on a general library for proving properties of dialectica
+categories in sets that we believe may be of interest to the wider community.  This section introduces this library, but before
+we recall a generalization of the dialectica categories from de
+Paiva's thesis \cite{dePaiva:1988}.
+
+\subsection{Lineales and Dialectica Spaces}
+\label{subsec:lineales_dialectica_spaces}
+As we introduced in Definition~\ref{def:dial2sets} the objects of
+$\dial$ are triples $(U, X, \alpha)$ where $\alpha \subseteq U \times
+X$.  Equivalently, the relation $\alpha$ can be taken as a function
+$\alpha : U \times X \to \mathsf{2}$, where $\mathsf{2} =
+\{0,1\}$. Hyland and de Paiva showed that these relations can be
+generalized to maps of the form $\alpha : U \times X \to L$ where the
+set $L$ is a lineale \cite{Hyland:1991}, but here we give a slightly
+more general definition.
+
+\subsubsection{Lineales}
+\label{subsec:lineales}
+A lineale is essentially a symmetric monoidal closed category in the category
+of prosets -- preorder sets -- which we call a monoidal proset.
+\begin{definition}
+  \label{def:monoidal-proset}
+  A \textbf{monoidal proset} is a proset, $(L, \leq)$, with a given
+  symmetric monoidal structure $(L, \circ, e)$.  That is, a set $L$
+  with a given binary relation $\leq : L \times L \to L$ satisfying
+  the following:
+  \begin{itemize}
+  \item (reflexivity) $a \leq a$ for any $a \in L$
+  \item (transitivity) If $a \leq b$ and $b \leq c$, then $a \leq c$
+  \end{itemize}
+  together with a monoidal structure $(\circ, e)$ consisting of a
+  binary operation, called multiplication, $\circ : L \times L \to L$
+  and a distinguished element $e \in L$ called the unit such that the
+  following hold:
+  \begin{itemize}
+  \item (associativity) $(a \circ b) \circ c = a \circ (b \circ c)$
+  \item (identity) $a \circ e = a = e \circ a$
+  \item (symmetry) $a \circ b = b \circ a$
+  \end{itemize}
+  Finally, the structures must be compatible, that is, if $a \leq b$,
+  then $a \circ c \leq b \circ c$ for any $c \in L$.
+\end{definition}
+Now a lineale can be seen as essentially a  symmetric monoidal closed
+category in the category prosets.
+\begin{definition}
+  \label{def:lineale}
+  A \textbf{lineale} is a monoidal proset, $(L, \leq, \circ, e)$, with
+  a given binary operation, called implication, $\limp : L \times L
+  \to L$ such that the following hold:
+  \begin{itemize}
+  \item (relative complement) $a \circ (a \limp b) \leq b$ 
+  \item (adjunction) If $a \circ y \leq b$, then $y \leq a \limp b$
+  \end{itemize}
+\end{definition}
+The set $\mathsf{2}$ is an example of a lineale where the order is the
+usual one, the multiplication is boolean conjunction, and the
+implication is boolean implication.  This example is not that
+interesting, because $\mathsf{2}$ is a boolean algebra.  An example of
+a proper lineale can be given using the three element set
+$\{0,\frac{1}{2}, 1\}$ and the details -- along with some other
+examples -- can be found in the Agda
+development\footnote{\url{https://github.com/heades/dialectica-spaces/blob/master/concrete-lineales.agda\#L123}},
+but one must be careful when defining lineales, because it is possible
+to instead define Heyting algebras, and hence, become nonlinear.
+
+The definition of lineales given here is a slight generalization over
+the original definition given by Hyland and de Paiva -- see Definition
+1 of \cite{Hyland:1991}.  They base lineales on posets instead of
+prosets, but the formalization given here shows that anti-symmetry can
+be safely dropped.  In fact, the formalization we present in the next
+section is nearly a complete formal verification of all of their
+results.
+% subsubsection lineales (end)
+
+\subsubsection{Dialectica Spaces}
+\label{subsec:dialectica_spaces}
+Dialectica categories come in two flavors: one called $\mathsf{GC}$
+and one called $\mathsf{DC}$.  The former specialized to sets where
+the third coordinate of the objects are binary relations corresponds
+to $\dial$.  In this section we specialize both GC and DC to sets
+using lineales whose objects we call \textbf{dialectica spaces}.
+
+\textbf{The category $\dialSets{L}$}.  This category of dialectica
+spaces is defined similarly to the definition given in
+Definition~\ref{def:dial2sets}.  The following definition is due to
+Hyland and de Paiva \cite{Hyland:1991}.
+\begin{definition}
+  \label{def:dial-space-dialSets}
+  Suppose we are given a lineale $(L, \leq, \circ, e, \limp_L)$. Then
+  the dialectica space $\dialSets{L}$ is a category that
+  consists of
+  \begin{itemize}
+  \item objects, or dialectica spaces, that are triples, $A =
+    (U,X,\alpha)$, where $U$ and $X$ are sets, and $\alpha : U \times
+    X \to L$ is a function, and
+  \item maps that are pairs $(f,F) : (U,X,\alpha) \to (V,Y,\beta)$
+    where $f : U \to V$ and $F : Y \to X$ such that
+    \begin{itemize}
+    \item For any $u \in U$ and $y \in Y$, $\alpha(u,F(y)) \leq \beta(f(u),y)$.
+    \end{itemize}
+  \end{itemize}
+\end{definition}
+The category $\dial$ is simply an instantiation of the previous
+category with the concrete lineale $\mathsf{2}$.
+
+\textbf{The category $\dcSets{L}$}.  The dialectica
+category $\mathsf{DC}$ was first proposed in de Paiva's thesis
+\cite{dePaiva:1988}.  It corresponds to a model of single-conclusion
+intuitionistic linear logic without par.  We can restrict its
+definition to sets just as we did for the category $\mathsf{GC}$.
+\begin{definition}
+  \label{def:dial-space-dcSets}
+  Suppose we are given a lineale $(L, \leq, \circ, e, \limp_L)$. Then
+  the dialectica space $\dcSets{L}$ is a category that
+  consists of
+  \begin{itemize}
+  \item objects, or dialectica spaces, that are triples, $A =
+    (U,X,\alpha)$, where $U$ and $X$ are sets, and $\alpha : U \times
+    X \to L$ is a function, and
+  \item maps that are pairs $(f,F) : (U,X,\alpha) \to (V,Y,\beta)$
+    where $f : U \to V$ and $F : U \times Y \to X$ such that
+    \begin{itemize}
+    \item For any $u \in U$ and $y \in Y$, $\alpha(u,F(u, y)) \leq \beta(f(u),y)$.
+    \end{itemize}
+  \end{itemize}
+\end{definition}
+The differences between the two categories can be seen in the
+definition of morphisms between dialectica spaces. In $\dialSets{L}$
+the second coordinate is the map $F : Y \to X$, but in $\dcSets{L}$
+this map is $F : U \times Y \to X$.  The difference in the definition of morphims may seem small, but  while the modification prevents the definition of a second monoidal structure  modeling
+the  connective par in the category $\dcSets{2}$, it is  this category that has a free comonoid structure, the only non merely syntactic example in the literature, we believe.
+% subsubsection dialectica_spaces (end)
+
+The generalizations to lineales may seem academic, but they do have
+applications in concurrency.  %de Paiva showed that The dialectica
+category $\dial$ shares many of the properties of Chu spaces on sets
+and on $\mathsf{2}$ \cite{dePaiva:2007}.  Pratt and Gupta
+\cite{Gupta:1994} showed that Chu spaces can be seen as a model of
+concurrency, but in classical linear logic, while dialectica spaces
+should provide a model of concurrency in full intuitionistic linear
+logic.
+% subsection dialectica_spaces (end)
+
+\subsection{The Dialectica Space Agda Library}
+\label{subsec:the_dialectica_space_agda_library}
+Proving properties about constructions on dialectica spaces can be
+quite involved due to the large number of nested definitions.  This
+complexity can be seen in the proofs of
+Lemma~\ref{lemma:ddial_is_a_linear_category},
+Lemma~\ref{lemma:dial-tensorial}, and
+Lemma~\ref{lemma:full-tensorial-logic}.  One of the many powers of
+proof assistants like Agda is their ability to simplify set theoretic
+based definitions automatically within goals exposing the minimal goal
+within.  This greatly simplifies working with dialectica spaces.  In
+fact, the developments here actually show that proving properties
+about dialectica spaces is actually easier in a proof assistant than
+by hand, and with a greater confidence that the proofs are correct.
+
+We extracted a general library for working with dialectica spaces from
+our formalization of the results discussed in this article. The
+library itself is hosted on Github and can be found at the address
+\url{https://github.com/heades/dialectica-spaces}.  It consists of the
+definition of lineales, \verb!lineale.agda!, several definitions of
+example concrete lineales,\\
+\verb!concrete-lineales.agda!, the general
+definition of $\dialSets{L}$, \\ \verb!DialSets.agda!, and the general
+definition of $\dcSets{L}$, \verb!DCSets.agda!. The definitions of the
+latter two are parametric in the choice of lineale.  The formalization
+of the results of this paper can be seen as an example of how to use
+this library to prove properties of dialectica spaces.
+% subsection the_dialectica_space_agda_library (end)
+% section the_agda_formalization:_a_library_for_studying_dialectica_categories (end)
+
+\section{Conclusions
+%and Future Work
+}
+\label{sec:conclusion_and_future_work}
+
+We first recalled the definition of full intuitionistic linear logic using the  par rule proposed by Bellin 
+%in Section~\ref{sec:full_intuitionistic_linear_logic_(fill)}, 
+but using
+%only proof-theoretic methods,
+%proofnets are proof-theoretical
+no proof nets.  We then directly proved cut-elimination for FILL in Section~\ref{sec:cut-elimination} by
+adapting the well-known cut-elimination procedure for classical linear
+logic to FILL.
+
+In Section~\ref{sec:full_lnl_models} we showed that the category
+$\dial$, a model of FILL, is a full LNL model by 
+%showing that %it is a full linear category, and then
+replaying the proof that linear
+categories are LNL models by Benton. Then in
+Section~\ref{sec:tensor_logic} we showed that $\dial$ is a model of full tensorial logic. The point of this exercise in categorical logic
+is to show that, despite linear logicians infatuation with linear negation, there is value in keeping all your connectives independent
+of each other. Only making them definable in terms of others, for
+specific applications.
+
+Games, especially programming language games are the main motivation
+for Tensorial Logic and have been one of the sources of intuitions in
+linear logic all along. Since we are interested in the applications of
+tensorial logic to concurrency, we would like to see if our slightly
+more general framework can be applied to this task, just as well as
+tensorial logic.
+
+Independently of the envisaged applications to programming, we are
+also interested in developing a ``man in the street'' game-like
+explanation for the finer-grained connectives of FILL, especially for
+par, the multiplicative disjunction. The second author has talked
+about games for FILL in the style of Lorenzen \cite{dePaiva:2011},
+building up on the work of Rahman
+\cite{Keiff:2011,Rahman:2005}. Rahman showed that Lorenzen games could
+be defined for classical linear logic \cite{Rahman:2002} and discusses  a sound and complete semantics in Lorenzen games for
+classical linear logic. Rahman suggests that one could adopt
+a particular structural rule  enforcing intuitionism, but we have not
+seen a fuller discussion nor a  proof of soundness and completeness for  semantics of such a system. As future work we would like to show that by adapting our work on FILL  we can actually
+obtain a sound and complete semantics of Lorenzen games.
+
+% section conclusion_and_future_work (end)
+
+\section*{References}
+\label{sec:references}
+\bibliographystyle{elsarticle-num}
+\bibliography{ref}
+% section references (end)
+
+
+\end{document}
+
+%%% Local Variables: 
+%%% mode: latex
+%%% TeX-master: t
+%%% End: 
