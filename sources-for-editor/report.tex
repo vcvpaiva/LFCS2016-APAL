@@ -597,7 +597,7 @@ We finally arrive at cut-elimination.
   for $1 \leq j \leq i$.
 \end{theorem}
 \begin{proof}
-  The cut-elimination procedure given here is the standard\\
+  The cut-elimination procedure given here is the standard
   %are you sure you want this \\ here? looks odd
   cut-elimination
   procedure for classical linear logic except that the
@@ -606,7 +606,7 @@ We finally arrive at cut-elimination.
   the procedure found in \cite{Mellies:2009}. Throughout this proof we
   treat the equivalences defined in Figure~\ref{def:FILL-eq} as
   left-to-right rewrite rules. \begin{paper} For the entire proof see
-    the companion report \cite{Eades:2015}.\end{paper}
+    the companion report \cite{Eades:2016}.\end{paper}
   \input{cut-elimination-proof}
 \end{proof}
 
@@ -680,7 +680,7 @@ are sound, and also model $!$ using a monoidal comonad
     \item A symmetric monoidal comonad $(!, \epsilon, \delta, m_{A,B},
       m_I)$ such that 
       \begin{itemize}
-      \item For every free $!$-coalgebra $(!A,\delta_A)$ there are two\\
+      \item For every free $!$-coalgebra $(!A,\delta_A)$ there are two
         distinguished monoidal natural transformations $e_A : !A \to
         I$ and $d_A : !A \to !A \otimes !A$ which form a commutative
         comonoid and are coalgebra morphisms.
@@ -762,7 +762,7 @@ model par and its unit.
 \begin{definition}
   \label{def:full-linear-cat}
   A \textbf{full linear category}, $\mathcal{L}$, consists of a linear
-  category \\$(\mathcal{L}, \top, \otimes, \limp,!A,e_A,d_A)$, a
+  category $(\mathcal{L}, \top, \otimes, \limp,!A,e_A,d_A)$, a
   symmetric monoidal structure on $L$, $(\perp, \parr)$, and
   distribution natural transformations $\mathsf{dist}_1 : A \otimes (B
   \parr C) \to (A \otimes B) \parr C$ and $\mathsf{dist}_2 : (A \parr
@@ -780,7 +780,7 @@ model par and its unit.
 \noindent
 First we show that $\dial$ is a full linear category, and then using
 the proof by Benton that linear categories are LNL models we obtain
-that \\ $\dial$ is a full LNL model. In order for this to work we
+that  $\dial$ is a full LNL model. In order for this to work we
 need to know that $\dial$ has a symmetric \textit{monoidal} comonad $(!,
 \epsilon, \delta, m_{A,B}, m_I)$.  At the time of de Paiva's
 thesis it was not known that the comonad modeling the of-course
@@ -902,7 +902,7 @@ A categorical model of tensorial logic is a symmetric monoidal
 category with a tensorial negation.
 \begin{definition}
   \label{def:tensorial-negation}
-  A \textbf{tensorial negation} on a symmetric monoidal category\\
+  A \textbf{tensorial negation} on a symmetric monoidal category
   $(\cat{C},\otimes,I)$ is defined as a functor $\lnot : \cat{C} \to
   \catop{C}$ together with a family of bijections $\phi_{A,B,C} :
   \homs{C}{A \otimes B}{\lnot C} \cong \homs{C}{A}{\lnot (B \otimes C)}$
@@ -1014,7 +1014,7 @@ Extending a model of multiplicative tensorial logic with an exponential
 resource modality yields a model of full tensorial logic.
 \begin{definition}
   \label{def:resource-modality}
-  A \textbf{resource modality} on a symmetric monoidal category\\
+  A \textbf{resource modality} on a symmetric monoidal category
   $(\cat{C}, \otimes, I)$ is an adjunction with a symmetric monoidal
   category $(\cat{M}, \otimes', I')$:
   \[
@@ -1058,7 +1058,7 @@ from the proof that $\dial$ is a full LNL model
     
     Next we must show that $\dial_!$ is cartesian.  Notice that
     $\dial_!$ is a subcategory of $\dial$, and there is a functor
-    \\ $J : \dial \to \dial_!$ which is defined equivalently to the
+     $J : \dial \to \dial_!$ which is defined equivalently to the
     endofunctor $!$ from the proof of
     Lemma~\ref{lemma:ddial_is_a_linear_category}.  In fact, $\dial_!$
     is the co-Kleisli category with objects free !-coalgebras and is
@@ -1351,9 +1351,9 @@ our formalization of the results discussed in this article. The
 library itself is hosted on Github and can be found at the address
 \url{https://github.com/heades/dialectica-spaces}.  It consists of the
 definition of lineales, \verb!lineale.agda!, several definitions of
-example concrete lineales,\\
+example concrete lineales,
 \verb!concrete-lineales.agda!, the general
-definition of $\dialSets{L}$, \\ \verb!DialSets.agda!, and the general
+definition of $\dialSets{L}$, \verb!DialSets.agda!, and the general
 definition of $\dcSets{L}$, \verb!DCSets.agda!. The definitions of the
 latter two are parametric in the choice of lineale.  The formalization
 of the results of this paper can be seen as an example of how to use
