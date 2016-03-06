@@ -1,4 +1,4 @@
-\documentclass{elsarticle}
+\documentclass[preprint,12pt]{elsarticle}
 
 \usepackage{version} 
 
@@ -27,19 +27,6 @@
 \newcommand{\subexp}[0]{\sqsubseteq}
 %% Must include \usepackage{mathrsfs} for this to work.
 \newcommand{\powerset}[0]{\mathscr{P}}
-
-
-\title{Multiple Conclusion Linear Logic: \\ Cut Elimination and more}
-
-\author[au]{Harley Eades III\corref{cor1}}
-\ead{heades@augusta.edu}
-
-\author[nuance]{Valeria de Paiva}
-\ead{valeria.depaiva@gmail.com}
-
-\cortext[cor1]{Corresponding author}
-\address[au]{Computer and Information Sciences, Augusta University, Augusta, GA}
-\address[nuance]{Nuance Communications, Sunnyvale, CA}
 
 \date{}
 
@@ -81,17 +68,33 @@
 
 \newcommand{\rcond}[0]{\refstepcounter{condCounter}\arabic{condCounter}}
 
+\begin{frontmatter}
+\title{Multiple Conclusion Linear Logic: \\ Cut Elimination and more}
+
+\author[au]{Harley Eades III\corref{cor1}}
+\ead{heades@augusta.edu}
+
+\author[nuance]{Valeria de Paiva}
+\ead{valeria.depaiva@gmail.com}
+
+\cortext[cor1]{Corresponding author}
+\address[au]{Computer and Information Sciences, Augusta University, Augusta, GA}
+\address[nuance]{Nuance Communications, Sunnyvale, CA}
+
 \begin{abstract}
   Full Intuitionistic Linear Logic (FILL) was first introduced by
   Hyland and de Paiva, and went against current beliefs that it was
   not possible to incorporate all of the linear connectives,
   e.g. tensor, par, and implication, into an intuitionistic linear
-  logic. Bierman showed that their formalization of FILL did not enjoy cut-elimination as such, but Bellin proposed a small change to the definition of FILL  regaining cut-elimination and using
-  proofnets.  In this note we adopt Bellin's proposed change and give
-  a direct proof of cut-elimination for the sequent calculus.  Then we
-  show that a categorical model of FILL in the basic dialectica
-  category is also a LinearNonLinear (LNL) model of Benton and a full
-  tensor model of Melli\`es' and Tabareau's tensorial logic.  We give a double-negation translation of linear logic into FILL that
+  logic. Bierman showed that their formalization of FILL did not enjoy
+  cut-elimination as such, but Bellin proposed a small change to the
+  definition of FILL regaining cut-elimination and using proofnets.
+  In this note we adopt Bellin's proposed change and give a direct
+  proof of cut-elimination for the sequent calculus.  Then we show
+  that a categorical model of FILL in the basic dialectica category is
+  also a LinearNonLinear (LNL) model of Benton and a full tensor model
+  of Melli\`es' and Tabareau's tensorial logic.  We give a
+  double-negation translation of linear logic into FILL that
   explicitly uses par in addition to tensor.  Lastly, we introduce a
   new library to be used in the proof assistant Agda for proving
   properties of dialectica categories.
@@ -104,8 +107,8 @@ dialectica category \sep cut-elimination \sep tensorial logic \sep
 par \sep formal proof \sep proof assistants
 \end{keyword}
 
-\maketitle
-
+%% \maketitle
+\end{frontmatter}
 \section{Introduction}
 \label{sec:introduction}
 
@@ -783,15 +786,24 @@ model par and its unit.
 \noindent
 First we show that $\dial$ is a full linear category, and then using
 the proof by Benton that linear categories are LNL models we obtain
-that $\dial$ is a full LNL model. In order for this to work we
+that \\ $\dial$ is a full LNL model. In order for this to work we
 need to know that $\dial$ has a symmetric \textit{monoidal} comonad $(!,
 \epsilon, \delta, m_{A,B}, m_I)$.  At the time of de Paiva's
 thesis it was not known that the comonad modeling the of-course
 modality needed to be \textit{monoidal}.  
 
-We  show that the  monoidal maps
-$m_{A,B}$ and $m_I$ exist in the  general setting of dialectica
-categories, and thus, these maps exist in $\dial$. 
+The comonad $(!, \epsilon, \delta, m_{A,B}, m_I)$ can be defined by
+setting $!(U , X , \alpha) = (U , U \to X^*, \alpha*)$ where $X^*$ the
+commutative monoid consisting of finite sequences of elements of $X$,
+and $\alpha^* \subseteq U \times X^*$ is the extension of $\alpha$ to
+finite sequences, that is, $\alpha^*(u , f)$ iff $\alpha(u , x_1)
+\land \cdots \land \alpha(u, x_n)$, where $f(u) = x_1,\ldots,x_n$. The
+definitions of $\epsilon$ and $\delta$ can be found in the formal
+development.
+
+We can show that the monoidal maps $m_{A,B} : !A \otimes !B \to !(A
+\otimes B)$ and $m_I : I \to !I$ exist in the general setting of
+dialectica categories, and thus, these maps exist in $\dial$.
 %need a bit more here?did you define the comonad ! yet?
 Intuitively, given
 two objects $A = (X,U,\alpha)$ and $B = (V,Y,\beta)$ of $\dial$ the
@@ -1051,12 +1063,13 @@ from the proof that $\dial$ is a full LNL model
   \begin{paper}
     
     Next we must show that $\dial_!$ is cartesian.  Notice that
-    $\dial_!$ is a subcategory of $\dial$, and there is a functor $J :
-    \dial \to \dial_!$ which is defined equivalently to the endofunctor
-    $!$ from the proof of Lemma~\ref{lemma:ddial_is_a_linear_category}.
-    In fact, $\dial_!$ is the co-Kleisli category with objects free
-    !-coalgebras and is cartesian closed \cite{dePaiva:1987}.  However,
-    we only need the fact that it is cartesian.
+    $\dial_!$ is a subcategory of $\dial$, and there is a functor
+    \\ $J : \dial \to \dial_!$ which is defined equivalently to the
+    endofunctor $!$ from the proof of
+    Lemma~\ref{lemma:ddial_is_a_linear_category}.  In fact, $\dial_!$
+    is the co-Kleisli category with objects free !-coalgebras and is
+    cartesian closed \cite{dePaiva:1987}.  However, we only need the
+    fact that it is cartesian.
     
     To show that $\dial_!$ is cartesian it suffices to show that $J$
     preserves the cartesian structure of $\dial$ -- the proof that
@@ -1314,13 +1327,14 @@ this map is $F : U \times Y \to X$.  The difference in the definition of morphim
 the  connective par in the category $\dcSets{2}$, it is  this category that has a free comonoid structure, the only non merely syntactic example in the literature, we believe.
 % subsubsection dialectica_spaces (end)
 
-The generalizations to lineales may seem academic, but they do have applications in concurrency.  %de Paiva showed that 
-The dialectica
-category $\dial$ shares many  of the properties of Chu spaces  on sets and on
-$\mathsf{2}$ \cite{dePaiva:2006}.  Pratt and Gupta showed that Chu
-spaces can be seen as a model of concurrency, but in classical linear
-logic, while dialectica spaces should provide a model of concurrency in full
-intuitionistic linear logic.
+The generalizations to lineales may seem academic, but they do have
+applications in concurrency.  %de Paiva showed that The dialectica
+category $\dial$ shares many of the properties of Chu spaces on sets
+and on $\mathsf{2}$ \cite{dePaiva:2007}.  Pratt and Gupta
+\cite{Gupta:1994} showed that Chu spaces can be seen as a model of
+concurrency, but in classical linear logic, while dialectica spaces
+should provide a model of concurrency in full intuitionistic linear
+logic.
 % subsection dialectica_spaces (end)
 
 \subsection{The Dialectica Space Agda Library}
@@ -1343,8 +1357,9 @@ our formalization of the results discussed in this article. The
 library itself is hosted on Github and can be found at the address
 \url{https://github.com/heades/dialectica-spaces}.  It consists of the
 definition of lineales, \verb!lineale.agda!, several definitions of
-example concrete lineales, \verb!concrete-lineales.agda!, the general
-definition of $\dialSets{L}$, \verb!DialSets.agda!, and the general
+example concrete lineales,\\
+\verb!concrete-lineales.agda!, the general
+definition of $\dialSets{L}$, \\ \verb!DialSets.agda!, and the general
 definition of $\dcSets{L}$, \verb!DCSets.agda!. The definitions of the
 latter two are parametric in the choice of lineale.  The formalization
 of the results of this paper can be seen as an example of how to use
@@ -1398,109 +1413,12 @@ obtain a sound and complete semantics of Lorenzen games.
 
 % section conclusion_and_future_work (end)
 
-\begin{thebibliography}{4}
+\section*{References}
+\label{sec:references}
+\bibliographystyle{elsarticle-num}
+\bibliography{ref}
+% section references (end)
 
-\bibitem{Bellin:1997} Bellin, G.: Subnets of proof-nets in
-  multiplicative linear logic with mix. J. Math. Struct. in
-  CS. 7,663--669, 12 (1997)
-
-\bibitem{Benton:1994} Benton, P.N.: A mixed linear and non-linear
-  logic: Proofs, terms and models (preliminary report). Technical
-  Report, UCAM-CL-TR-352, University of Cambridge Computer Laboratory
-  (1994)
-
-\bibitem{Bierman:1994} Bierman, G. M.: On Intuitionistic Linear
-  Logic. PhD thesis, Wolfson College, Cambridge (1993)
-
-\bibitem{Bierman:1996} Bierman, G. M.: A note on full intuitionistic
-  linear logic.  J. Annals of Pure and Applied Logic, 79(3), 281 --
-  287 (1996)
-
-\bibitem{Brauner:1998} Bra\"uner T., de Paiva V.: A formulation of
-  linear logic based on dependency-relations. In: Nielsen M., Thomas
-  W. (eds.) CSL 1998, LNCS, vol. 1414 pp. 129--148. Springer,
-  Heidelberg (1998)
-
-\bibitem{Clouston:2013} Clouston R., Dawson J., Gore R., and Tiu A.:
-  Annotation-Free Sequent Calculi for Full Intuitionistic Linear Logic
-  -- extended version. CoRR, abs/1307.0289 (2013).
-
-\bibitem{Cockett:1997} Cockett J.R.B., Seely R.A.G.: Weakly
-  distributive categories. J. of Pure and Applied Algebra, 114(2),
-  133--173 (1997)
-
-\bibitem{dePaiva:1987} de~Paiva V.: Dialectica categories. In: Gray
-  .J, Scedrov A. (eds.)  CSL 1989, AMS, vol. 92, pp. 47--62 (1989)
-  
-\bibitem{dePaiva:1988} de~Paiva V.: The Dialectica Categories. PhD
-  thesis, University of Cambridge (1988)
-
-\bibitem{dePaiva:2005} de~Paiva V. and Carlos L.P.: A short note on
-  intuitionistic propositional logic with multiple conclusions.
-  MANUSCRITO - Rev. Int. Fil., vol. 28(2), pp. 317 -- 329 (2005)
-
-\bibitem{dePaiva:2006} de~Paiva V.: Dialectica and Chu Constructions:
-  Cousins?  Theory and Applications of Categories, Vol. 17, No. 7, pp
-  127-152 (2006)
-  
-\bibitem{dePaiva:2011} de~Paiva V.: Abstract: Lorenzen games for full
-  intuitionistic linear logic. 14th International Congress of Logic,
-  Methodology and Philosophy of Science (CLMPS) (2011)
-
-\bibitem{Dragalin:1988} Dragalin. A.G.: Mathematical Intuitionism. Introduction to Proof Theory,
-  Translations of Mathematical Monographs. 67, AMS (1988)
-
-\bibitem{Hyland:1993} Hyland M., de~Paiva V.: Full intuitionistic
-  linear logic (extended abstract). J. Annals of Pure and Applied
-  Logic, 64(3), 273 -- 291 (1993)
-
-\bibitem{Hyland:1991} Hyland M., de~Paiva V.: Lineales. In "O que nos
-  faz pensar" Special number in Logic of "Cadernos do Dept. de
-  Filosofia da PUC", Pontificial Catholic University of Rio de
-  Janeiro (1991).
-  
-\bibitem{Eades:2015} Eades III H., de~Paiva V.: Compainion report:
-  Multiple conclusion intuitionistic linear logic and cut elimination.
-  \url{http://metatheorem.org/papers/FILL-report.pdf}.
-
-\bibitem{Keiff:2011} Keiff L.: Dialogical logic. In: Zalta E.N. (ed.)
-  The Stanford Encyclopedia of Philosophy. Summer 2011 edition (2011)
-
-\bibitem{Maehara:1954} Maehara S.: Eine darstellung der
-  intuitionistischen logik in der klassischen. J. Nagoya Mathematical,
-  7, 45--64 (1954)
-
-\bibitem{Mellies:2009} Mellies P.: Categorical Semantics of Linear
-  Logic (2009)
-
-\bibitem{Mellies:2008} Melli{\'e}s P., Tabareau N.: Linear
-  continuations and duality. Technical report, Universit{\'e} Paris
-  VII (2008)
-
-\bibitem{Mellies:2010} Melli{\`e}s P., Tabareau N.: Resource
-  modalities in tensor logic.  J. Annals of Pure and Applied Logic,
-  161, 5, 632--653 (2010)
-
-\bibitem{Rahman:2002} Rahman S.: Un desafio para las teorias
-  cognitivas de la competencia log- ica: los fundamentos pragmaticos
-  de la semantica de la logica linear. Manuscrito, XXV(2), 381--432
-  (2002)
-
-\bibitem{Rahman:2005} Rahman S., Keiff L.: On how to be a
-  dialogician. In: Vanderveken D. (ed.) Logic, Thought and Action,
-  vol. 2, Logic, Epistemology, and the Unity of Science,
-  pp. 359--408. Springer, Netherlands (2005)
-
-\bibitem{Schellinx:1991} Schellinx H.: Some syntactical observations
-  on linear logic. In: J. Logic and Computation. 1, 4, 537--559 (1991)
-
-\bibitem{Seely:1989} Seely R.: Linear logic, *-autonomous categories
-  and cofree coalgebras. In: CSL, AMS, vol. 92, 371--381 (1989)
-
-\bibitem{Takeuti:1975} Takeuti G.: Proof Theory. Amsterdam:
-  North-Holland (1975)
-
-\end{thebibliography}
 
 \end{document}
 
